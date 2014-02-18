@@ -55,9 +55,12 @@ namespace MathDrillGame
         //When they click the Generate button, start generating problems...
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            //Make sure every input field has a value. If not, don't bother.
-            if (inputMin.Text.Length == 0 || inputMax.Text.Length == 0 || inputQuantity.Text.Length == 0)
+            //Make sure that all 3 input fields have values, and that they are integers. IF not, then don't bother generating.
+            int value;
+            if (inputMin.Text.Length == 0 || inputMax.Text.Length == 0 || inputQuantity.Text.Length == 0 
+                || (!int.TryParse(inputMin.Text, out value)) ||  (!int.TryParse(inputMax.Text, out value)) ||  (!int.TryParse(inputQuantity.Text, out value)) )
             {
+                textBox1.Text = "You must input an integer in all three text fields.";
                 return;
             }
 

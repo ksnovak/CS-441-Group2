@@ -25,10 +25,18 @@ namespace MathDrillGame
         private void StudentForm_Load(object sender, EventArgs e)
         {
             labelWelcome.Text = "Welcome, " + Program.users[Program.currentUser].fullName;
+
+            if (Program.users[Program.currentUser].problemSet.Count == 0)
+            {
+                textBox1.Text = "You have no assignments.";
+                return;
+            }
+
             foreach (Problem problem in Program.users[Program.currentUser].problemSet)
             {
                 textBox1.AppendText(problem.printProblem() + "\r\n");
             }
+
 
             currentProblem = getProblem(); //Find the first unsolved problem
             displayProblem(); //And display it
