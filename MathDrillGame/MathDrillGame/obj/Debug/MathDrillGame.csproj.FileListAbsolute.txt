@@ -9,3 +9,6 @@ C:\Users\Novak\Desktop\CS441\Release1\MathDrillGame\MathDrillGame\obj\Debug\Math
 C:\Users\Novak\Desktop\CS441\Release1\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.pdb
 C:\Users\Novak\Desktop\CS441\Release1\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.AdminForm.resources
 C:\Users\Novak\Desktop\CS441\Release1\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
+C:\Users\Kevin\Documents\GitHub\Senior-Year\CS 441 - Software Engineering\MathDrillGame\MathDrillGame\bin\Debug\MathDrillGame.exe.config
+C:\Users\Kevin\Documents\GitHub\Senior-Year\CS 441 - Software Engineering\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.exe
+C:\Users\Kevin\Documents\GitHub\Senior-Year\CS 441 - Software Engineering\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.pdb

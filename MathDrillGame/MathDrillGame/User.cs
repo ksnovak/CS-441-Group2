@@ -19,6 +19,6 @@ namespace MathDrillGame
         public bool isAdmin { get; set; }
         public string fullName { get; set; }
         public int userID { get; set; }
-        public List<Problem> problemSet = new List<Problem>(); //Where each individual has their problems stored.
+        public List<Problem> problemSet = new List<Problem>();
     }
 }

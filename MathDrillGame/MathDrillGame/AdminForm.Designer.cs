@@ -38,7 +38,7 @@
             this.inputMin = new System.Windows.Forms.TextBox();
             this.inputMax = new System.Windows.Forms.TextBox();
             this.inputQuantity = new System.Windows.Forms.TextBox();
-            this.buttonGenerate = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.radioAddition = new System.Windows.Forms.RadioButton();
             this.radioSubtraction = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -136,16 +136,16 @@
             this.inputQuantity.Size = new System.Drawing.Size(86, 20);
             this.inputQuantity.TabIndex = 9;
             // 
-            // buttonGenerate
+            // button1
             // 
-            this.buttonGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonGenerate.Location = new System.Drawing.Point(606, 302);
-            this.buttonGenerate.Name = "buttonGenerate";
-            this.buttonGenerate.Size = new System.Drawing.Size(116, 39);
-            this.buttonGenerate.TabIndex = 10;
-            this.buttonGenerate.Text = "Generate!";
-            this.buttonGenerate.UseVisualStyleBackColor = true;
-            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.button1.Location = new System.Drawing.Point(606, 302);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(116, 39);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Generate!";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // radioAddition
             // 
@@ -188,6 +188,7 @@
             this.radioAppend.TabStop = true;
             this.radioAppend.Text = "Add to current set";
             this.radioAppend.UseVisualStyleBackColor = true;
+            this.radioAppend.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // radioReplace
             // 
@@ -209,6 +210,7 @@
             this.Operation.TabIndex = 17;
             this.Operation.TabStop = false;
             this.Operation.Text = "Operation:";
+            this.Operation.Enter += new System.EventHandler(this.Operation_Enter);
             // 
             // groupBox1
             // 
@@ -229,7 +231,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Operation);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.buttonGenerate);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.inputQuantity);
             this.Controls.Add(this.inputMax);
             this.Controls.Add(this.inputMin);
@@ -264,7 +266,7 @@
         private System.Windows.Forms.TextBox inputMin;
         private System.Windows.Forms.TextBox inputMax;
         private System.Windows.Forms.TextBox inputQuantity;
-        private System.Windows.Forms.Button buttonGenerate;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RadioButton radioAddition;
         private System.Windows.Forms.RadioButton radioSubtraction;
         private System.Windows.Forms.TextBox textBox1;

@@ -25,10 +25,10 @@ namespace MathDrillGame
 
 
 
-        //This would be replaced by reading XML. The only admin is the first user
+
         public void buildList()
         {
-            Program.users.Add(new User(true, "Bill J. Admin", 101));
+            Program.users.Add(new User(true, "Bill J. Smith", 101));
             Program.users.Add(new User(false, "Susan M. Doe", 102));
             Program.users.Add(new User(false, "Joe A. Doe", 103));
             Program.users.Add(new User(false, "Edgar L. Park", 104));
@@ -39,19 +39,19 @@ namespace MathDrillGame
             Program.users.Add(new User(false, "Patrick D. Henry", 109));
             Program.users.Add(new User(false, "Megan P. Nelson", 110));
             Program.users.Add(new User(false, "Brian H. Noll", 111));
+
+
         }
 
-        //When a user in the list is selected, enable the login button (by default, it is disabled)
         private void listOfUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonLogin.Enabled = true;
         }
 
-        //When the login button is clicked, open up the appropriate screen, depending on the user's class (Admin or Student).
-        //This will hide the login form and display the new one.
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Program.currentUser = Convert.ToInt32(listOfUsers.SelectedIndex);
+            textBox1.AppendText("Hello " + Program.currentUser + "\r\n");
             if (Program.users[Program.currentUser].isAdmin)
             {
                 AdminForm mainForm = new AdminForm();
@@ -73,5 +73,5 @@ namespace MathDrillGame
         {
             Application.Exit();
         }
-    }//end Form1 class
-}//end namespace
+    }
+}

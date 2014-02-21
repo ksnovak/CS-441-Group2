@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MathDrillGame
 {
-    public class Problem
+    class Problem
     {
         public Problem() { }
         public Problem(int operand1, int operand2, bool operation)
@@ -16,7 +16,7 @@ namespace MathDrillGame
             this.operation = operation;
             this.solution = operand1 + operand2;
             this.isSolved = false;
-            this.attemptNumber = 0; //For future cases, where we're restricting to 2 attempts on a problem only
+            this.attemptNumber = 0;
         }
 
         public int operand1 { get; set; }
