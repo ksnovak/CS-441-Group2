@@ -25,7 +25,7 @@ namespace MathDrillGame
         //When the form is opened, give a personalized greeting, and fill the user list with users.
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            labelWelcome.Text = "Welcome, " + Program.users[Program.currentUserIndex].fullName;
+            labelWelcome.Text = "Welcome, " + Program.users[Program.currentUser].fullName;
             listOfStudents.DataSource = Program.users;
             listOfStudents.DisplayMember = "fullName"; //This is the value to show on-screen
             listOfStudents.ValueMember = "userID"; //This is the value to pass
@@ -91,7 +91,7 @@ namespace MathDrillGame
                 }
 
                 //Once finished generating, display just for the teacher's knowledge.
-                textBox1.Text = ""; 
+                textBox1.Text = "Problem set: \r\n"; 
                 foreach (Problem problem in Program.users[Program.targetUser].problemSet)
                 {
                     textBox1.AppendText(problem.printProblem() + "\r\n");

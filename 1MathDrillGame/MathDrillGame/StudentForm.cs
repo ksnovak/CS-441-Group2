@@ -24,33 +24,31 @@ namespace MathDrillGame
         //Note: the textbox is really just for coding knowledge, to keep track of problems and such. Won't be there for the end product.
         private void StudentForm_Load(object sender, EventArgs e)
         {
-            labelWelcome.Text = "Welcome, " + Program.users[Program.currentUserIndex].fullName;
-            //Center the welcome message. 119 accounts for the textbox
-            labelWelcome.Left = (((this.ClientSize.Width - 119) - labelWelcome.Width) / 2) + 119; 
-            
-            //If there are no problems for them, say so, and disable any potential issues.
-            if (Program.users[Program.currentUserIndex].problemSet.Count == 0)
+            labelWelcome.Text = "Welcome, " + Program.users[Program.currentUser].fullName;
+
+            if (Program.users[Program.currentUser].problemSet.Count == 0)
             {
                 textBox1.Text = "You have no assignments.";
-                buttonSubmit.Enabled = inputAnswer.Enabled = false;
-                labelQuestion.Text = "You have no problems assigned.";
-                labelQuestion.Top -= 40;
-                labelQuestion.Font = new Font("Microsoft Sans Serif", 13);
-                CancelButton = buttonLogout;
                 return;
             }
 
-            textBox1.Text = "List of problems in this set";
-            foreach (Problem problem in Program.users[Program.currentUserIndex].problemSet)
+            foreach (Problem problem in Program.users[Program.currentUser].problemSet)
             {
                 textBox1.AppendText(problem.printProblem() + "\r\n");
             }
- 
+
+
             currentProblem = getProblem(); //Find the first unsolved problem
             displayProblem(); //And display it
         }
 
-        
+        //When they click the logout button, close the Student screen and show the Login screen.
+        private void buttonLogout_Click(object sender, EventArgs e)
+        {
+            var form1 = (Form1)Tag;
+            form1.Show();
+            Close();
+        }
 
         //Find an unsolved problem.
         public Problem getProblem()
@@ -58,7 +56,7 @@ namespace MathDrillGame
             int lastProblem = problemNum -1; //Keep track of where we last were.
 
             //Loop through the list of problems, until an unsolved one is found.
-            while (Program.users[Program.currentUserIndex].problemSet[problemNum].isSolved) 
+            while (Program.users[Program.currentUser].problemSet[problemNum].isSolved) 
             {
                 //If we have cycled all the way through the list of problems, and have failed to find an unsolved one, then we are done
                 //WARNING: THIS IS MY INFINITE LOOP PROBLEM
@@ -72,19 +70,19 @@ namespace MathDrillGame
                 else
                 {
                     problemNum++;
-                    problemNum = (problemNum % Program.users[Program.currentUserIndex].problemSet.Count);
+                    problemNum = (problemNum % Program.users[Program.currentUser].problemSet.Count);
                 }
             }
 
             //Once we have found a problem, then increment attemptNumber (for future use, when we limit students to just 2 attempts), and return the problem.
-            Program.users[Program.currentUserIndex].problemSet[problemNum].attemptNumber++;
-            return Program.users[Program.currentUserIndex].problemSet[problemNum];
+            Program.users[Program.currentUser].problemSet[problemNum].attemptNumber++;
+            return Program.users[Program.currentUser].problemSet[problemNum];
         }
 
         //Show the problem on the screen. "n + m ="
         public void displayProblem()
         {
-            labelQuestion.Text = currentProblem.printProblem() + " = ";
+            labelQuestion.Text = currentProblem.printProblem();
         }
 
         //When clicking the submit button, check if the answer is right.
@@ -114,7 +112,7 @@ namespace MathDrillGame
             {
                 inputAnswer.Text = "";
                 labelFeedback.Text = "Correct!";
-                Program.users[Program.currentUserIndex].problemSet[problemNum].isSolved = true;
+                Program.users[Program.currentUser].problemSet[problemNum].isSolved = true;
             }
             else
             {
@@ -124,7 +122,7 @@ namespace MathDrillGame
 
             //Whether they got the problem right or wrong, progress to the next one, display it, and focus on the input field.
             problemNum++;
-            problemNum = (problemNum % Program.users[Program.currentUserIndex].problemSet.Count); //Make sure we loop through the problemset, not going out of bounds.
+            problemNum = (problemNum % Program.users[Program.currentUser].problemSet.Count); //Make sure we loop through the problemset, not going out of bounds.
             currentProblem = getProblem(); //Get a new problem
             displayProblem(); //Display it
             inputAnswer.Focus(); //Focus the textbox (so they can immediately type there)
@@ -156,14 +154,6 @@ namespace MathDrillGame
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        //When they click the logout button, close the Student screen and show the Login screen.
-        private void buttonLogout_Click(object sender, EventArgs e)
-        {
-            var form1 = (Form1)Tag;
-            form1.Show();
-            Close();
         }
     }//end StudentForm class
 }//end namespace

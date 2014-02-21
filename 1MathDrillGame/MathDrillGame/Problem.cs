@@ -32,9 +32,9 @@ namespace MathDrillGame
         {
             string result;
             if (operation)
-                result = operand1 + " + " + operand2;
+                result = operand1 + " + " + operand2 + " = ";
             else
-                result = operand1 + " - " + operand2;
+                result = operand1 + " - " + operand2 + " = ";
             return result;
         }
     }
