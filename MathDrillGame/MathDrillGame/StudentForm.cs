@@ -40,7 +40,7 @@ namespace MathDrillGame
                 return;
             }
 
-            textBox1.Text = "List of problems in this set";
+            textBox1.Text = "List of problems in this set\r\n";
             foreach (Problem problem in Program.users[Program.currentUserIndex].problemSet)
             {
                 textBox1.AppendText(problem.printProblem() + "\r\n");
@@ -56,24 +56,29 @@ namespace MathDrillGame
         public Problem getProblem()
         {
             int lastProblem = problemNum -1; //Keep track of where we last were.
+            int iteration = Program.users[Program.currentUserIndex].problemSet.Count;
 
             //Loop through the list of problems, until an unsolved one is found.
             while (Program.users[Program.currentUserIndex].problemSet[problemNum].isSolved) 
             {
+                iteration--;
                 //If we have cycled all the way through the list of problems, and have failed to find an unsolved one, then we are done
                 //WARNING: THIS IS MY INFINITE LOOP PROBLEM
-                if (problemNum == lastProblem /*&& Program.users[Program.currentUser].problemSet[lastProblem].isSolved*/)
+                //if (problemNum == lastProblem /*&& Program.users[Program.currentUser].problemSet[lastProblem].isSolved*/)
+                if (iteration == 0)
                 {
                     labelFeedback.Text = "You've solved them all!";
+                    buttonSubmit.Enabled = inputAnswer.Enabled = false;
+                    CancelButton = buttonLogout;
                     break;
                 }
-
                 //If we are not back at the starting point, then iterate to the next problem.
                 else
                 {
                     problemNum++;
                     problemNum = (problemNum % Program.users[Program.currentUserIndex].problemSet.Count);
                 }
+                
             }
 
             //Once we have found a problem, then increment attemptNumber (for future use, when we limit students to just 2 attempts), and return the problem.
@@ -143,16 +148,7 @@ namespace MathDrillGame
             labelFeedback.Text = "";
         }
 
-        //Checks for keyboard shortcuts
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Enter) //If they pressed enter, check the answer input.
-            {
-                submitAnswer();
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
+        //If they click the X, terminate the entire program
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
