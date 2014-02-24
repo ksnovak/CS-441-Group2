@@ -41,12 +41,12 @@
             this.buttonGenerate = new System.Windows.Forms.Button();
             this.radioAddition = new System.Windows.Forms.RadioButton();
             this.radioSubtraction = new System.Windows.Forms.RadioButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.listOfProblems = new System.Windows.Forms.TextBox();
+            this.Operation = new System.Windows.Forms.GroupBox();
+            this.labelProbsGenned = new System.Windows.Forms.Label();
             this.radioAppend = new System.Windows.Forms.RadioButton();
             this.radioReplace = new System.Windows.Forms.RadioButton();
-            this.Operation = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelProbsGenned = new System.Windows.Forms.Label();
             this.Operation.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -171,16 +171,38 @@
             this.radioSubtraction.Text = "Subtraction";
             this.radioSubtraction.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // listOfProblems
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(218, 211);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(224, 284);
-            this.textBox1.TabIndex = 14;
-            this.textBox1.TabStop = false;
+            this.listOfProblems.Enabled = false;
+            this.listOfProblems.Location = new System.Drawing.Point(218, 211);
+            this.listOfProblems.Multiline = true;
+            this.listOfProblems.Name = "listOfProblems";
+            this.listOfProblems.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.listOfProblems.Size = new System.Drawing.Size(224, 284);
+            this.listOfProblems.TabIndex = 14;
+            this.listOfProblems.TabStop = false;
+            // 
+            // Operation
+            // 
+            this.Operation.Controls.Add(this.radioAddition);
+            this.Operation.Controls.Add(this.radioSubtraction);
+            this.Operation.Location = new System.Drawing.Point(459, 94);
+            this.Operation.Name = "Operation";
+            this.Operation.Size = new System.Drawing.Size(110, 100);
+            this.Operation.TabIndex = 3;
+            this.Operation.TabStop = false;
+            this.Operation.Text = "Operation:";
+            // 
+            // labelProbsGenned
+            // 
+            this.labelProbsGenned.AutoSize = true;
+            this.labelProbsGenned.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.labelProbsGenned.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.labelProbsGenned.Location = new System.Drawing.Point(214, 188);
+            this.labelProbsGenned.Name = "labelProbsGenned";
+            this.labelProbsGenned.Size = new System.Drawing.Size(156, 20);
+            this.labelProbsGenned.TabIndex = 95;
+            this.labelProbsGenned.Text = "Problems generated:";
             // 
             // radioAppend
             // 
@@ -204,17 +226,6 @@
             this.radioReplace.Text = "Replace current set";
             this.radioReplace.UseVisualStyleBackColor = true;
             // 
-            // Operation
-            // 
-            this.Operation.Controls.Add(this.radioAddition);
-            this.Operation.Controls.Add(this.radioSubtraction);
-            this.Operation.Location = new System.Drawing.Point(459, 94);
-            this.Operation.Name = "Operation";
-            this.Operation.Size = new System.Drawing.Size(110, 100);
-            this.Operation.TabIndex = 3;
-            this.Operation.TabStop = false;
-            this.Operation.Text = "Operation:";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.radioReplace);
@@ -226,17 +237,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Problem sets";
             // 
-            // labelProbsGenned
-            // 
-            this.labelProbsGenned.AutoSize = true;
-            this.labelProbsGenned.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.labelProbsGenned.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelProbsGenned.Location = new System.Drawing.Point(214, 188);
-            this.labelProbsGenned.Name = "labelProbsGenned";
-            this.labelProbsGenned.Size = new System.Drawing.Size(156, 20);
-            this.labelProbsGenned.TabIndex = 95;
-            this.labelProbsGenned.Text = "Problems generated:";
-            // 
             // AdminForm
             // 
             this.AcceptButton = this.buttonGenerate;
@@ -246,7 +246,7 @@
             this.Controls.Add(this.labelProbsGenned);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Operation);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.listOfProblems);
             this.Controls.Add(this.buttonGenerate);
             this.Controls.Add(this.inputQuantity);
             this.Controls.Add(this.inputMax);
@@ -259,6 +259,8 @@
             this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.labelWelcome);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AdminForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Math Drills - Administrator";
@@ -287,11 +289,11 @@
         private System.Windows.Forms.Button buttonGenerate;
         private System.Windows.Forms.RadioButton radioAddition;
         private System.Windows.Forms.RadioButton radioSubtraction;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox listOfProblems;
+        private System.Windows.Forms.GroupBox Operation;
+        private System.Windows.Forms.Label labelProbsGenned;
         private System.Windows.Forms.RadioButton radioAppend;
         private System.Windows.Forms.RadioButton radioReplace;
-        private System.Windows.Forms.GroupBox Operation;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label labelProbsGenned;
     }
 }

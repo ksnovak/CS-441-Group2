@@ -7,29 +7,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using System.IO;
 
 namespace MathDrillGame
 {
     public partial class StudentForm : Form
     {
-        int problemNum = 0; //Used to point to the index of the current problem in the student's problem set
+        int problemIndex = 0; //Used to point to the index of the current problem in the student's problem set
+        int problemSetSize;
         Problem currentProblem; //The individual problem currently being worked on
-
+        User currentUser = Program.users[Program.currentUserIndex];
+        XElement studentProblemSet;
+        
         public StudentForm()
         {
             InitializeComponent();
+
         }
 
         //When form loads, create personalized greeting and fill the side textbox with the problems 
         //Note: the textbox is really just for coding knowledge, to keep track of problems and such. Won't be there for the end product.
         private void StudentForm_Load(object sender, EventArgs e)
         {
-            labelWelcome.Text = "Welcome, " + Program.users[Program.currentUserIndex].fullName;
+            labelWelcome.Text = "Welcome, " + currentUser.fullName;
             //Center the welcome message. 119 accounts for the textbox
             labelWelcome.Left = (((this.ClientSize.Width - 119) - labelWelcome.Width) / 2) + 119; 
             
             //If there are no problems for them, say so, and disable any potential issues.
-            if (Program.users[Program.currentUserIndex].problemSet.Count == 0)
+
+            if (File.Exists(@"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml"))
+                studentProblemSet = XElement.Load(@"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml");
+
+            else
             {
                 textBox1.Text = "You have no assignments.";
                 buttonSubmit.Enabled = inputAnswer.Enabled = false;
@@ -40,14 +50,20 @@ namespace MathDrillGame
                 return;
             }
 
+            //Find out how many problems are in the active set
+            IEnumerable<XElement> problemSet = studentProblemSet.Elements();
             textBox1.Text = "List of problems in this set\r\n";
-            foreach (Problem problem in Program.users[Program.currentUserIndex].problemSet)
+            foreach (XElement problem in studentProblemSet.Descendants("Problem"))
             {
-                textBox1.AppendText(problem.printProblem() + "\r\n");
+                problemSetSize++;
+                textBox1.AppendText(problem.Element("Operand1").Value + " + " + problem.Element("Operand2").Value + "\r\n");
             }
- 
+
             currentProblem = getProblem(); //Find the first unsolved problem
-            displayProblem(); //And display it
+            if (currentProblem != null) 
+                displayProblem();
+
+            textBox1.AppendText(problemSetSize + "\r\n");
         }
 
         
@@ -56,35 +72,33 @@ namespace MathDrillGame
         //the "iteration" is to avoid infinite loops. As soon as we have gone through as many problems as there are in the set, break out and disable the input.
         public Problem getProblem()
         {
-            int lastProblem = problemNum -1; //Keep track of where we last were.
-            int iteration = Program.users[Program.currentUserIndex].problemSet.Count;
+            int iteration = problemSetSize;
+            XElement problemInXML;
+            Problem newProblem = new Problem();
 
-            //Loop through the list of problems, until an unsolved one is found.
-            while (Program.users[Program.currentUserIndex].problemSet[problemNum].isSolved) 
+            while (iteration >= 0)
             {
-                iteration--;
-
-                //If we have cycled all the way through the list of problems, and have failed to find an unsolved one, then we are done
-                if (iteration == 0)
+                problemInXML = studentProblemSet.Descendants("Problem").ElementAt(problemIndex);
+                if (problemInXML.Element("IsSolved").Value == "0")
                 {
-                    labelFeedback.Text = "You've solved them all!";
-                    buttonSubmit.Enabled = inputAnswer.Enabled = false;
-                    CancelButton = buttonLogout;
-                    break;
+                    newProblem.operand1 = Convert.ToInt32(problemInXML.Element("Operand1").Value);
+                    newProblem.operand2 = Convert.ToInt32(problemInXML.Element("Operand2").Value);
+                    newProblem.operation = true;
+                    return newProblem;
                 }
-
-                //If we are not back at the starting point, then iterate to the next problem.
                 else
                 {
-                    problemNum++;
-                    problemNum = (problemNum % Program.users[Program.currentUserIndex].problemSet.Count);
+                    problemIndex++;
+                    problemIndex = (problemIndex % problemSetSize);
+                    iteration--;
                 }
-                
             }
 
-            //Once we have found a problem, then increment attemptNumber (for future use, when we limit students to just 2 attempts), and return the problem.
-            Program.users[Program.currentUserIndex].problemSet[problemNum].attemptNumber++;
-            return Program.users[Program.currentUserIndex].problemSet[problemNum];
+            labelFeedback.Text = "You've solved them all!";
+            buttonSubmit.Enabled = inputAnswer.Enabled = false;
+            CancelButton = buttonLogout;
+            return null;
+
         }
 
         //Show the problem on the screen. "n + m ="
@@ -120,7 +134,7 @@ namespace MathDrillGame
             {
                 inputAnswer.Text = "";
                 labelFeedback.Text = "Correct!";
-                Program.users[Program.currentUserIndex].problemSet[problemNum].isSolved = true;
+                //Program.users[Program.currentUserIndex].problemSet[problemIndex].isSolved = true;
             }
             else
             {
@@ -129,17 +143,34 @@ namespace MathDrillGame
             }
 
             //Whether they got the problem right or wrong, progress to the next one, display it, and focus on the input field.
-            problemNum++;
-            problemNum = (problemNum % Program.users[Program.currentUserIndex].problemSet.Count); //Make sure we loop through the problemset, not going out of bounds.
+            problemIndex++;
+            problemIndex = (problemIndex % problemSetSize); //Make sure we loop through the problemset, not going out of bounds.
             currentProblem = getProblem(); //Get a new problem
-            displayProblem(); //Display it
+            if (currentProblem != null)
+                displayProblem(); //Display it
             inputAnswer.Focus(); //Focus the textbox (so they can immediately type there)
         }
 
         //Checks if an answer is correct. Return value is true for correct, false for incorrect.
         public bool checkAnswer()
         {
-            return (currentProblem.solution == Convert.ToInt32(inputAnswer.Text));
+            int answer = currentProblem.operand1 + currentProblem.operand2;
+
+            int prevAttempts = Convert.ToInt32(studentProblemSet.Descendants("Problem").ElementAt(problemIndex).Element("Attempts").Value);
+            studentProblemSet.Descendants("Problem").ElementAt(problemIndex).SetElementValue("Attempts", prevAttempts + 1);
+
+            if (answer == Convert.ToInt32(inputAnswer.Text))
+            {
+                studentProblemSet.Descendants("Problem").ElementAt(problemIndex).SetElementValue("IsSolved", "1");
+                studentProblemSet.Save(@"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml");
+                return true;
+            }
+            else
+            {
+                studentProblemSet.Save(@"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml");
+                return false;
+            }
+
         }
 
         //This will remove the feedback text (e.g. "Correct!") as soon as they start typing in an answer for the next problem
@@ -158,7 +189,7 @@ namespace MathDrillGame
         //When they click the logout button, close the Student screen and show the Login screen.
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            var form1 = (Form1)Tag;
+            var form1 = (LoginForm)Tag;
             form1.Show();
             Close();
         }

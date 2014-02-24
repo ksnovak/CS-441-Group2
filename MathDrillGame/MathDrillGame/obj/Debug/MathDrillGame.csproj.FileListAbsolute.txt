@@ -38,10 +38,10 @@ C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\bin\De
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\bin\Debug\MathDrillGame.pdb
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.csprojResolveAssemblyReference.cache
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.AdminForm.resources
-C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.Form1.resources
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.Properties.Resources.resources
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.csproj.GenerateResource.Cache
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\0MathDrillGame\MathDrillGame\bin\Debug\MathDrillGame.exe.config
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\0MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.exe
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\0MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.pdb
+C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
