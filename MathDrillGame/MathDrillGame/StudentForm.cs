@@ -53,6 +53,7 @@ namespace MathDrillGame
         
 
         //Find an unsolved problem.
+        //the "iteration" is to avoid infinite loops. As soon as we have gone through as many problems as there are in the set, break out and disable the input.
         public Problem getProblem()
         {
             int lastProblem = problemNum -1; //Keep track of where we last were.
@@ -62,9 +63,8 @@ namespace MathDrillGame
             while (Program.users[Program.currentUserIndex].problemSet[problemNum].isSolved) 
             {
                 iteration--;
+
                 //If we have cycled all the way through the list of problems, and have failed to find an unsolved one, then we are done
-                //WARNING: THIS IS MY INFINITE LOOP PROBLEM
-                //if (problemNum == lastProblem /*&& Program.users[Program.currentUser].problemSet[lastProblem].isSolved*/)
                 if (iteration == 0)
                 {
                     labelFeedback.Text = "You've solved them all!";
@@ -72,6 +72,7 @@ namespace MathDrillGame
                     CancelButton = buttonLogout;
                     break;
                 }
+
                 //If we are not back at the starting point, then iterate to the next problem.
                 else
                 {

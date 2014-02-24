@@ -55,12 +55,8 @@ namespace MathDrillGame
         //When they click the Generate button, start generating problems...
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            //Make sure that all 3 input fields have values, and that they are integers. IF not, then don't bother generating.
-            int value;
-            if (inputMin.Text.Length == 0 || inputMax.Text.Length == 0 || inputQuantity.Text.Length == 0 
-                || (!int.TryParse(inputMin.Text, out value)) ||  (!int.TryParse(inputMax.Text, out value)) ||  (!int.TryParse(inputQuantity.Text, out value)) )
+            if (!validateInput())
             {
-                textBox1.Text = "You must input an integer in all three text fields.";
                 return;
             }
 
@@ -91,12 +87,33 @@ namespace MathDrillGame
                 }
 
                 //Once finished generating, display just for the teacher's knowledge.
-                textBox1.Text = ""; 
+                textBox1.Text = "";
                 foreach (Problem problem in Program.users[Program.targetUser].problemSet)
                 {
                     textBox1.AppendText(problem.printProblem() + "\r\n");
                 }
             }
+        }
+
+        private bool validateInput()
+        {
+            //Min and Max must take an integer value. Blank entry unacceptable.
+            int value; //Just a temp variable used for the TryParse function. Otherwise not used.
+            if (inputMin.Text.Length == 0 || inputMax.Text.Length == 0 || !int.TryParse(inputMin.Text, out value) || !int.TryParse(inputMax.Text, out value))
+            {
+                textBox1.Text = "You must enter a number range for problems.";
+                return false;
+            }
+
+            //Quantity must take a positive integer value. Blank entry unacceptable.
+            else if (Convert.ToInt32(inputQuantity.Text) <= 0 || inputQuantity.Text.Length == 0 || !int.TryParse(inputQuantity.Text, out value))
+            {
+                textBox1.Text = "You must enter a positive number of problems to generate.";
+                return false;
+            }
+
+            else
+                return true;
         }
 
         //Generates the problems.

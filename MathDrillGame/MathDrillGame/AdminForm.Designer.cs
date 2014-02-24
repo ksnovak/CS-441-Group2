@@ -260,6 +260,7 @@
             this.Controls.Add(this.labelWelcome);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AdminForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Math Drills - Administrator";
             this.Load += new System.EventHandler(this.AdminForm_Load);
             this.Operation.ResumeLayout(false);
