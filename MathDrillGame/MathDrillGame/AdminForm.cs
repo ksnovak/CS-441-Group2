@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml;
+using System.IO;
 
 namespace MathDrillGame
 {
@@ -18,9 +19,10 @@ namespace MathDrillGame
         int max; //Maximum range for RNG
         int quantity;
         bool isAddition; //Whether the problems are addition or subtraction for RNG
-        bool isAppending; //Whether the problem set is appended or replaces the student's current 
+        
         static Random rng = new Random(); //Used for generating random numbers. Creates a random seed so that it is more random.
         User targetUser;
+        string fileName;
         public AdminForm()
         {
             InitializeComponent();
@@ -29,10 +31,10 @@ namespace MathDrillGame
         //When the form is opened, give a personalized greeting, and fill the user list with users.
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            labelWelcome.Text = "Welcome, " + Program.users[Program.currentUserIndex].fullName;
             listOfStudents.DataSource = Program.users;
             listOfStudents.DisplayMember = "fullName"; //This is the value to show on-screen
             listOfStudents.ValueMember = "userID"; //This is the value to pass
+            fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
         }
 
         //When they click the Logout button, close the Admin form and show the Login form (form1).
@@ -55,7 +57,9 @@ namespace MathDrillGame
             
             Program.targetUser = Convert.ToInt32(listOfStudents.SelectedIndex);
             targetUser = Program.users[Program.targetUser];
+            fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
             labelGenProblemsFor.Text = "Generating problems for " + targetUser.fullName;
+            labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
 
             //Do something to prevent them from generating problems for admins.
             if (!targetUser.isAdmin)
@@ -85,26 +89,7 @@ namespace MathDrillGame
                 }
                 quantity = Convert.ToInt32(inputQuantity.Text); //Turn the string input into ints
                 isAddition = radioAddition.Checked; //Determine the type of problem
-                isAppending = radioAppend.Checked; //Determine whether the sets are added to replacing any prior sets.
-
-                if (!isAppending) //If they are replacing, just empty out any current problems assigned to the student.
-                {
-                    targetUser.problemSet.Clear();
-                }
-
-                //For as many problems as is necessary, generate a problem and add to the specific student's problem set.
-                /*
-                for (int i = 0; i < quantity; i++)
-                {
-                    Program.users[Program.targetUser].problemSet.Add(generateProblem());
-                }
-
-                //Once finished generating, display just for the teacher's knowledge.
-                textBox1.Text = "";
-                foreach (Problem problem in Program.users[Program.targetUser].problemSet)
-                {
-                    textBox1.AppendText(problem.printProblem() + "\r\n");
-                }*/
+                
 
                 if (generateProblemSet())
                 {
@@ -117,47 +102,47 @@ namespace MathDrillGame
 
         private bool generateProblemSet()
         {
-            XmlDocument doc = new XmlDocument();
-            XmlElement allProblemSets = doc.CreateElement("AllProblemSets");
-            XmlElement studentID = doc.CreateElement("StudentID");
-            studentID.InnerText = targetUser.userID.ToString();
-            allProblemSets.AppendChild(studentID);
+            XmlDocument doc;
 
-            XmlElement studentName = doc.CreateElement("StudentName");
-            studentName.InnerText = targetUser.fullName;
-            allProblemSets.AppendChild(studentName);
-
-            XmlElement problemSet = doc.CreateElement("ProblemSet");
-            XmlElement problemSetID = doc.CreateElement("ProblemSetID");
-            problemSet.AppendChild(problemSetID);
-            XmlElement operation = doc.CreateElement("Operator");
-            operation.InnerText = (isAddition ? "+" : "-");
-            problemSet.AppendChild(operation);
-
-            for (int i = 0; i < quantity; i++)
+            //If they have no file yet, create one with the base information.
+            if (!File.Exists(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml"))
             {
-                XmlElement problem = doc.CreateElement("Problem");
-                XmlElement operand1 = doc.CreateElement("Operand1");
-                operand1.InnerText = rng.Next(min, max).ToString();
-                XmlElement operand2 = doc.CreateElement("Operand2");
-                operand2.InnerText = rng.Next(min, max).ToString();
-                XmlElement isSolved = doc.CreateElement("IsSolved");
-                isSolved.InnerText = "0";
-                XmlElement attempts = doc.CreateElement("Attempts");
-                attempts.InnerText = "0";
+                doc = new XmlDocument();
+                XmlElement allProblemSets = doc.CreateElement("AllProblemSets");
+                XmlElement studentID = doc.CreateElement("StudentID");
+                studentID.InnerText = targetUser.userID.ToString();
+                allProblemSets.AppendChild(studentID);
 
-                problem.AppendChild(operand1);
-                problem.AppendChild(operand2);
-                problem.AppendChild(isSolved);
-                problem.AppendChild(attempts);
-                problemSet.AppendChild(problem);
+                XmlElement studentName = doc.CreateElement("StudentName");
+                studentName.InnerText = targetUser.fullName;
+                allProblemSets.AppendChild(studentName);
+
+                doc.AppendChild(allProblemSets);
+                doc.Save(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
                 
             }
 
+            XDocument xml = XDocument.Load(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
+            XElement newProblemSet = new XElement("ProblemSet");
+            XElement problemSetID = new XElement("ProblemSetID", "99");
+            newProblemSet.Add(problemSetID);
+            XElement operation = new XElement("Operator", (isAddition? "+" : "-"));
+            newProblemSet.Add(operation);
+            XElement problemSetSolved = new XElement("IsSolved", "0");
+            newProblemSet.Add(problemSetSolved);
+            for (int i = 0; i < quantity; i++)
+            {
+                XElement newProblem = new XElement("Problem",
+                    new XElement("Operand1", rng.Next(min, max).ToString()),
+                    new XElement("Operand2", rng.Next(min, max).ToString()),
+                    new XElement("IsSolved", "0"),
+                    new XElement("Attempts", "0"));
 
-            allProblemSets.AppendChild(problemSet);
-            doc.AppendChild(allProblemSets);
-            doc.Save(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
+                newProblemSet.Add(newProblem);
+            }
+
+            xml.Root.Add(newProblemSet);
+            xml.Save(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
             return true;
         }
 

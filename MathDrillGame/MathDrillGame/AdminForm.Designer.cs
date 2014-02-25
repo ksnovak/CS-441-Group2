@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.labelWelcome = new System.Windows.Forms.Label();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.listOfStudents = new System.Windows.Forms.ListBox();
             this.labelGenProblemsFor = new System.Windows.Forms.Label();
@@ -44,25 +43,13 @@
             this.listOfProblems = new System.Windows.Forms.TextBox();
             this.Operation = new System.Windows.Forms.GroupBox();
             this.labelProbsGenned = new System.Windows.Forms.Label();
-            this.radioAppend = new System.Windows.Forms.RadioButton();
-            this.radioReplace = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Operation.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // labelWelcome
-            // 
-            this.labelWelcome.AutoSize = true;
-            this.labelWelcome.Location = new System.Drawing.Point(78, 9);
-            this.labelWelcome.Name = "labelWelcome";
-            this.labelWelcome.Size = new System.Drawing.Size(0, 13);
-            this.labelWelcome.TabIndex = 0;
             // 
             // buttonLogout
             // 
             this.buttonLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonLogout.Location = new System.Drawing.Point(763, 453);
+            this.buttonLogout.Location = new System.Drawing.Point(602, 440);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(90, 43);
             this.buttonLogout.TabIndex = 1;
@@ -84,7 +71,7 @@
             // 
             this.labelGenProblemsFor.AutoSize = true;
             this.labelGenProblemsFor.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.labelGenProblemsFor.Location = new System.Drawing.Point(334, 31);
+            this.labelGenProblemsFor.Location = new System.Drawing.Point(279, 28);
             this.labelGenProblemsFor.Name = "labelGenProblemsFor";
             this.labelGenProblemsFor.Size = new System.Drawing.Size(360, 25);
             this.labelGenProblemsFor.TabIndex = 99;
@@ -141,7 +128,7 @@
             // buttonGenerate
             // 
             this.buttonGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonGenerate.Location = new System.Drawing.Point(737, 231);
+            this.buttonGenerate.Location = new System.Drawing.Point(576, 233);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(116, 39);
             this.buttonGenerate.TabIndex = 6;
@@ -204,47 +191,13 @@
             this.labelProbsGenned.TabIndex = 95;
             this.labelProbsGenned.Text = "Problems generated:";
             // 
-            // radioAppend
-            // 
-            this.radioAppend.AutoSize = true;
-            this.radioAppend.Checked = true;
-            this.radioAppend.Location = new System.Drawing.Point(6, 19);
-            this.radioAppend.Name = "radioAppend";
-            this.radioAppend.Size = new System.Drawing.Size(109, 17);
-            this.radioAppend.TabIndex = 15;
-            this.radioAppend.TabStop = true;
-            this.radioAppend.Text = "Add to current set";
-            this.radioAppend.UseVisualStyleBackColor = true;
-            // 
-            // radioReplace
-            // 
-            this.radioReplace.AutoSize = true;
-            this.radioReplace.Location = new System.Drawing.Point(6, 42);
-            this.radioReplace.Name = "radioReplace";
-            this.radioReplace.Size = new System.Drawing.Size(118, 17);
-            this.radioReplace.TabIndex = 16;
-            this.radioReplace.Text = "Replace current set";
-            this.radioReplace.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.radioReplace);
-            this.groupBox1.Controls.Add(this.radioAppend);
-            this.groupBox1.Location = new System.Drawing.Point(721, 94);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(132, 100);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Problem sets";
-            // 
             // AdminForm
             // 
             this.AcceptButton = this.buttonGenerate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(866, 504);
+            this.ClientSize = new System.Drawing.Size(702, 504);
             this.Controls.Add(this.labelProbsGenned);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Operation);
             this.Controls.Add(this.listOfProblems);
             this.Controls.Add(this.buttonGenerate);
@@ -257,7 +210,6 @@
             this.Controls.Add(this.labelGenProblemsFor);
             this.Controls.Add(this.listOfStudents);
             this.Controls.Add(this.buttonLogout);
-            this.Controls.Add(this.labelWelcome);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -267,8 +219,6 @@
             this.Load += new System.EventHandler(this.AdminForm_Load);
             this.Operation.ResumeLayout(false);
             this.Operation.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,7 +226,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label labelWelcome;
         private System.Windows.Forms.Button buttonLogout;
         private System.Windows.Forms.ListBox listOfStudents;
         private System.Windows.Forms.Label labelGenProblemsFor;
@@ -292,8 +241,5 @@
         private System.Windows.Forms.TextBox listOfProblems;
         private System.Windows.Forms.GroupBox Operation;
         private System.Windows.Forms.Label labelProbsGenned;
-        private System.Windows.Forms.RadioButton radioAppend;
-        private System.Windows.Forms.RadioButton radioReplace;
-        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

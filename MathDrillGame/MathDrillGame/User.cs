@@ -4,6 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ *<AllUsers>
+	<User>
+		<UserID>1</UserID>
+		<FullName>Fred Smith</FullName>
+		<Password>icecream</Password>
+		<IsAdmin>0</IsAdmin>
+		<LastLogin>2/1/2014</LastLogin>
+	</User>
+</AllUsers> 
+ */
 namespace MathDrillGame
 {
     class User

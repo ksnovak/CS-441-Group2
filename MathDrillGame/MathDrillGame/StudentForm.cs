@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.IO;
+using System.Xml;
 
 namespace MathDrillGame
 {
@@ -19,7 +20,8 @@ namespace MathDrillGame
         Problem currentProblem; //The individual problem currently being worked on
         User currentUser = Program.users[Program.currentUserIndex];
         XElement studentProblemSet;
-        
+        string fileName;
+
         public StudentForm()
         {
             InitializeComponent();
@@ -35,10 +37,9 @@ namespace MathDrillGame
             labelWelcome.Left = (((this.ClientSize.Width - 119) - labelWelcome.Width) / 2) + 119; 
             
             //If there are no problems for them, say so, and disable any potential issues.
-
-            if (File.Exists(@"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml"))
-                studentProblemSet = XElement.Load(@"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml");
-
+            fileName = @"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml";
+            if (File.Exists(fileName))
+                studentProblemSet = XElement.Load(fileName);
             else
             {
                 textBox1.Text = "You have no assignments.";
@@ -64,9 +65,7 @@ namespace MathDrillGame
                 displayProblem();
 
             textBox1.AppendText(problemSetSize + "\r\n");
-        }
-
-        
+        }        
 
         //Find an unsolved problem.
         //the "iteration" is to avoid infinite loops. As soon as we have gone through as many problems as there are in the set, break out and disable the input.
@@ -162,12 +161,12 @@ namespace MathDrillGame
             if (answer == Convert.ToInt32(inputAnswer.Text))
             {
                 studentProblemSet.Descendants("Problem").ElementAt(problemIndex).SetElementValue("IsSolved", "1");
-                studentProblemSet.Save(@"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml");
+                studentProblemSet.Save(fileName);
                 return true;
             }
             else
             {
-                studentProblemSet.Save(@"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml");
+                studentProblemSet.Save(fileName);
                 return false;
             }
 
