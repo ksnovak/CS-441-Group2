@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace MathDrillGame
 {
     public partial class LoginForm : Form
     {
-
         public LoginForm()
         {
             InitializeComponent();
@@ -24,17 +24,15 @@ namespace MathDrillGame
         //This would be replaced by reading XML. The only admin is the first user
         private void buildUserList()
         {
-            Program.users.Add(new User(true, "Bill J. Admin", 101));
-            Program.users.Add(new User(false, "Susan M. Doe", 102));
-            Program.users.Add(new User(false, "Joe A. Doe", 103));
-            Program.users.Add(new User(false, "Edgar L. Park", 104));
-            Program.users.Add(new User(false, "Jane G. Kragen", 105));
-            Program.users.Add(new User(false, "Matt Y. Herman", 106));
-            Program.users.Add(new User(false, "Jessica Q. Booker", 107));
-            Program.users.Add(new User(false, "Laura T. Gwinn", 108));
-            Program.users.Add(new User(false, "Patrick D. Henry", 109));
-            Program.users.Add(new User(false, "Megan P. Nelson", 110));
-            Program.users.Add(new User(false, "Brian H. Noll", 111));
+            XElement studentListXML = XElement.Load(@"c:\users\public\MathDrills\users.xml");
+            foreach (XElement user in studentListXML.Descendants("Student"))
+            {
+                Program.users.Add(new User { isAdmin = (user.Element("IsAdmin").Value == "1"? true : false), 
+                                            fullName = user.Element("FullName").Value, 
+                                            userID = Convert.ToInt32(user.Element("UserID").Value)
+                                             });
+            }
+            
             listOfUsers.DataSource = Program.users; //The listbox will take elements from the users list
             listOfUsers.DisplayMember = "fullName"; //It will display the value in the fullName attribute
             listOfUsers.ValueMember = "userID";     //The return value for the selected element will be the userID value
