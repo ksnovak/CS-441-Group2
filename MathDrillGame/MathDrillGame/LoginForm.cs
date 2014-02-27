@@ -21,20 +21,21 @@ namespace MathDrillGame
 
 
 
-        //This would be replaced by reading XML. The only admin is the first user
+        //Feed from the XML file into a List, the set of users.
         private void buildUserList()
         {
             XElement studentListXML = XElement.Load(@"c:\users\public\MathDrills\users.xml");
             foreach (XElement user in studentListXML.Descendants("Student"))
             {
+
                 Program.users.Add(new User { isAdmin = (user.Element("IsAdmin").Value == "1"? true : false), 
                                             fullName = user.Element("FullName").Value, 
                                             userID = Convert.ToInt32(user.Element("UserID").Value)
-                                             });
+                                            });
             }
             
             listOfUsers.DataSource = Program.users; //The listbox will take elements from the users list
-            listOfUsers.DisplayMember = "fullName"; //It will display the value in the fullName attribute
+            listOfUsers.DisplayMember = "getRoleAndName"; //It will display the value in the fullName attribute
             listOfUsers.ValueMember = "userID";     //The return value for the selected element will be the userID value
         }
 

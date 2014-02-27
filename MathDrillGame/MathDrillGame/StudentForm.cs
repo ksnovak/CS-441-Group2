@@ -34,7 +34,7 @@ namespace MathDrillGame
         {
             labelWelcome.Text = "Welcome, " + currentUser.fullName;
             //Center the welcome message. 119 accounts for the textbox
-            labelWelcome.Left = (((this.ClientSize.Width - 119) - labelWelcome.Width) / 2) + 119; 
+            labelWelcome.Left = (this.ClientSize.Width - labelWelcome.Width) / 2; 
             
             //If there are no problems for them, say so, and disable any potential issues.
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml";
@@ -42,7 +42,6 @@ namespace MathDrillGame
                 studentProblemSet = XElement.Load(fileName);
             else
             {
-                textBox1.Text = "You have no assignments.";
                 buttonSubmit.Enabled = inputAnswer.Enabled = false;
                 labelQuestion.Text = "You have no problems assigned.";
                 labelQuestion.Top -= 40;
@@ -52,19 +51,12 @@ namespace MathDrillGame
             }
 
             //Find out how many problems are in the active set
-            IEnumerable<XElement> problemSet = studentProblemSet.Elements();
-            textBox1.Text = "List of problems in this set\r\n";
-            foreach (XElement problem in studentProblemSet.Descendants("Problem"))
-            {
-                problemSetSize++;
-                textBox1.AppendText(problem.Element("Operand1").Value + " + " + problem.Element("Operand2").Value + "\r\n");
-            }
+            //IEnumerable<XElement> problemSet = studentProblemSet.Elements();
+            problemSetSize = studentProblemSet.Descendants("Problem").Count();
 
             currentProblem = getProblem(); //Find the first unsolved problem
             if (currentProblem != null) 
                 displayProblem();
-
-            textBox1.AppendText(problemSetSize + "\r\n");
         }        
 
         //Find an unsolved problem.

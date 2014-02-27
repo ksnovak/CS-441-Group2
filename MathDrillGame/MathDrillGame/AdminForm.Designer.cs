@@ -43,6 +43,7 @@
             this.listOfProblems = new System.Windows.Forms.TextBox();
             this.Operation = new System.Windows.Forms.GroupBox();
             this.labelProbsGenned = new System.Windows.Forms.Label();
+            this.buttonNewUser = new System.Windows.Forms.Button();
             this.Operation.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +64,7 @@
             this.listOfStudents.FormattingEnabled = true;
             this.listOfStudents.Location = new System.Drawing.Point(12, 12);
             this.listOfStudents.Name = "listOfStudents";
-            this.listOfStudents.Size = new System.Drawing.Size(179, 485);
+            this.listOfStudents.Size = new System.Drawing.Size(179, 420);
             this.listOfStudents.TabIndex = 0;
             this.listOfStudents.SelectedIndexChanged += new System.EventHandler(this.listOfStudents_SelectedIndexChanged);
             // 
@@ -191,12 +192,24 @@
             this.labelProbsGenned.TabIndex = 95;
             this.labelProbsGenned.Text = "Problems generated:";
             // 
+            // buttonNewUser
+            // 
+            this.buttonNewUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.buttonNewUser.Location = new System.Drawing.Point(13, 440);
+            this.buttonNewUser.Name = "buttonNewUser";
+            this.buttonNewUser.Size = new System.Drawing.Size(178, 42);
+            this.buttonNewUser.TabIndex = 100;
+            this.buttonNewUser.Text = "Add new user";
+            this.buttonNewUser.UseVisualStyleBackColor = true;
+            this.buttonNewUser.Click += new System.EventHandler(this.buttonNewUser_Click);
+            // 
             // AdminForm
             // 
             this.AcceptButton = this.buttonGenerate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(702, 504);
+            this.Controls.Add(this.buttonNewUser);
             this.Controls.Add(this.labelProbsGenned);
             this.Controls.Add(this.Operation);
             this.Controls.Add(this.listOfProblems);
@@ -241,5 +254,6 @@
         private System.Windows.Forms.TextBox listOfProblems;
         private System.Windows.Forms.GroupBox Operation;
         private System.Windows.Forms.Label labelProbsGenned;
+        private System.Windows.Forms.Button buttonNewUser;
     }
 }

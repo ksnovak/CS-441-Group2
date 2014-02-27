@@ -45,3 +45,4 @@ C:\Users\Novak\Documents\GitHub\CS-441-Group2\0MathDrillGame\MathDrillGame\bin\D
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\0MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.exe
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\0MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.pdb
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
+C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.NewUserForm.resources

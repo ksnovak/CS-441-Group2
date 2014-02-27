@@ -62,7 +62,7 @@ namespace MathDrillGame
                             isAdmin.InnerText = "0";
                             newStudent.AppendChild(isAdmin);
                         XmlElement userID = doc.CreateElement("UserID");
-                            userID.InnerText = "" + (102 + i);
+                            userID.InnerText = "" + (102 + i);  
                             newStudent.AppendChild(userID);
                             studentList.AppendChild(newStudent);
                 }

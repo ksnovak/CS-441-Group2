@@ -32,7 +32,7 @@ namespace MathDrillGame
         private void AdminForm_Load(object sender, EventArgs e)
         {
             listOfStudents.DataSource = Program.users;
-            listOfStudents.DisplayMember = "fullName"; //This is the value to show on-screen
+            listOfStudents.DisplayMember = "getRoleAndName"; //This is the value to show on-screen
             listOfStudents.ValueMember = "userID"; //This is the value to pass
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
         }
@@ -57,14 +57,20 @@ namespace MathDrillGame
             
             Program.targetUser = Convert.ToInt32(listOfStudents.SelectedIndex);
             targetUser = Program.users[Program.targetUser];
-            fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
-            labelGenProblemsFor.Text = "Generating problems for " + targetUser.fullName;
-            labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
 
-            //Do something to prevent them from generating problems for admins.
-            if (!targetUser.isAdmin)
+            if (targetUser.isAdmin)
             {
+                labelGenProblemsFor.Text = targetUser.fullName + " is not a student";
+                labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
+                inputMin.Enabled = inputMax.Enabled = inputQuantity.Enabled = Operation.Enabled = buttonGenerate.Enabled = false;
+            }
 
+            else
+            {
+                fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
+                labelGenProblemsFor.Text = "Generating problems for " + targetUser.fullName;
+                labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
+                inputMin.Enabled = inputMax.Enabled = inputQuantity.Enabled = Operation.Enabled = buttonGenerate.Enabled = true;
             }
         }
 
@@ -168,20 +174,10 @@ namespace MathDrillGame
                 return true;
         }
 
-        //Generates the problems.
-        //rng is an object of class Random declared at the start of this class
-/*        private Problem generateProblem()
+        private void buttonNewUser_Click(object sender, EventArgs e)
         {
-            Problem problem = new Problem();
-            problem.operand1 = rng.Next(min, max); 
-            problem.operand2 = rng.Next(min, max);
-            problem.operation = isAddition; //True = addition selected (default), False = subtraction selected.
-            if (problem.operation)
-                problem.solution = problem.operand1 + problem.operand2;
-            else
-                problem.solution = problem.operand1 - problem.operand2;
-
-            return problem;
-        }*/
+            NewUserForm newUserForm = new NewUserForm();
+            newUserForm.Show();
+        }
     } //end AdminForm class
 } //end namespace
