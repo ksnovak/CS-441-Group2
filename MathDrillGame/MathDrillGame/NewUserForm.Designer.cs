@@ -79,7 +79,7 @@
             // labelAdmin
             // 
             this.labelAdmin.AutoSize = true;
-            this.labelAdmin.Location = new System.Drawing.Point(12, 86);
+            this.labelAdmin.Location = new System.Drawing.Point(9, 86);
             this.labelAdmin.Name = "labelAdmin";
             this.labelAdmin.Size = new System.Drawing.Size(139, 13);
             this.labelAdmin.TabIndex = 4;
