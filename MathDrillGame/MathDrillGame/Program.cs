@@ -6,6 +6,14 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 
+
+/* Update lastLoggedIn          http://www.dotnetperls.com/datetime
+ * update user list after creation
+ * ability to remove students?
+ * force unique ID? (Can hack by just searching for an ID, if found, increment and research)
+ */
+
+
 namespace MathDrillGame
 {
     static class Program
@@ -35,6 +43,8 @@ namespace MathDrillGame
         private static void initializeUserList()
         {
             XmlDocument doc;
+            DateTime neverLoggedIn = DateTime.MinValue;
+            String neverLoggedInString = neverLoggedIn.ToString();
             if (!File.Exists(@"c:\users\public\MathDrills\users.xml"))
             {
                 doc = new XmlDocument();
@@ -49,6 +59,9 @@ namespace MathDrillGame
                     XmlElement buserID = doc.CreateElement("UserID");
                     buserID.InnerText = "101";
                     BillJAdmin.AppendChild(buserID);
+                    XmlElement blastLogin = doc.CreateElement("LastLogin");
+                    blastLogin.InnerText = neverLoggedInString;
+                    BillJAdmin.AppendChild(blastLogin);
                 studentList.AppendChild(BillJAdmin);
 
                 String[] students = new String[10] { "Susan M. Doe", "Joe A. Doe", "Edgar L. Park", "Jane G. Kragen", "Matt Y. Herman", "Jessica Q. Booker", "Laura T. Gwinn", "Patrick D. Henry", "Megan P. Nelson", "Brian H. Noll" };
@@ -64,7 +77,10 @@ namespace MathDrillGame
                         XmlElement userID = doc.CreateElement("UserID");
                             userID.InnerText = "" + (102 + i);  
                             newStudent.AppendChild(userID);
-                            studentList.AppendChild(newStudent);
+                        XmlElement lastLogin = doc.CreateElement("LastLogin");
+                            lastLogin.InnerText = neverLoggedInString;
+                            newStudent.AppendChild(lastLogin);
+                    studentList.AppendChild(newStudent);
                 }
                 doc.AppendChild(studentList);
                 doc.Save(@"c:\users\public\MathDrills\users.xml");

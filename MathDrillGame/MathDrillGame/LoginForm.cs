@@ -54,7 +54,11 @@ namespace MathDrillGame
             Program.currentUserIndex = Convert.ToInt32(listOfUsers.SelectedIndex);
             User currentUser = Program.users[Program.currentUserIndex];
             if (authUser(currentUser, ""))
+            {
+                //Search userlist for user, update lastLoggedIn
+
                 buildUserForm(Program.users[Program.currentUserIndex]);
+            }
 
         }
 

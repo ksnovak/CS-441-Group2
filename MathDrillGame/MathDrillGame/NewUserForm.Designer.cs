@@ -43,18 +43,19 @@
             this.buttonSaveUser.Location = new System.Drawing.Point(155, 200);
             this.buttonSaveUser.Name = "buttonSaveUser";
             this.buttonSaveUser.Size = new System.Drawing.Size(121, 42);
-            this.buttonSaveUser.TabIndex = 0;
+            this.buttonSaveUser.TabIndex = 3;
             this.buttonSaveUser.Text = "Save";
             this.buttonSaveUser.UseVisualStyleBackColor = true;
             this.buttonSaveUser.Click += new System.EventHandler(this.buttonSaveUser_Click);
             // 
             // buttonCancel
             // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonCancel.Location = new System.Drawing.Point(15, 200);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(121, 42);
-            this.buttonCancel.TabIndex = 1;
+            this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -83,7 +84,7 @@
             this.checkAdmin.Location = new System.Drawing.Point(161, 52);
             this.checkAdmin.Name = "checkAdmin";
             this.checkAdmin.Size = new System.Drawing.Size(44, 17);
-            this.checkAdmin.TabIndex = 5;
+            this.checkAdmin.TabIndex = 2;
             this.checkAdmin.Text = "Yes";
             this.checkAdmin.UseVisualStyleBackColor = true;
             // 
@@ -92,7 +93,7 @@
             this.inputFullName.Location = new System.Drawing.Point(155, 11);
             this.inputFullName.Name = "inputFullName";
             this.inputFullName.Size = new System.Drawing.Size(100, 20);
-            this.inputFullName.TabIndex = 6;
+            this.inputFullName.TabIndex = 0;
             // 
             // label1
             // 
@@ -102,7 +103,7 @@
             this.label1.Size = new System.Drawing.Size(265, 92);
             this.label1.TabIndex = 7;
             this.label1.Text = "BUG WARNING:The admin screen won\'t update with the new user, will have to log out" +
-    " and back in for them to show. Working on fixing this.";
+                " and back in for them to show. Working on fixing this.";
             // 
             // NewUserForm
             // 

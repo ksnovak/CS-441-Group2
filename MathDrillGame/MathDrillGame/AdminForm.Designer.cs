@@ -53,8 +53,7 @@
             this.buttonLogout.Location = new System.Drawing.Point(602, 440);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(90, 43);
-            this.buttonLogout.TabIndex = 1;
-            this.buttonLogout.TabStop = false;
+            this.buttonLogout.TabIndex = 8;
             this.buttonLogout.Text = "Log out";
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
@@ -198,7 +197,7 @@
             this.buttonNewUser.Location = new System.Drawing.Point(13, 440);
             this.buttonNewUser.Name = "buttonNewUser";
             this.buttonNewUser.Size = new System.Drawing.Size(178, 42);
-            this.buttonNewUser.TabIndex = 100;
+            this.buttonNewUser.TabIndex = 7;
             this.buttonNewUser.Text = "Add new user";
             this.buttonNewUser.UseVisualStyleBackColor = true;
             this.buttonNewUser.Click += new System.EventHandler(this.buttonNewUser_Click);
@@ -208,6 +207,7 @@
             this.AcceptButton = this.buttonGenerate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonLogout;
             this.ClientSize = new System.Drawing.Size(702, 504);
             this.Controls.Add(this.buttonNewUser);
             this.Controls.Add(this.labelProbsGenned);
