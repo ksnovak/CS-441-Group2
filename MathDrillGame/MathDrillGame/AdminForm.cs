@@ -31,24 +31,20 @@ namespace MathDrillGame
         //When the form is opened, give a personalized greeting, and fill the user list with users.
         private void AdminForm_Load(object sender, EventArgs e)
         {
+            listOfStudents.DataSource = null;
             listOfStudents.DataSource = Program.users;
             listOfStudents.DisplayMember = "getRoleAndName"; //This is the value to show on-screen
             listOfStudents.ValueMember = "userID"; //This is the value to pass
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
+            this.Activate();
         }
 
-        //When they click the Logout button, close the Admin form and show the Login form (form1).
-        private void buttonLogout_Click(object sender, EventArgs e)
+    
+        private void AdminForm_Activated(object sender, System.EventArgs e)
         {
-            LoginForm login = new LoginForm();
-            login.Show();
-            Close();
-        }
-
-        //If they click the X, terminate the entire program
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
+            labelGenProblemsFor.Text = "asfdsdfsf";
+            listOfStudents.DataSource = null;
+            listOfStudents.DataSource = Program.users;
         }
 
         //When you select someone from the list, save to a variable which member it is, and personalize a message.
@@ -60,7 +56,7 @@ namespace MathDrillGame
 
             if (targetUser.isAdmin)
             {
-                labelGenProblemsFor.Text = targetUser.fullName + " is not a student";
+                //labelGenProblemsFor.Text = targetUser.fullName + " is not a student";
                 labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
                 inputMin.Enabled = inputMax.Enabled = inputQuantity.Enabled = Operation.Enabled = buttonGenerate.Enabled = false;
             }
@@ -68,7 +64,7 @@ namespace MathDrillGame
             else
             {
                 fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
-                labelGenProblemsFor.Text = "Generating problems for " + targetUser.fullName;
+                //labelGenProblemsFor.Text = "Generating problems for " + targetUser.fullName;
                 labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
                 inputMin.Enabled = inputMax.Enabled = inputQuantity.Enabled = Operation.Enabled = buttonGenerate.Enabled = true;
             }
@@ -178,15 +174,37 @@ namespace MathDrillGame
 
         private void buttonNewUser_Click(object sender, EventArgs e)
         {
-            NewUserForm newUserForm = new NewUserForm();
-            newUserForm.Show();
+            /*NewUserForm newUserForm = new NewUserForm();
+            newUserForm.Tag = this;
+            newUserForm.Show(this);
+            Hide();*/
+            NewUserForm newuser = new NewUserForm();
+            newuser.Show();
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonReports_Click(object sender, EventArgs e)
         {
+            /*ReportsForm reports = new ReportsForm();
+            reports.Tag = this;
+            reports.Show(this);
+            Hide();*/
             ReportsForm reports = new ReportsForm();
             reports.Show();
-            this.Close();
         }
+
+        //When they click the Logout button, close the Admin form and show the Login form (form1).
+        private void buttonLogout_Click(object sender, EventArgs e)
+        {
+            var loginForm = (LoginForm)Tag;
+            loginForm.Show();
+            Close();
+        }
+
+        //If they click the X, terminate the entire program
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }        
     } //end AdminForm class
 } //end namespace

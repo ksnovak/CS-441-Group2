@@ -4,15 +4,12 @@ using System.Linq;
 //using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
 
-/* Update lastLoggedIn          http://www.dotnetperls.com/datetime
- * update user list after creation
+/* update user list after creation
  * ability to remove students?
- * force unique ID? (Can hack by just searching for an ID, if found, increment and research)
  */
 
 

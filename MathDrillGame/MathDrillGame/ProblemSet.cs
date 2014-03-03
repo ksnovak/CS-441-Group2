@@ -8,7 +8,8 @@ namespace MathDrillGame
     class ProblemSet
     {
         public ProblemSet() { }
-        public ProblemSet(int problemSetID, string operation, bool isSolved, int solvedQuantity, int totalQuantity, string score)
+        public ProblemSet(int problemSetID, string operation, bool isSolved, 
+            int solvedQuantity, int totalQuantity, string score, string lastAttempt)
         {
             this.problemSetID = problemSetID;
             this.operation = operation;
@@ -16,6 +17,7 @@ namespace MathDrillGame
             this.solvedQuantity = solvedQuantity;
             this.totalQuantity = totalQuantity;
             this.score = score;
+            this.lastAttempt = lastAttempt;
         }
 
 
@@ -25,6 +27,7 @@ namespace MathDrillGame
         public int solvedQuantity { get; set; }
         public int totalQuantity { get; set; }
         public string score { get; set; }
+        public string lastAttempt { get; set; }
     }
 
 

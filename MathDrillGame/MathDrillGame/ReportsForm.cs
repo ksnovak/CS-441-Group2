@@ -30,16 +30,6 @@ namespace MathDrillGame
             comboStudentList.DisplayMember = "getRoleAndName";
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            AdminForm admin = new AdminForm();
-            admin.Show();
-            this.Close();
-        }
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
         private void comboStudentList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -76,7 +66,8 @@ namespace MathDrillGame
                                     problemSetID = Convert.ToInt32(set.Element("ProblemSetID").Value),
                                     solvedQuantity = numSolved,
                                     totalQuantity = problemQuantity,
-                                    score = ((float)numSolved / (float)problemQuantity).ToString("p1") //Forces the division to result in a float, and then converts that into xx.xx%
+                                    score = ((float)numSolved / (float)problemQuantity).ToString("p1"), //Forces the division to result in a float, and then converts that into xx.xx%
+                                    lastAttempt = (set.Element("LastAccessed").Value == DateTime.MinValue.ToString())? "Never" : set.Element("LastAccessed").Value
                     });
                                                    
                 }
@@ -125,14 +116,14 @@ namespace MathDrillGame
                     operand1 = Convert.ToInt32(prob.Element("Operand1").Value),
                     operand2 = Convert.ToInt32(prob.Element("Operand2").Value),
                     //operation = 
-                    attemptNumber = Convert.ToInt32(prob.Element("Attempts").Value)
+                    attemptNumber = Convert.ToInt32(prob.Element("Attempts").Value),
 
                 });
                tempString += prob.Element("Operand1").Value + " " + prob.Parent.Element("Operator").Value + " " + prob.Element("Operand2").Value + (prob.Element("Attempts").Value != "0" ? "\tTried " + prob.Element("Attempts").Value + " times" : "") + (prob.Element("IsSolved").Value == "1" ? " (Solved)" : "") + "\r\n";
             }
             textBoxReport.AppendText("Report for problem set " + Convert.ToString(usersSets[selectedSet].problemSetID) + "\r\n");
 
-            textBoxReport.AppendText("Last attempted on " + "asdf" + "\r\n");
+            textBoxReport.AppendText("Last attempted on " + usersSets[selectedSet].lastAttempt + "\r\n");
 
             textBoxReport.AppendText("Questions solved: " + numSolved + "\r\n" + "Questions in the set: " + problemsFromXML.Count() + "\r\n");
 
@@ -149,6 +140,20 @@ namespace MathDrillGame
             dataGridProblems.Columns[3].Visible = false; //Operation section
             dataGridProblems.Columns[4].HeaderText = "Solved?";
             dataGridProblems.Columns[5].HeaderText = "Attempts taken";
+        }
+
+        
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            /*var admin = (AdminForm)Tag;
+            admin.Show();
+            admin.Activate();
+            Close();*/
+            Close();
+        }
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

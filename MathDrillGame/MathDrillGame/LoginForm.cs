@@ -78,16 +78,16 @@ namespace MathDrillGame
             if (user.isAdmin)
             {
                 AdminForm adminForm = new AdminForm();
-                adminForm.Tag = this; //Makes note of the current form (login form)
-                adminForm.Show(this); //Pass the login form as a paramter, to access it later.
-                Hide(); //Hide the login screen
+                adminForm.Tag = this;
+                adminForm.Show(this);
+                this.Hide();
             }
             else
             {
                 StudentForm studentForm = new StudentForm();
                 studentForm.Tag = this;
                 studentForm.Show(this);
-                Hide();
+                this.Hide();
             }
         }
 

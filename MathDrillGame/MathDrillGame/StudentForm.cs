@@ -152,7 +152,12 @@ namespace MathDrillGame
         //Checks if an answer is correct. Return value is true for correct, false for incorrect.
         public bool checkAnswer()
         {
-            int answer = currentProblem.operand1 + currentProblem.operand2;
+            int answer;
+
+            if (studentProblemSet.Descendants("ProblemSet").ElementAt(0).Element("Operator").Value == "+")
+                answer = currentProblem.operand1 + currentProblem.operand2;
+            else
+                answer = currentProblem.operand1 - currentProblem.operand2;
 
             int prevAttempts = Convert.ToInt32(studentProblemSet.Descendants("Problem").ElementAt(problemIndex).Element("Attempts").Value);
             studentProblemSet.Descendants("Problem").ElementAt(problemIndex).SetElementValue("Attempts", prevAttempts + 1);
@@ -187,13 +192,16 @@ namespace MathDrillGame
         //When they click the logout button, close the Student screen and show the Login screen.
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            if (studentProblemSet.Descendants("ProblemSet").ElementAt(0).Element("IsSolved").Value == "0")
+            if (File.Exists(fileName))
             {
-                studentProblemSet.Descendants("ProblemSet").ElementAt(0).SetElementValue("LastAccessed", DateTime.Now.ToString("G"));
-                studentProblemSet.Save(fileName);
+                if (studentProblemSet.Descendants("ProblemSet").ElementAt(0).Element("IsSolved").Value == "0")
+                {
+                    studentProblemSet.Descendants("ProblemSet").ElementAt(0).SetElementValue("LastAccessed", DateTime.Now.ToString("G"));
+                    studentProblemSet.Save(fileName);
+                }
             }
-            var form1 = (LoginForm)Tag;
-            form1.Show();
+            var login = (LoginForm)Tag;
+            login.Show();
             Close();
         }
     }//end StudentForm class

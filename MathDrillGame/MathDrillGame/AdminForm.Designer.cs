@@ -44,7 +44,7 @@
             this.Operation = new System.Windows.Forms.GroupBox();
             this.labelProbsGenned = new System.Windows.Forms.Label();
             this.buttonNewUser = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonReports = new System.Windows.Forms.Button();
             this.Operation.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -204,16 +204,16 @@
             this.buttonNewUser.UseVisualStyleBackColor = true;
             this.buttonNewUser.Click += new System.EventHandler(this.buttonNewUser_Click);
             // 
-            // button1
+            // buttonReports
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button1.Location = new System.Drawing.Point(12, 392);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(178, 42);
-            this.button1.TabIndex = 100;
-            this.button1.Text = "Reports";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonReports.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.buttonReports.Location = new System.Drawing.Point(12, 392);
+            this.buttonReports.Name = "buttonReports";
+            this.buttonReports.Size = new System.Drawing.Size(178, 42);
+            this.buttonReports.TabIndex = 100;
+            this.buttonReports.Text = "Reports";
+            this.buttonReports.UseVisualStyleBackColor = true;
+            this.buttonReports.Click += new System.EventHandler(this.buttonReports_Click);
             // 
             // AdminForm
             // 
@@ -222,7 +222,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonLogout;
             this.ClientSize = new System.Drawing.Size(702, 504);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonReports);
             this.Controls.Add(this.buttonNewUser);
             this.Controls.Add(this.labelProbsGenned);
             this.Controls.Add(this.Operation);
@@ -269,6 +269,6 @@
         private System.Windows.Forms.GroupBox Operation;
         private System.Windows.Forms.Label labelProbsGenned;
         private System.Windows.Forms.Button buttonNewUser;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonReports;
     }
 }

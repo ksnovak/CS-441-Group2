@@ -57,11 +57,16 @@ namespace MathDrillGame
                 fullName = studentListXML.Descendants("Student").Last().Element("FullName").Value,
                 userID = Convert.ToInt32(studentListXML.Descendants("Student").Last().Element("UserID").Value)
             });
-            this.Close();
+
+            /*var admin = (AdminForm)Tag;
+            admin.Show();*/
+            Close();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            /*var admin = (AdminForm)Tag;
+            admin.Show();*/
             Close();
         }
     }
