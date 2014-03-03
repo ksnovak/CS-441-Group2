@@ -9,7 +9,7 @@ namespace MathDrillGame
     public class Problem
     {
         public Problem() { }
-        public Problem(int operand1, int operand2, bool operation)
+        public Problem(int operand1, int operand2, string operation)
         {
             this.operand1 = operand1;
             this.operand2 = operand2;
@@ -22,7 +22,7 @@ namespace MathDrillGame
         public int operand1 { get; set; }
         public int operand2 { get; set; }
         public int solution { get; set; }
-        public bool operation { get; set; } //True = addition
+        public string operation { get; set; } //True = addition
         public bool isSolved { get; set; }
         public int attemptNumber { get; set; }
 
@@ -30,11 +30,7 @@ namespace MathDrillGame
         //My way to display the whole problem in the view
         public string printProblem()
         {
-            string result;
-            if (operation)
-                result = operand1 + " + " + operand2;
-            else
-                result = operand1 + " - " + operand2;
+            string result = operand1 + " " + operation  + " " + operand2;
             return result;
         }
     }

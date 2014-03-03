@@ -74,7 +74,7 @@ namespace MathDrillGame
                 {
                     newProblem.operand1 = Convert.ToInt32(problemInXML.Element("Operand1").Value);
                     newProblem.operand2 = Convert.ToInt32(problemInXML.Element("Operand2").Value);
-                    newProblem.operation = true;
+                    newProblem.operation = problemInXML.Parent.Element("Operator").Value;
                     return newProblem;
                 }
                 else
@@ -86,6 +86,14 @@ namespace MathDrillGame
             }
 
             labelFeedback.Text = "You've solved them all!";
+            studentProblemSet.Descendants("ProblemSet").ElementAt(0).SetElementValue("LastAccessed", DateTime.Now.ToString("G"));
+            studentProblemSet.Descendants("ProblemSet").ElementAt(0).SetElementValue("IsSolved", "1");
+            studentProblemSet.Save(fileName);
+            /*
+             *                 studentListXML.Descendants("Student").ElementAt(Program.currentUserIndex).SetElementValue("LastLogin", now.ToString("G"));
+                studentListXML.Save(@"c:\users\public\MathDrills\users.xml");
+             */
+            //studentProblemSet.Descendants("Problem").ElementAt(problemIndex).SetElementValue("Attempts", prevAttempts + 1);
             buttonSubmit.Enabled = inputAnswer.Enabled = false;
             CancelButton = buttonLogout;
             return null;
@@ -125,7 +133,6 @@ namespace MathDrillGame
             {
                 inputAnswer.Text = "";
                 labelFeedback.Text = "Correct!";
-                //Program.users[Program.currentUserIndex].problemSet[problemIndex].isSolved = true;
             }
             else
             {
@@ -180,6 +187,11 @@ namespace MathDrillGame
         //When they click the logout button, close the Student screen and show the Login screen.
         private void buttonLogout_Click(object sender, EventArgs e)
         {
+            if (studentProblemSet.Descendants("ProblemSet").ElementAt(0).Element("IsSolved").Value == "0")
+            {
+                studentProblemSet.Descendants("ProblemSet").ElementAt(0).SetElementValue("LastAccessed", DateTime.Now.ToString("G"));
+                studentProblemSet.Save(fileName);
+            }
             var form1 = (LoginForm)Tag;
             form1.Show();
             Close();

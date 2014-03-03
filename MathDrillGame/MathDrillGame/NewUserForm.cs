@@ -33,16 +33,29 @@ namespace MathDrillGame
             XmlDocument doc = new XmlDocument();
             doc.Load(@"c:\users\public\MathDrills\users.xml");
             XmlElement newStudent = doc.CreateElement("Student");
-            XmlElement fullName = doc.CreateElement("FullName");
-            fullName.InnerText = userName;
-            newStudent.AppendChild(fullName);
-            XmlElement isAdmin = doc.CreateElement("IsAdmin");
-            isAdmin.InnerText = (checkAdmin.Checked ? "1" : "0");
-            newStudent.AppendChild(isAdmin);
-            XmlElement userID = doc.CreateElement("UserID");
-            userID.InnerText = "505";
-            newStudent.AppendChild(userID);
+                XmlElement fullName = doc.CreateElement("FullName");
+                    fullName.InnerText = userName;
+                    newStudent.AppendChild(fullName);
+                XmlElement isAdmin = doc.CreateElement("IsAdmin");
+                    isAdmin.InnerText = (checkAdmin.Checked ? "1" : "0");
+                    newStudent.AppendChild(isAdmin);
+                XmlElement userID = doc.CreateElement("UserID");
+                    userID.InnerText = Program.nextUserID++ + "";
+                    newStudent.AppendChild(userID);
+                XmlElement lastLogin = doc.CreateElement("LastLogin");
+                    lastLogin.InnerText = DateTime.MinValue.ToString();
+                    newStudent.AppendChild(lastLogin);
             doc.DocumentElement.AppendChild(newStudent);
+
+
+
+            /*
+             *                     XmlElement lastLogin = doc.CreateElement("LastLogin");
+                    lastLogin.InnerText = neverLoggedInString;
+                    newStudent.AppendChild(lastLogin);
+                    studentList.AppendChild(newStudent);
+             */
+
             doc.Save(@"c:\users\public\MathDrills\users.xml");
             
             XElement studentListXML = XElement.Load(@"c:\users\public\MathDrills\users.xml");

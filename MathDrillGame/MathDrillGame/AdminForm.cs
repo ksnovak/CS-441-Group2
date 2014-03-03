@@ -127,15 +127,17 @@ namespace MathDrillGame
                 doc.Save(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
                 
             }
-
+            DateTime now = DateTime.Now;
             XDocument xml = XDocument.Load(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
             XElement newProblemSet = new XElement("ProblemSet");
-            XElement problemSetID = new XElement("ProblemSetID", "99");
+            XElement problemSetID = new XElement("ProblemSetID", Program.newProblemSetID++);
             newProblemSet.Add(problemSetID);
             XElement operation = new XElement("Operator", (isAddition? "+" : "-"));
             newProblemSet.Add(operation);
             XElement problemSetSolved = new XElement("IsSolved", "0");
             newProblemSet.Add(problemSetSolved);
+            XElement lastAccessed = new XElement("LastAccessed", DateTime.MinValue.ToString());
+            newProblemSet.Add(lastAccessed);
             for (int i = 0; i < quantity; i++)
             {
                 XElement newProblem = new XElement("Problem",

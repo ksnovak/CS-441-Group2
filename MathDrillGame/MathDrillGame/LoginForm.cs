@@ -13,6 +13,7 @@ namespace MathDrillGame
 {
     public partial class LoginForm : Form
     {
+        XElement studentListXML;
         public LoginForm()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace MathDrillGame
         //Feed from the XML file into a List, the set of users.
         private void buildUserList()
         {
-            XElement studentListXML = XElement.Load(@"c:\users\public\MathDrills\users.xml");
+            studentListXML = XElement.Load(@"c:\users\public\MathDrills\users.xml");
             foreach (XElement user in studentListXML.Descendants("Student"))
             {
 
@@ -56,7 +57,9 @@ namespace MathDrillGame
             if (authUser(currentUser, ""))
             {
                 //Search userlist for user, update lastLoggedIn
-
+                DateTime now = DateTime.Now;
+                studentListXML.Descendants("Student").ElementAt(Program.currentUserIndex).SetElementValue("LastLogin", now.ToString("G"));
+                studentListXML.Save(@"c:\users\public\MathDrills\users.xml");
                 buildUserForm(Program.users[Program.currentUserIndex]);
             }
 

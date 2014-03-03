@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml;
+using System.Xml.Linq;
 
 
 /* Update lastLoggedIn          http://www.dotnetperls.com/datetime
@@ -26,6 +27,8 @@ namespace MathDrillGame
         public static List<User> users = new List<User>();
         public static int currentUserIndex; //Who is logged in
         public static int targetUser; //For the admin, this is who to generate problems for.
+        public static int nextUserID = 101; //Enforces globally unique student IDs. When making new students, do "Program.nextUserID++"
+        public static int newProblemSetID = 1; //Enforces globally unique problem set IDs. When making new problem sets, do "Program.newProblemSetID++"
 
         [STAThread]
         static void Main()
@@ -43,47 +46,50 @@ namespace MathDrillGame
         private static void initializeUserList()
         {
             XmlDocument doc;
-            DateTime neverLoggedIn = DateTime.MinValue;
-            String neverLoggedInString = neverLoggedIn.ToString();
             if (!File.Exists(@"c:\users\public\MathDrills\users.xml"))
             {
                 doc = new XmlDocument();
                 XmlElement studentList = doc.CreateElement("StudentList");
                 XmlElement BillJAdmin = doc.CreateElement("Student");
-                    XmlElement bfullName = doc.CreateElement("FullName");
-                    bfullName.InnerText = "Bill J. Admin";
-                    BillJAdmin.AppendChild(bfullName);
-                    XmlElement bisAdmin = doc.CreateElement("IsAdmin");
-                    bisAdmin.InnerText = "1";
-                    BillJAdmin.AppendChild(bisAdmin);
-                    XmlElement buserID = doc.CreateElement("UserID");
-                    buserID.InnerText = "101";
-                    BillJAdmin.AppendChild(buserID);
-                    XmlElement blastLogin = doc.CreateElement("LastLogin");
-                    blastLogin.InnerText = neverLoggedInString;
-                    BillJAdmin.AppendChild(blastLogin);
+                XmlElement bfullName = doc.CreateElement("FullName");
+                bfullName.InnerText = "Bill J. Admin";
+                BillJAdmin.AppendChild(bfullName);
+                XmlElement bisAdmin = doc.CreateElement("IsAdmin");
+                bisAdmin.InnerText = "1";
+                BillJAdmin.AppendChild(bisAdmin);
+                XmlElement buserID = doc.CreateElement("UserID");
+                buserID.InnerText = nextUserID++ + "";
+                BillJAdmin.AppendChild(buserID);
+                XmlElement blastLogin = doc.CreateElement("LastLogin");
+                blastLogin.InnerText = DateTime.MinValue.ToString();
+                BillJAdmin.AppendChild(blastLogin);
                 studentList.AppendChild(BillJAdmin);
 
                 String[] students = new String[10] { "Susan M. Doe", "Joe A. Doe", "Edgar L. Park", "Jane G. Kragen", "Matt Y. Herman", "Jessica Q. Booker", "Laura T. Gwinn", "Patrick D. Henry", "Megan P. Nelson", "Brian H. Noll" };
                 for (int i = 0; i < students.Length; i++)
                 {
                     XmlElement newStudent = doc.CreateElement("Student");
-                        XmlElement fullName = doc.CreateElement("FullName");
-                            fullName.InnerText = students[i];
-                            newStudent.AppendChild(fullName);
-                        XmlElement isAdmin = doc.CreateElement("IsAdmin");
-                            isAdmin.InnerText = "0";
-                            newStudent.AppendChild(isAdmin);
-                        XmlElement userID = doc.CreateElement("UserID");
-                            userID.InnerText = "" + (102 + i);  
-                            newStudent.AppendChild(userID);
-                        XmlElement lastLogin = doc.CreateElement("LastLogin");
-                            lastLogin.InnerText = neverLoggedInString;
-                            newStudent.AppendChild(lastLogin);
+                    XmlElement fullName = doc.CreateElement("FullName");
+                    fullName.InnerText = students[i];
+                    newStudent.AppendChild(fullName);
+                    XmlElement isAdmin = doc.CreateElement("IsAdmin");
+                    isAdmin.InnerText = "0";
+                    newStudent.AppendChild(isAdmin);
+                    XmlElement userID = doc.CreateElement("UserID");
+                    userID.InnerText = "" + nextUserID++;
+                    newStudent.AppendChild(userID);
+                    XmlElement lastLogin = doc.CreateElement("LastLogin");
+                    lastLogin.InnerText = DateTime.MinValue.ToString();
+                    newStudent.AppendChild(lastLogin);
                     studentList.AppendChild(newStudent);
                 }
                 doc.AppendChild(studentList);
                 doc.Save(@"c:\users\public\MathDrills\users.xml");
+            }
+            else
+            {
+                XElement user = XElement.Load(@"c:\users\public\MathDrills\users.xml");
+                nextUserID = Convert.ToInt32(user.Descendants("Student").Last().Element("UserID").Value)+1;
             }
         }
     }

@@ -1,0 +1,7 @@
+C:\Users\Novak\Documents\GitHub\CS-441-Group2\IndividualModules\Float Test\Float Test\bin\Debug\Float Test.exe
+C:\Users\Novak\Documents\GitHub\CS-441-Group2\IndividualModules\Float Test\Float Test\bin\Debug\Float Test.pdb
+C:\Users\Novak\Documents\GitHub\CS-441-Group2\IndividualModules\Float Test\Float Test\obj\x86\Debug\Float_Test.Form1.resources
+C:\Users\Novak\Documents\GitHub\CS-441-Group2\IndividualModules\Float Test\Float Test\obj\x86\Debug\Float_Test.Properties.Resources.resources
+C:\Users\Novak\Documents\GitHub\CS-441-Group2\IndividualModules\Float Test\Float Test\obj\x86\Debug\Float Test.csproj.GenerateResource.Cache
+C:\Users\Novak\Documents\GitHub\CS-441-Group2\IndividualModules\Float Test\Float Test\obj\x86\Debug\Float Test.exe
+C:\Users\Novak\Documents\GitHub\CS-441-Group2\IndividualModules\Float Test\Float Test\obj\x86\Debug\Float Test.pdb
