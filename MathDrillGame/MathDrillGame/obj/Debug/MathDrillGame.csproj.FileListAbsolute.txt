@@ -47,3 +47,4 @@ C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\De
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.NewUserForm.resources
 C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
 C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.NewUserForm.resources
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.ReportsForm.resources

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace MathDrillGame
 {
@@ -43,8 +44,8 @@ namespace MathDrillGame
             newStudent.AppendChild(userID);
             doc.DocumentElement.AppendChild(newStudent);
             doc.Save(@"c:\users\public\MathDrills\users.xml");
-            /*
-                  XElement studentListXML = XElement.Load(@"c:\users\public\MathDrills\users.xml");
+            
+            XElement studentListXML = XElement.Load(@"c:\users\public\MathDrills\users.xml");
             foreach (XElement user in studentListXML.Descendants("Student"))
             {
 
@@ -53,7 +54,7 @@ namespace MathDrillGame
                                             userID = Convert.ToInt32(user.Element("UserID").Value)
                                             });
             }
-             */
+             
             Program.users.Add(new User { isAdmin = (checkAdmin.Checked ? true : false),
                                         fullName = userName,
                                         userID = 505

@@ -40,8 +40,8 @@ namespace MathDrillGame
         //When they click the Logout button, close the Admin form and show the Login form (form1).
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            var form1 = (LoginForm)Tag;
-            form1.Show();
+            LoginForm login = new LoginForm();
+            login.Show();
             Close();
         }
 
@@ -178,6 +178,13 @@ namespace MathDrillGame
         {
             NewUserForm newUserForm = new NewUserForm();
             newUserForm.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ReportsForm reports = new ReportsForm();
+            reports.Show();
+            this.Close();
         }
     } //end AdminForm class
 } //end namespace

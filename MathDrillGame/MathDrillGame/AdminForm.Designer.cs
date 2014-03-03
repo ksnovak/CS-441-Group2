@@ -44,11 +44,13 @@
             this.Operation = new System.Windows.Forms.GroupBox();
             this.labelProbsGenned = new System.Windows.Forms.Label();
             this.buttonNewUser = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.Operation.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLogout
             // 
+            this.buttonLogout.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonLogout.Location = new System.Drawing.Point(602, 440);
             this.buttonLogout.Name = "buttonLogout";
@@ -63,7 +65,7 @@
             this.listOfStudents.FormattingEnabled = true;
             this.listOfStudents.Location = new System.Drawing.Point(12, 12);
             this.listOfStudents.Name = "listOfStudents";
-            this.listOfStudents.Size = new System.Drawing.Size(179, 420);
+            this.listOfStudents.Size = new System.Drawing.Size(179, 368);
             this.listOfStudents.TabIndex = 0;
             this.listOfStudents.SelectedIndexChanged += new System.EventHandler(this.listOfStudents_SelectedIndexChanged);
             // 
@@ -202,6 +204,17 @@
             this.buttonNewUser.UseVisualStyleBackColor = true;
             this.buttonNewUser.Click += new System.EventHandler(this.buttonNewUser_Click);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.button1.Location = new System.Drawing.Point(12, 392);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(178, 42);
+            this.button1.TabIndex = 100;
+            this.button1.Text = "Reports";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AdminForm
             // 
             this.AcceptButton = this.buttonGenerate;
@@ -209,6 +222,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonLogout;
             this.ClientSize = new System.Drawing.Size(702, 504);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonNewUser);
             this.Controls.Add(this.labelProbsGenned);
             this.Controls.Add(this.Operation);
@@ -255,5 +269,6 @@
         private System.Windows.Forms.GroupBox Operation;
         private System.Windows.Forms.Label labelProbsGenned;
         private System.Windows.Forms.Button buttonNewUser;
+        private System.Windows.Forms.Button button1;
     }
 }
