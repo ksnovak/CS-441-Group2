@@ -130,7 +130,7 @@ namespace MathDrillGame
             DateTime now = DateTime.Now;
             XDocument xml = XDocument.Load(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
             XElement newProblemSet = new XElement("ProblemSet");
-            XElement problemSetID = new XElement("ProblemSetID", Program.newProblemSetID++);
+            XElement problemSetID = new XElement("ProblemSetID", Program.nextProblemSetID++);
             newProblemSet.Add(problemSetID);
             XElement operation = new XElement("Operator", (isAddition? "+" : "-"));
             newProblemSet.Add(operation);

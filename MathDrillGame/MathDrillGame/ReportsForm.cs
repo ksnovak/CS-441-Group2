@@ -28,7 +28,6 @@ namespace MathDrillGame
             comboStudentList.DataSource = Program.users;
             comboStudentList.ValueMember = "userID";
             comboStudentList.DisplayMember = "getRoleAndName";
-            dataGridProblemSets.AutoResizeColumns();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -54,8 +53,6 @@ namespace MathDrillGame
         {
             usersSets.Clear();
             dataGridProblemSets.DataSource = null;
-
-            //  if (!File.Exists(@"c:\users\public\MathDrills\users.xml"))
 
             if (File.Exists(fileName))
             {

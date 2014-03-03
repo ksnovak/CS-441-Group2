@@ -44,35 +44,19 @@ namespace MathDrillGame
                     newStudent.AppendChild(userID);
                 XmlElement lastLogin = doc.CreateElement("LastLogin");
                     lastLogin.InnerText = DateTime.MinValue.ToString();
-                    newStudent.AppendChild(lastLogin);
+                newStudent.AppendChild(lastLogin);
             doc.DocumentElement.AppendChild(newStudent);
-
-
-
-            /*
-             *                     XmlElement lastLogin = doc.CreateElement("LastLogin");
-                    lastLogin.InnerText = neverLoggedInString;
-                    newStudent.AppendChild(lastLogin);
-                    studentList.AppendChild(newStudent);
-             */
 
             doc.Save(@"c:\users\public\MathDrills\users.xml");
             
             XElement studentListXML = XElement.Load(@"c:\users\public\MathDrills\users.xml");
-            foreach (XElement user in studentListXML.Descendants("Student"))
+
+            Program.users.Add(new User
             {
-
-                Program.users.Add(new User { isAdmin = (user.Element("IsAdmin").Value == "1"? true : false), 
-                                            fullName = user.Element("FullName").Value, 
-                                            userID = Convert.ToInt32(user.Element("UserID").Value)
-                                            });
-            }
-             
-            Program.users.Add(new User { isAdmin = (checkAdmin.Checked ? true : false),
-                                        fullName = userName,
-                                        userID = 505
+                isAdmin = (studentListXML.Descendants("Student").Last().Element("IsAdmin").Value == "1"? true : false),
+                fullName = studentListXML.Descendants("Student").Last().Element("FullName").Value,
+                userID = Convert.ToInt32(studentListXML.Descendants("Student").Last().Element("UserID").Value)
             });
-
             this.Close();
         }
 

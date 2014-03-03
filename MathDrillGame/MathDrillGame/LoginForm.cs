@@ -26,6 +26,7 @@ namespace MathDrillGame
         private void buildUserList()
         {
             studentListXML = XElement.Load(@"c:\users\public\MathDrills\users.xml");
+            Program.users.Clear();
             foreach (XElement user in studentListXML.Descendants("Student"))
             {
 
@@ -92,6 +93,12 @@ namespace MathDrillGame
 
         private void buttonClose_Click(object sender, EventArgs e)
         {
+            XElement doc = XElement.Load(@"c:\users\public\MathDrills\config.xml");
+            doc.SetElementValue("NextValidUser", Program.nextUserID);
+            doc.SetElementValue("NextValidSet", Program.nextProblemSetID);
+            doc.Save(@"c:\users\public\MathDrills\config.xml");
+                //studentProblemSet.Descendants("Problem").ElementAt(problemIndex).SetElementValue("Attempts", prevAttempts + 1);
+
             Application.Exit();
         }
 
