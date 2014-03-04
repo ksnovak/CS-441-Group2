@@ -114,9 +114,56 @@ namespace MathDrillGame
         {
             textBoxReport.Text = summaryText + "\r\n";
 
-            int selectedSet = dataGridProblemSets.CurrentCellAddress.Y;
-            
+            int selectedSet;
+
             XDocument thefile = XDocument.Load(fileName);
+            foreach (DataGridViewRow row in dataGridProblemSets.SelectedRows)
+            {
+                selectedSet = row.Index;
+                var problemsFromXML = from problem in thefile.Elements("AllProblemSets").Elements("ProblemSet").Elements("Problem")
+                                      where problem.Parent.Element("ProblemSetID").Value == Convert.ToString(usersSets[selectedSet].problemSetID)
+                                      select problem;
+
+                textBoxReport.AppendText("Problem Set #" + usersSets[selectedSet].problemSetID + " Details");
+                if (thefile.Elements("AllProblemSets").Elements("ProblemSet").ElementAt(selectedSet).Element("LastAccessed").Value == Program.MINDATE.ToString("g"))
+                {
+                    textBoxReport.AppendText("(NOT TAKEN)");
+                }
+                textBoxReport.AppendText(" \r\n");
+
+
+
+                List<Problem> problemsInSet = new List<Problem>();
+                int numSolved = 0;
+
+                int iterator = 0;
+                foreach (XElement prob in problemsFromXML)
+                {
+                    iterator++;
+                    if (prob.Element("IsSolved").Value == "1")
+                        numSolved++;
+
+                    problemsInSet.Add(new Problem
+                    {
+                        isSolved = (prob.Element("IsSolved").Value == "1" ? true : false),
+                        operand1 = Convert.ToInt32(prob.Element("Operand1").Value),
+                        operand2 = Convert.ToInt32(prob.Element("Operand2").Value),
+                        attemptNumber = Convert.ToInt32(prob.Element("Attempts").Value),
+
+                    });
+
+                    /*Examples of how the next line will actually appear, under different circumstances
+                         1) 	66 + 63	 2 attempts  (Solved)
+                         2) 	60 + 66	 1 attempt 
+                         3) 	62 + 67	 no attempts */
+                    textBoxReport.AppendText(iterator + ")\t" + prob.Element("Operand1").Value + " " + prob.Parent.Element("Operator").Value + " " + prob.Element("Operand2").Value
+                        + "\t " + (prob.Element("Attempts").Value != "0" ? prob.Element("Attempts").Value : "no")
+                        + (prob.Element("Attempts").Value == "1" ? " attempt " : " attempts ")
+                        + (prob.Element("IsSolved").Value == "1" ? " (Solved)" : "") + "\r\n");
+                }            
+            }
+            
+            /*
             var problemsFromXML = from problem in thefile.Elements("AllProblemSets").Elements("ProblemSet").Elements("Problem")
                                   where problem.Parent.Element("ProblemSetID").Value == Convert.ToString(usersSets[selectedSet].problemSetID)
                                   select problem;
@@ -148,17 +195,17 @@ namespace MathDrillGame
                     attemptNumber = Convert.ToInt32(prob.Element("Attempts").Value),
 
                 });
-               
+               */
                /*Examples of how the next line will actually appear, under different circumstances
                     1) 	66 + 63	 2 attempts  (Solved)
                     2) 	60 + 66	 1 attempt 
                     3) 	62 + 67	 no attempts */
-               textBoxReport.AppendText(iterator + ")\t" + prob.Element("Operand1").Value + " " + prob.Parent.Element("Operator").Value + " " + prob.Element("Operand2").Value 
+               /*textBoxReport.AppendText(iterator + ")\t" + prob.Element("Operand1").Value + " " + prob.Parent.Element("Operator").Value + " " + prob.Element("Operand2").Value 
                    + "\t " + (prob.Element("Attempts").Value != "0" ? prob.Element("Attempts").Value : "no") 
                    + (prob.Element("Attempts").Value == "1"? " attempt " : " attempts ") 
-                   + (prob.Element("IsSolved").Value == "1" ? " (Solved)" : "") + "\r\n");
-            }            
-        }
+                   + (prob.Element("IsSolved").Value == "1" ? " (Solved)" : "") + "\r\n");*/
+        }            
+        
 
         
         private void buttonExit_Click(object sender, EventArgs e)

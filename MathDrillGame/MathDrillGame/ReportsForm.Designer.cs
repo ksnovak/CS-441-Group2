@@ -88,6 +88,7 @@
             this.dataGridProblemSets.Name = "dataGridProblemSets";
             this.dataGridProblemSets.ReadOnly = true;
             this.dataGridProblemSets.RowHeadersVisible = false;
+            this.dataGridProblemSets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridProblemSets.Size = new System.Drawing.Size(346, 189);
             this.dataGridProblemSets.TabIndex = 4;
             this.dataGridProblemSets.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridProblemSets_CellContentClick);
