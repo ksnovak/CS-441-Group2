@@ -69,22 +69,22 @@ namespace MathDrillGame
             {
                 doc = new XmlDocument();
                 XmlElement studentList = doc.CreateElement("StudentList");
-                XmlElement BillJAdmin = doc.CreateElement("Student");
-                XmlElement bfullName = doc.CreateElement("FullName");
-                bfullName.InnerText = "Default Admin";
-                BillJAdmin.AppendChild(bfullName);
-                XmlElement bisAdmin = doc.CreateElement("IsAdmin");
-                bisAdmin.InnerText = "1";
-                BillJAdmin.AppendChild(bisAdmin);
-                XmlElement buserID = doc.CreateElement("UserID");
-                buserID.InnerText = getNextUserID() + "";
-                BillJAdmin.AppendChild(buserID);
-                XmlElement blastLogin = doc.CreateElement("LastLogin");
-                blastLogin.InnerText = MINDATE.ToString("g");
-                BillJAdmin.AppendChild(blastLogin);
-                studentList.AppendChild(BillJAdmin);
+                XmlElement DefaultAdmin = doc.CreateElement("Student");
+                XmlElement afullName = doc.CreateElement("FullName");
+                afullName.InnerText = "Default Admin";
+                DefaultAdmin.AppendChild(afullName);
+                XmlElement aisAdmin = doc.CreateElement("IsAdmin");
+                aisAdmin.InnerText = "1";
+                DefaultAdmin.AppendChild(aisAdmin);
+                XmlElement auserID = doc.CreateElement("UserID");
+                auserID.InnerText = getNextUserID() + "";
+                DefaultAdmin.AppendChild(auserID);
+                XmlElement alastLogin = doc.CreateElement("LastLogin");
+                alastLogin.InnerText = MINDATE.ToString("g");
+                DefaultAdmin.AppendChild(alastLogin);
+                studentList.AppendChild(DefaultAdmin);
 
-                String[] students = new String[10] { "Susan M. Doe", "Joe A. Doe", "Edgar L. Park", "Jane G. Kragen", "Matt Y. Herman", "Jessica Q. Booker", "Laura T. Gwinn", "Patrick D. Henry", "Megan P. Nelson", "Brian H. Noll" };
+                String[] students = new String[5] { "Susan M. Doe", "Joe A. Doe", "Edgar L. Park", "Jane G. Kragen", "Matt Y. Herman"};
                 for (int i = 0; i < students.Length; i++)
                 {
                     XmlElement newStudent = doc.CreateElement("Student");

@@ -8,6 +8,10 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+/* The NEW USER FORM is used for creating new users.
+ * Will save to the XML file, and return to the Administrator form
+ * 
+ */
 
 namespace MathDrillGame
 {
@@ -18,6 +22,9 @@ namespace MathDrillGame
             InitializeComponent();
         }
 
+        /* SAVE CLICK event, on clicking the Save button, attempts to add the user to the XML file.
+         * Kevin and Uriah
+         */
         private void buttonSaveUser_Click(object sender, EventArgs e)
         {
             if (inputFullName.Text.Length > 0)
@@ -27,11 +34,12 @@ namespace MathDrillGame
 
         }
 
+        /* ADDNEWUSER will add the user to XML
+         * Kevin and Uriah
+         */
         private void addNewUser()
         {
-
             string userName = inputFullName.Text;
-
 
             XmlDocument doc = new XmlDocument();
             doc.Load(Program.USERSFILE);
@@ -49,11 +57,11 @@ namespace MathDrillGame
                     lastLogin.InnerText = Program.MINDATE.ToString("g");
                     newStudent.AppendChild(lastLogin);
             doc.DocumentElement.AppendChild(newStudent);
-
             doc.Save(Program.USERSFILE);
 
             XElement studentListXML = XElement.Load(Program.USERSFILE);
     
+            //Rebuild the list of users to accomodate for the new user.
             Program.users.Add(new User
             {
                 isAdmin = (studentListXML.Descendants("Student").Last().Element("IsAdmin").Value == "1"? true : false),
@@ -61,17 +69,17 @@ namespace MathDrillGame
                 userID = Convert.ToInt32(studentListXML.Descendants("Student").Last().Element("UserID").Value)
             });
 
-            /*var admin = (AdminForm)Tag;
-            admin.Show();*/
+            //Return to the Admin form
             AdminForm admin = new AdminForm();
             admin.Show();
             Close();
         }
 
+        /* CANCEL CLICK event, triggerd upon clicking the Cancel button. Returns immediately to the teacher form
+         * Kevin and Uriah
+         */
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            /*var admin = (AdminForm)Tag;
-            admin.Show();*/
             AdminForm admin = new AdminForm();
             admin.Show();
             Close();
