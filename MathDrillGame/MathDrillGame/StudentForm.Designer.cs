@@ -62,7 +62,7 @@
             // 
             this.labelQuestion.AutoSize = true;
             this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.labelQuestion.Location = new System.Drawing.Point(26, 89);
+            this.labelQuestion.Location = new System.Drawing.Point(12, 92);
             this.labelQuestion.Name = "labelQuestion";
             this.labelQuestion.Size = new System.Drawing.Size(0, 29);
             this.labelQuestion.TabIndex = 4;
@@ -70,7 +70,7 @@
             // inputAnswer
             // 
             this.inputAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.inputAnswer.Location = new System.Drawing.Point(138, 86);
+            this.inputAnswer.Location = new System.Drawing.Point(147, 86);
             this.inputAnswer.Name = "inputAnswer";
             this.inputAnswer.Size = new System.Drawing.Size(68, 35);
             this.inputAnswer.TabIndex = 1;
@@ -102,6 +102,7 @@
             this.AcceptButton = this.buttonSubmit;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonLogout;
             this.ClientSize = new System.Drawing.Size(316, 258);
             this.Controls.Add(this.labelFeedback);
             this.Controls.Add(this.buttonSubmit);

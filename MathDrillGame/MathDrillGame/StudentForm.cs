@@ -119,7 +119,7 @@ namespace MathDrillGame
                     problemSetSize = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count();
                 }
             }//end set while
-            labelFeedback.Text = "You've solved them all!";
+            labelFeedback.Text = "You've completed all problem sets assigned to you!";
             buttonSubmit.Enabled = inputAnswer.Enabled = false;
             CancelButton = buttonLogout;
             return null;
@@ -166,6 +166,11 @@ namespace MathDrillGame
                 labelFeedback.Text = "Incorrect";
             }
 
+            //Show the feedback for just a half-second by making the thread sleep
+            Refresh();
+            System.Threading.Thread.Sleep(500);
+            labelFeedback.Text = "";
+
             //Whether they got the problem right or wrong, progress to the next one, display it, and focus on the input field.
             problemIndex++;
             problemIndex = (problemIndex % problemSetSize); //Make sure we loop through the problemset, not going out of bounds.
@@ -209,26 +214,41 @@ namespace MathDrillGame
             labelFeedback.Text = "";
         }
 
-        //If they click the X, terminate the entire program
-        private void buttonClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         //When they click the logout button, close the Student screen and show the Login screen.
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            if (File.Exists(fileName))
+            DialogResult result1 = MessageBox.Show("Are you sure you want to log out?", "Math Drills - Alert", MessageBoxButtons.YesNo);
+            if (result1 == DialogResult.Yes)
             {
-                if (StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Element("IsSolved").Value == "0")
+                 if (File.Exists(fileName))
+                    {
+                        if (StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Element("IsSolved").Value == "0")
+                        {
+                            StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("LastAccessed", DateTime.Now.ToString("g"));
+                            StudentXMLFile.Save(fileName);
+                        }
+                    }
+
+                 goToLogin();
+                 
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+        }
+
+        private void goToLogin()
+        {
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f.GetType() == typeof(LoginForm))
                 {
-                    StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("LastAccessed", DateTime.Now.ToString("g"));
-                    StudentXMLFile.Save(fileName);
+                    f.Show();
+                    this.Hide();
                 }
             }
-            var login = (LoginForm)Tag;
-            login.Show();
-            Close();
         }
     }//end StudentForm class
 }//end namespace

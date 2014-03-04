@@ -91,7 +91,7 @@
             this.dataGridProblemSets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridProblemSets.Size = new System.Drawing.Size(346, 189);
             this.dataGridProblemSets.TabIndex = 4;
-            this.dataGridProblemSets.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridProblemSets_CellContentClick);
+            this.dataGridProblemSets.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridProblemSets_CellClick);
             // 
             // select
             // 

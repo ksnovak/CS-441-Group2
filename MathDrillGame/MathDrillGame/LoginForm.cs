@@ -89,6 +89,7 @@ namespace MathDrillGame
                 adminForm.Tag = this;
                 adminForm.Show(this);
                 this.Hide();
+                
             }
             else
             {

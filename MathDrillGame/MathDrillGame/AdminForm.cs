@@ -23,9 +23,41 @@ namespace MathDrillGame
         static Random rng = new Random(); //Used for generating random numbers. Creates a random seed so that it is more random.
         User targetUser;
         string fileName;
+        NewUserForm newuser;
         public AdminForm()
         {
             InitializeComponent();
+            newuser = new NewUserForm();
+            newuser.FormClosed += new FormClosedEventHandler(newuser_FormClosed);
+        }
+
+        void newuser_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+
+            newuser = new NewUserForm();
+            newuser.FormClosed += new FormClosedEventHandler(newuser_FormClosed);
+
+            XElement studentListXML = XElement.Load(Program.USERSFILE);
+            Program.users.Clear();
+            foreach (XElement user in studentListXML.Descendants("Student"))
+            {
+
+                Program.users.Add(new User
+                {
+                    isAdmin = (user.Element("IsAdmin").Value == "1" ? true : false),
+                    fullName = user.Element("FullName").Value,
+                    userID = Convert.ToInt32(user.Element("UserID").Value)
+                });
+            }
+            listOfStudents.DataSource = null;
+            listOfStudents.DataSource = Program.users;
+            listOfStudents.DisplayMember = ""; //This is the value to show on-screen
+            listOfStudents.DisplayMember = "getRoleAndName"; //This is the value to show on-screen
+            listOfStudents.ValueMember = "userID"; //This is the value to pass
+            listOfStudents.Update();
+
+
         }
 
         //When the form is opened, give a personalized greeting, and fill the user list with users.
@@ -83,14 +115,6 @@ namespace MathDrillGame
                 }
                 quantity = Convert.ToInt32(inputQuantity.Text); //Turn the string input into ints
                 isAddition = radioAddition.Checked; //Determine the type of problem
-                
-
-                if (generateProblemSet())
-                {
-                    listOfProblems.Text = "Success!";
-                }
-
-
             }
         }
 
@@ -126,15 +150,21 @@ namespace MathDrillGame
             newProblemSet.Add(problemSetSolved);
             XElement lastAccessed = new XElement("LastAccessed", Program.MINDATE.ToString("g"));
             newProblemSet.Add(lastAccessed);
+            int op1;
+            int op2;
             for (int i = 0; i < quantity; i++)
             {
+                op1 = rng.Next(min, max);
+                op2 = rng.Next(min, max);
                 XElement newProblem = new XElement("Problem",
-                    new XElement("Operand1", rng.Next(min, max).ToString()),
-                    new XElement("Operand2", rng.Next(min, max).ToString()),
+                    new XElement("Operand1", op1.ToString()),
+                    new XElement("Operand2", op2.ToString()),
                     new XElement("IsSolved", "0"),
                     new XElement("Attempts", "0"));
-
+                listOfProblems.AppendText(op1 + (isAddition ? " + " : " - ") + op2 + "\r\n");
                 newProblemSet.Add(newProblem);
+
+
             }
 
             xml.Root.Add(newProblemSet);
@@ -166,12 +196,14 @@ namespace MathDrillGame
 
         private void buttonNewUser_Click(object sender, EventArgs e)
         {
-            /*NewUserForm newUserForm = new NewUserForm();
-            newUserForm.Tag = this;
+            NewUserForm newUserForm = new NewUserForm();
+            newUserForm.Show();
+            Close();
+            /*newUserForm.Tag = this;
             newUserForm.Show(this);
-            Hide();*/
-            NewUserForm newuser = new NewUserForm();
-            newuser.Show();
+            Hide();
+            //NewUserForm newuser = new NewUserForm();
+            newuser.Show();*/
 
         }
 
@@ -188,15 +220,26 @@ namespace MathDrillGame
         //When they click the Logout button, close the Admin form and show the Login form (form1).
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            var loginForm = (LoginForm)Tag;
-            loginForm.Show();
-            Close();
+            goToLogin();
         }
 
-        //If they click the X, terminate the entire program
-        private void buttonClose_Click(object sender, EventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            Application.Exit();
+            base.OnFormClosing(e);
+            goToLogin();
+        }
+
+
+        private void goToLogin()
+        {
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f.GetType() == typeof(LoginForm))
+                {
+                    f.Show();
+                    this.Hide();
+                }
+            }
         }
     } //end AdminForm class
 } //end namespace

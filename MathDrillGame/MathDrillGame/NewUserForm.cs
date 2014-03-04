@@ -20,7 +20,10 @@ namespace MathDrillGame
 
         private void buttonSaveUser_Click(object sender, EventArgs e)
         {
-            addNewUser();
+            if (inputFullName.Text.Length > 0)
+            {
+                addNewUser();
+            }
 
         }
 
@@ -60,6 +63,8 @@ namespace MathDrillGame
 
             /*var admin = (AdminForm)Tag;
             admin.Show();*/
+            AdminForm admin = new AdminForm();
+            admin.Show();
             Close();
         }
 
@@ -67,6 +72,8 @@ namespace MathDrillGame
         {
             /*var admin = (AdminForm)Tag;
             admin.Show();*/
+            AdminForm admin = new AdminForm();
+            admin.Show();
             Close();
         }
     }
