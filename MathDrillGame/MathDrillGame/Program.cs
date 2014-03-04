@@ -20,6 +20,8 @@ namespace MathDrillGame
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        
+        
 
         public static List<User> users = new List<User>();
         public static int currentUserIndex; //Who is logged in
@@ -33,6 +35,14 @@ namespace MathDrillGame
         [STAThread]
         static void Main()
         {
+            bool result;
+            var mutex = new System.Threading.Mutex(true, "MathDrills", out result);
+            if (!result)
+            {
+                MessageBox.Show("The game is already open in another window.");
+                return;
+
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -42,6 +52,7 @@ namespace MathDrillGame
             initializeUserList();
             
             Application.Run(new LoginForm());
+            GC.KeepAlive(mutex);
         }
 
         private static void initializeUserList()
