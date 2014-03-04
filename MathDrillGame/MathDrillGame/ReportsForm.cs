@@ -162,15 +162,20 @@ namespace MathDrillGame
             textBoxReport.AppendText(summaryText);
         }
 
+        /* PROBLEMSET CLICK event, triggered when clicking on a problem set (or multiple sets) in the dataGrid. 
+         * Will calculate and display statistics regarding the selected set(s) in the textBox
+         * Kevin and Uriah
+         */
         private void dataGridProblemSets_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-            textBoxReport.Text = summaryText + "\r\n";
+            textBoxReport.Text = summaryText + "\r\n"; //Reset the text in the textBox, and then display the student details.
 
             int selectedSet;
-            if (!File.Exists(fileName))
+            if (!File.Exists(fileName)) //Check if the selected user has a file with problems in it (Clicking on the headers will trigger this event, so this line protects against that)
                 return;
             XDocument thefile = XDocument.Load(fileName);
+
+            // Go through the list of selected rows, and generate information basedon the XML file.
             foreach (DataGridViewRow row in dataGridProblemSets.SelectedRows)
             {
                 selectedSet = row.Index;
@@ -179,18 +184,18 @@ namespace MathDrillGame
                                       select problem;
 
                 textBoxReport.AppendText("Problem Set #" + usersSets[selectedSet].problemSetID + " Details");
+
+                //If they haven't even attempted this set yet, make a statement as such.
                 if (thefile.Elements("AllProblemSets").Elements("ProblemSet").ElementAt(selectedSet).Element("LastAccessed").Value == Program.MINDATE.ToString("g"))
                 {
                     textBoxReport.AppendText("(NOT TAKEN)");
                 }
                 textBoxReport.AppendText(" \r\n");
 
-
-
                 List<Problem> problemsInSet = new List<Problem>();
                 int numSolved = 0;
-
-                int iterator = 0;
+                int iterator = 0; //Used to display the problem number
+                //Find all of the problems in that specific problem set and add them to a List<Problem>, also tracking how many were solved
                 foreach (XElement prob in problemsFromXML)
                 {
                     iterator++;
@@ -203,7 +208,6 @@ namespace MathDrillGame
                         operand1 = Convert.ToInt32(prob.Element("Operand1").Value),
                         operand2 = Convert.ToInt32(prob.Element("Operand2").Value),
                         attemptNumber = Convert.ToInt32(prob.Element("Attempts").Value),
-
                     });
 
                     /*Examples of how the next line will actually appear, under different circumstances

@@ -162,10 +162,10 @@
             // 
             // listOfProblems
             // 
-            this.listOfProblems.Enabled = false;
             this.listOfProblems.Location = new System.Drawing.Point(218, 211);
             this.listOfProblems.Multiline = true;
             this.listOfProblems.Name = "listOfProblems";
+            this.listOfProblems.ReadOnly = true;
             this.listOfProblems.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.listOfProblems.Size = new System.Drawing.Size(224, 284);
             this.listOfProblems.TabIndex = 14;

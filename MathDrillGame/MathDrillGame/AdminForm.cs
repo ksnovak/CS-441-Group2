@@ -108,6 +108,7 @@ namespace MathDrillGame
         private bool generateProblemSet()
         {
             XmlDocument doc;
+            listOfProblems.Text = "";
 
             //If they have no file yet, create one with the base information.
             if (!File.Exists(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml"))
