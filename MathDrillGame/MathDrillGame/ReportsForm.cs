@@ -9,33 +9,43 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.IO;
 
+/* The REPORTS form, used by teachers to get statistics on their students
+ * Has a list of students. Selection of one will show a list of their problem sets in a dataGrid, as well as printing student information.
+ * Has a datagrid of problem sets to a specific user. Selection of one or multiple sets will print information about those sets and their problems
+ */
+
 namespace MathDrillGame
 {
     public partial class ReportsForm : Form
     {
         int targetStudentID;
-        string fileName = "";
-        List<ProblemSet> usersSets = new List<ProblemSet>();
-        List<Problem> problemsInSet = new List<Problem>();
-        List<User> adminStudentList = new List<User>();
-        string summaryText = "";
+        string fileName = ""; //Regularly updates to target the currently-selected student's file
+        List<User> adminStudentList = new List<User>();         //List of all students (excludes teachers)
+        List<ProblemSet> usersSets = new List<ProblemSet>();    //List of all of the problem sets to a specific students
+        List<Problem> problemsInSet = new List<Problem>();      //List of all problems to a specific set
+        
+        string summaryText = ""; //A string used for printing to the textBox. This is done instead of directly printing just due to the ordering of execution vs. what needs to be printed
 
         public ReportsForm()
         {
             InitializeComponent();
         }
 
+        /* LOAD event, triggered when the form loads
+         * Will read from the student list XML into a List of User objects, and set the default values for the datetimepickers
+         * Kevin and Uriah
+         */
         private void Reports_Load(object sender, EventArgs e)
         {
             XElement studentListXML = XElement.Load(Program.USERSFILE);
             adminStudentList.Clear();
             foreach (XElement user in studentListXML.Descendants("Student"))
             {
-                if (user.Element("IsAdmin").Value == "0")
+                if (user.Element("IsAdmin").Value == "0") //Exclude the teachers from this list
                 {
                     adminStudentList.Add(new User
                     {
-                        isAdmin = (user.Element("IsAdmin").Value == "1" ? true : false),
+                        isAdmin = false,
                         fullName = user.Element("FullName").Value,
                         userID = Convert.ToInt32(user.Element("UserID").Value)
                     });
@@ -48,7 +58,10 @@ namespace MathDrillGame
             dateTimePickerMax.Value = new DateTime(2014, 12, 31).AddHours(23).AddMinutes(59).AddSeconds(59); //Get the very end of today
         }
 
-
+        /* COMBOBOX SELECTION event, when a student is selected in the combobox
+         * Updates the integer keeping track of the current student's ID, the filename string, and finds the problem sets for that student
+         * Kevin and Uriah
+         */
         private void comboStudentList_SelectedIndexChanged(object sender, EventArgs e)
         {
             targetStudentID = adminStudentList[comboStudentList.SelectedIndex].userID;
@@ -56,18 +69,21 @@ namespace MathDrillGame
             findProblemSets();
         }
 
-
+        /* FINDPROBLEMSETS will take the selected student, read their problem sets from XML, put it into a List, and then display the sets in a dataGrid
+         * Kevin and Uriah
+         */
         public void findProblemSets()
         {
-            usersSets.Clear();
+            usersSets.Clear(); //Empty the list of problem sets, to avoid problems from viewing multiple students in a session
             dataGridProblemSets.DataSource = null;
-            textBoxReport.Text = "";
+            textBoxReport.Text = ""; //Empty the textbox area
 
             XElement usersfile = XElement.Load(Program.USERSFILE);
-            var selectUser = from user in usersfile.Elements("Student")
+            var selectUser = from user in usersfile.Elements("Student") //Find the selected user in the USERS xml file
                              where Convert.ToInt32(user.Element("UserID").Value) == targetStudentID
                              select user;
             
+            //Print out general information regarding the student (Name, ID, last login)
             summaryText = "Student activity report for ";
             foreach (XElement user in selectUser)
             {
@@ -77,14 +93,16 @@ namespace MathDrillGame
                 else
                     summaryText += "Last logged in: " + user.Element("LastLogin").Value + "\r\n";
             }
+
+            //Check if they have problem sets file (ie, if they have any problems assigned).
+            //If so, start adding problem sets to the List which will then be shown in the dataGrid
             if (File.Exists(fileName))
             {
                 XElement studentsSetsXML = XElement.Load(fileName);
-
                 foreach (XElement set in studentsSetsXML.Descendants("ProblemSet"))
                 {
-                    int numSolved = 0;
-                    int problemQuantity = 0;
+                    int numSolved = 0;      //How many problems in the set are solved
+                    int problemQuantity = 0; //How many problems are in the set
 
                     var problemsFromXML = from problem in set.Elements("Problem")
                                           select problem;
@@ -95,11 +113,17 @@ namespace MathDrillGame
                         problemQuantity++;
                     }
 
-                    DateTime lastAccessed = DateTime.Parse(set.Element("LastAccessed").Value);
-                    /* Sets which have been attempted have to be within the min and max range
+                    DateTime lastAccessed = DateTime.Parse(set.Element("LastAccessed").Value); //Turn the LastLogin string into a DateTime object
+                    /* Sets which have been attempted have to be within the min and max range 
                      * Unattempted problems need the checkbox to be set.
                      */
                  
+                /* Find the problems which either:
+                 * A) have been attempted some point within the date range as specified by the teacher
+                 * B) have never been attempted, IF the checkbox to allow un-attempted sets is checked
+                 * 
+                 * If it meets one of those 2, then add to the list of sets.
+                 */
                 if (    ((lastAccessed.Date <= dateTimePickerMax.Value) && (lastAccessed >= dateTimePickerMin.Value))   ||   (lastAccessed == Program.MINDATE && checkBoxUnattempted.Checked)   )
                     {
                         usersSets.Add(new ProblemSet
@@ -114,29 +138,25 @@ namespace MathDrillGame
                         });
                     }
                                                    
-                }
+                } 
 
+                //If there has been at least one valid set found, then apply it to the dataGrid
                 if (usersSets.Count > 0)
                 {
                     dataGridProblemSets.DataSource = usersSets;
-                    if (dataGridProblemSets.Columns.Count > 1)
-                    {
-                        dataGridProblemSets.Columns[0].HeaderText = "Set ID";
-                        dataGridProblemSets.Columns[1].Visible = false;
-                        dataGridProblemSets.Columns[2].HeaderText = "All done?";
-                        dataGridProblemSets.Columns[3].Visible = false;
-                        dataGridProblemSets.Columns[4].Visible = false;
-                        dataGridProblemSets.Columns[5].HeaderText = "Score";
-                        dataGridProblemSets.Columns[6].HeaderText = "Attempted on";
-                    }
+                    dataGridProblemSets.Columns[0].HeaderText = "Set ID";
+                    dataGridProblemSets.Columns[1].Visible = false;
+                    dataGridProblemSets.Columns[2].HeaderText = "All done?";
+                    dataGridProblemSets.Columns[3].Visible = false;
+                    dataGridProblemSets.Columns[4].Visible = false;
+                    dataGridProblemSets.Columns[5].HeaderText = "Score";
+                    dataGridProblemSets.Columns[6].HeaderText = "Attempted on";
 
                     summaryText += "\r\nProblem Set Summary \r\nID \tType \tQty \tCorrect \tScore \tQuiz Date \r\n";
                     foreach (ProblemSet set in usersSets)
                     {
                         summaryText += set.printSummary();
                     }
-
-
                 }
             }//End of if(file.exists)
             textBoxReport.AppendText(summaryText);
