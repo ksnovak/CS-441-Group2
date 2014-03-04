@@ -5,40 +5,35 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Xml;
 using System.IO;
 
+/* The ADMINISTRATOR form, the main page that administrators are shown when logged in
+ * Used for generating problems for students, and also has buttons to go to Reports or New User creation
+ */
 namespace MathDrillGame
 {
     public partial class AdminForm : Form
     {
         int min; //Minimum range for RNG
         int max; //Maximum range for RNG
-        int quantity;
+        int quantity; //Quantity of problems to generate
         bool isAddition; //Whether the problems are addition or subtraction for RNG
         
-        static Random rng = new Random(); //Used for generating random numbers. Creates a random seed so that it is more random.
-        List<User> adminStudentList = new List<User>();
-        User targetUser;
+        static Random rng = new Random();   //Used for generating random numbers. Creates a random seed so that it is more random.
+        List<User> adminStudentList = new List<User>(); //A list of students (and ONLY students) for the administrator
+        User targetUser;                    //Holds user details on the selected user
         string fileName;
-        NewUserForm newuser;
         public AdminForm()
         {
             InitializeComponent();
-            newuser = new NewUserForm();
-            newuser.FormClosed += new FormClosedEventHandler(newuser_FormClosed);
         }
 
-        void newuser_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            newuser = new NewUserForm();
-            newuser.FormClosed += new FormClosedEventHandler(newuser_FormClosed);
-        }
-
-        //When the form is opened, give a personalized greeting, and fill the user list with users.
+        /* LOAD event is triggered when the form opens. It will read from the XML into a list in memory, which then will feed into the listbox
+         * This will only display students, doesn't include administrators
+         */
         private void AdminForm_Load(object sender, EventArgs e)
         {
             XElement studentListXML = XElement.Load(Program.USERSFILE);
@@ -61,7 +56,6 @@ namespace MathDrillGame
             listOfStudents.ValueMember = "userID"; //This is the value to pass
 
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
-            this.Activate();
         }
 
         //When you select someone from the list, save to a variable which member it is, and personalize a message.
@@ -192,8 +186,6 @@ namespace MathDrillGame
             NewUserForm newUserForm = new NewUserForm();
             newUserForm.Show();
             Close();
-
-
         }
 
         private void buttonReports_Click(object sender, EventArgs e)

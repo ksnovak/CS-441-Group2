@@ -51,7 +51,7 @@ namespace MathDrillGame
 
         private void comboStudentList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            targetStudentID = Program.users[comboStudentList.SelectedIndex].userID;
+            targetStudentID = adminStudentList[comboStudentList.SelectedIndex].userID;
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetStudentID + ".xml";
             findProblemSets();
         }

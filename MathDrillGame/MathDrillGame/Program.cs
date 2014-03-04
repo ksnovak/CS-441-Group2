@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
-
-
-/* update user list after creation
- * ability to remove students?
+/* The PROGRAM class
+ * This is the class of the main program itself which runs
+ * It holds some static values, including a user list and file paths
+ * Makes use of a mutex to allow only one instance of the program.
+ * Generates a list of sample users in XML
  */
-
 
 namespace MathDrillGame
 {
@@ -20,8 +19,6 @@ namespace MathDrillGame
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        
-        
 
         public static List<User> users = new List<User>();
         public static int currentUserIndex; //Who is logged in
@@ -33,6 +30,11 @@ namespace MathDrillGame
         public static DateTime MINDATE = new DateTime(2013, 12, 31);
 
         [STAThread]
+        /* mutex tries to create a mutex lock, titled "MathDrills". result will be whether or not that succeeded. It won't succeed if it is already locked
+         * GC.KeepAlive means that the garbage collector will never release that mutex.
+         * 
+         * If it could not get the mutex lock, then don't bother running the rest of the program.
+         */
         static void Main()
         {
             bool result;
@@ -55,6 +57,11 @@ namespace MathDrillGame
             GC.KeepAlive(mutex);
         }
 
+
+        /* INITIALIZEUSERLIST will create a list of default users in XML, including an administrator
+         * 
+         * Kevin and Uriah
+         */
         private static void initializeUserList()
         {
             XmlDocument doc;
@@ -64,7 +71,7 @@ namespace MathDrillGame
                 XmlElement studentList = doc.CreateElement("StudentList");
                 XmlElement BillJAdmin = doc.CreateElement("Student");
                 XmlElement bfullName = doc.CreateElement("FullName");
-                bfullName.InnerText = "Bill J. Admin";
+                bfullName.InnerText = "Default Admin";
                 BillJAdmin.AppendChild(bfullName);
                 XmlElement bisAdmin = doc.CreateElement("IsAdmin");
                 bisAdmin.InnerText = "1";
@@ -104,6 +111,12 @@ namespace MathDrillGame
                 nextUserID = Convert.ToInt32(user.Descendants("Student").Last().Element("UserID").Value)+1;
             }
         }
+
+        /* INITIALIZECONFIGFILE will create a config file 
+         * Currently, it is used for ensuring unique IDs (for students and for problem sets)
+         * If the file is not found, then set values in the file to some default ones.
+         * If the file is found, then set the program's statics to the values in the file.
+         */
         private static void initializeConfigFile()
         {
               
@@ -128,11 +141,17 @@ namespace MathDrillGame
               }
         }
 
+        /* GETNEXTUSERID will both return a unique ID and increment the static to the next one
+         * Kevin and Uriah 
+         */
         public static int getNextUserID()
         {
             return nextUserID++;
         }
 
+        /* GETNEXTPROBLEMSETID will both return a unique ID and increment the static to the next one
+         * Kevin and Uriah 
+         */
         public static int getNextProblemSetID()
         {
             return nextProblemSetID++;

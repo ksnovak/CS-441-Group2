@@ -13,7 +13,6 @@ using System.Xml.Linq;
  * This is where they identify themselves and enter the rest of the program.
  */
 
-
 namespace MathDrillGame
 {
     public partial class LoginForm : Form
@@ -23,7 +22,6 @@ namespace MathDrillGame
         {
             InitializeComponent();
             buildUserList(); 
-
         }
 
         /* BUILDUSERLIST takes users from the XML file and stores them into a List<User>, primarily for displaying on the various List Boxes.
@@ -44,7 +42,8 @@ namespace MathDrillGame
                     userID = Convert.ToInt32(user.Element("UserID").Value)                         
                 });
             }
-            
+
+            //Link the list of users to the listBox
             listOfUsers.DataSource = Program.users; //This will link that List<Users> to the ListBox
             listOfUsers.DisplayMember = "getRoleAndName"; //What will be shown. Note, this is a function in the User class to show both the role and the name.
             listOfUsers.ValueMember = "userID";
@@ -66,7 +65,6 @@ namespace MathDrillGame
                 studentListXML.Save(Program.USERSFILE);
                 buildUserForm(Program.users[Program.currentUserIndex]);
             }
-
         }
 
         /* AUTHUSER will check the user's password against the entered password, for authentication uses later on.
@@ -85,7 +83,10 @@ namespace MathDrillGame
          */
         private void buildUserForm(User user)
         {
-            bool foundForm = false;
+            /*When trying to build the administrator form, checks if one already exists
+             *If it does, just show that form, otherwise you'll create a new one
+             */
+            bool foundForm = false; 
             foreach (Form f in Application.OpenForms)
             {
                 if (f.GetType() == typeof(AdminForm) && user.isAdmin)
@@ -97,6 +98,7 @@ namespace MathDrillGame
             }
             if (!foundForm)
             {
+                //Tag is used so as to be able to refer back to this instance of the form later on
                 if (user.isAdmin)
                 {
                     AdminForm adminForm = new AdminForm();
@@ -110,7 +112,6 @@ namespace MathDrillGame
                     studentForm.Tag = this;
                     studentForm.Show(this);
                     this.Hide();
-
                 }
             }
         }
@@ -125,9 +126,7 @@ namespace MathDrillGame
             doc.SetElementValue("NextValidUser", Program.nextUserID);
             doc.SetElementValue("NextValidSet", Program.nextProblemSetID);
             doc.Save(Program.CONFIGFILE);
-
             Application.Exit();
         }
-
     }//end Form1 class
 }//end namespace
