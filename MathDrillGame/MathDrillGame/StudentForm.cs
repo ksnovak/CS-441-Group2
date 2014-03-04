@@ -10,9 +10,8 @@ using System.Xml.Linq;
 using System.IO;
 using System.Xml;
 
-/* The STUDENTFORM form
- * This is the view shown to students after they log in, which currently only allows them to perform math drills.
- * 
+/* The STUDENTFORM form is the view shown to students after they log in.
+ * Currently the only function is to allow them to perform math drills.
  */
 
 namespace MathDrillGame
@@ -30,9 +29,14 @@ namespace MathDrillGame
         public StudentForm()
         {
             InitializeComponent();
-            Shown += StudentShown;
+            Shown += StudentShown; //When the form is created, "StudentShown" is set as an event function which triggers on the form being shown (either on creation or when being unhidden)
         }
 
+        /* SHOWN EVENT, triggered when the form is shown (either initial creation, or when unhidden). 
+         * Builds the form to be specific to that student, and tries to get the first problem.
+         * If the student has no problem file, it says that they have no problems, and disables inputs.
+         * Kevin and Uriah
+         */
         private void StudentShown(object sender, EventArgs e)
         {
             labelWelcome.Text = "Welcome, " + currentUser.fullName;
@@ -61,24 +65,13 @@ namespace MathDrillGame
             currentProblem = getProblem();
             if (currentProblem != null)
                 displayProblem();
-     
-        }
-
-
-        //When form loads, create personalized greeting and fill the side textbox with the problems 
-        //Note: the textbox is really just for coding knowledge, to keep track of problems and such. Won't be there for the end product.
-        /* When the student form loads
-         * Create a personalized greeting ("Welcome, John Q. Public"), set the proper file path, and try to get a problem
-         * If there are no unsolved problems assigned, say so and disable any inputs.
-         * Otherwise, retrieve and display the first problem.
-         */
-        private void StudentForm_Load(object sender, EventArgs e)
-        {
-        }        
+        }      
 
         /* GETPROBLEM returns the next unsolved problem, or null if there are none
-         * The outer while loop goes through the list of problem sets, searching for one that isn't completely solved. Upon finding one, it enters and searches that set for an individual unsovled problem
-         * problemIterator and setIterator exist so that, if all of the problems or sets are solved, there is no infinite loop. When they decrement to 0 (a full loop through the list), it breaks from the loop
+         * Outer loop iterates through all problem sets. Inner loop iterates through each set's individual problems.
+         * Will only ever enter the inner loop if the problem as a whole has not been set to Solved
+         * To avoid infinite loops, problemIterator and setIterator exist, starting with the quantity of sets in file (or problems in set) and decrementing each iteration.
+         * Upon problemIterator hitting 0, it will go to the next set. Upon setIterator hitting 0, it will escape the loop entirely
          * Kevin and Uriah
          */
         public Problem getProblem()
@@ -106,46 +99,53 @@ namespace MathDrillGame
                         else
                         {
                             problemIndex++;
-                            problemIndex = (problemIndex % problemSetSize);
+                            problemIndex = (problemIndex % problemSetSize); //Make sure to wrap around...
                             problemIterator--;
                         }
                     }//end problem while
+                    //If they get to this point, then a set has been completed. Give feedback, and save information. 
                     labelFeedback.Text = "You've completed a problem set!";
                     StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("LastAccessed", DateTime.Now.ToString("g"));
                     StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("IsSolved", "1");
                     StudentXMLFile.Save(fileName);
-
                     problemIndex = 0;
                 }
-                else
+                else //If they get to this point, it means that a set has been found to be completed. Go to the next one, making sure to update the various counts
                 {
                     setIndex++;
                     setIndex = (setIndex % StudentXMLFile.Descendants("ProblemSet").Count());
                     setIterator--;
                     problemIndex = 0;
-                    problemSetSize = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count();
+                    problemSetSize = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count(); //Find out how many problems there are for this set
                 }
             }//end set while
+
+            //If they get to this point, then all of their sets have been completed. Give feedback, disable input, and escape the function.
             labelFeedback.Text = "You've completed all problem sets assigned to you!";
             buttonSubmit.Enabled = inputAnswer.Enabled = false;
             CancelButton = buttonLogout;
             return null;
         }
         
-
-        //Show the problem on the screen. "n + m ="
+        /* DISPLAYPROBLEM displays the currently selected problem on screen
+         * Kevin and Uriah
+         */
         public void displayProblem()
         {
             labelQuestion.Text = currentProblem.printProblem() + " = ";
         }
 
-        //When clicking the submit button, check if the answer is right.
+        /* SUBMIT CLICK event, when the Submit button is clicked, submit the answer
+         * Kevin and Uriah
+         */
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
             submitAnswer(); 
         }
 
-        //Checks if the answer is right. Called either by clicking Submit, or by pressing Enter. 
+        /* SUBMITANSWER, called after clicking the Submit button, checks if the input is valid, checks if it is correct, gives feedback, and finds the next problem
+         * Kevin and Uriah
+         */
         public void submitAnswer()
         {
             int value; //Temporary, just used for int.TryParse, otherwise unneeded.
@@ -188,18 +188,26 @@ namespace MathDrillGame
         }
 
         //Checks if an answer is correct. Return value is true for correct, false for incorrect.
+        /* CHECKANSWER, checks if the answer is correct or not and returns a bool as such
+         * 
+         * Kevin and Uriah
+         */
         public bool checkAnswer()
         {
             int answer;
 
+            //Update the XML to specify how many times the problem has been attempted.
+            int prevAttempts = Convert.ToInt32(StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).Element("Attempts").Value);
+            StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("Attempts", prevAttempts + 1);
+
+            //Figure out what the answer should be
             if (StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Element("Operator").Value == "+")
                 answer = currentProblem.operand1 + currentProblem.operand2;
             else
                 answer = currentProblem.operand1 - currentProblem.operand2;
 
-            int prevAttempts = Convert.ToInt32(StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).Element("Attempts").Value);
-            StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("Attempts", prevAttempts + 1);
-
+            //Check if the answer is what it should be, and return a relevant boolean.
+            //If it is correct, update the XML to say that the problem is solved.
             if (answer == Convert.ToInt32(inputAnswer.Text))
             {
                 StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("IsSolved", "1");
@@ -214,14 +222,20 @@ namespace MathDrillGame
 
         }
 
-        //This will remove the feedback text (e.g. "Correct!") as soon as they start typing in an answer for the next problem
-        //That way they won't be confused as to what the feedback refers to.
+        /* INPUT CHANGE event, when the user starts to type things in the input box, clear the feedback text
+         * This makes sure that any feedback for the last problem (or the last problem set) won't be misunderstood to be relevant to the current one
+         * Kevin and Uriah
+         */
         private void inputAnswer_TextChanged(object sender, EventArgs e)
         {
             labelFeedback.Text = "";
         }
 
         //When they click the logout button, close the Student screen and show the Login screen.
+        /* LOGOUT CLICK event, triggered upon clicking the "Log out" button, makes sure that they wish to log out. 
+         * If they do, then saves the XML and returns to the login screen
+         * Kevin and Uriah
+         */
         private void buttonLogout_Click(object sender, EventArgs e)
         {
             DialogResult result1 = MessageBox.Show("Are you sure you want to log out?", "Math Drills - Alert", MessageBoxButtons.YesNo);
@@ -235,17 +249,23 @@ namespace MathDrillGame
                             StudentXMLFile.Save(fileName);
                         }
                     }
-
                  goToLogin();
-                 
             }
         }
 
+        /* FORM CLOSING event, triggered when the student form closes for any reason. Goes to the login screen
+         * Kevin and Uriah
+         */
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
+            goToLogin();
         }
 
+        /* GOTOLOGIN, triggered by attempts to close the screen. Opens up the Login screen and hides the student screen
+         * Finds the login screen by cycling through the list of currently open Forms.
+         * Kevin and Uriah
+         */
         private void goToLogin()
         {
             foreach (Form f in Application.OpenForms)

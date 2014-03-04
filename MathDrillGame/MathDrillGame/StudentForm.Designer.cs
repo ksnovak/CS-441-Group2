@@ -116,7 +116,6 @@
             this.Name = "StudentForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Math Drills - Student";
-            this.Load += new System.EventHandler(this.StudentForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

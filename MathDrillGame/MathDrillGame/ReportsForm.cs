@@ -207,7 +207,7 @@ namespace MathDrillGame
                         isSolved = (prob.Element("IsSolved").Value == "1" ? true : false),
                         operand1 = Convert.ToInt32(prob.Element("Operand1").Value),
                         operand2 = Convert.ToInt32(prob.Element("Operand2").Value),
-                        attemptNumber = Convert.ToInt32(prob.Element("Attempts").Value),
+                        attemptNumber = Convert.ToInt32(prob.Element("Attempts").Value)
                     });
 
                     /*Examples of how the next line will actually appear, under different circumstances
@@ -224,26 +224,37 @@ namespace MathDrillGame
         }            
         
 
-        
+        /* EXIT CLICK event, triggered when clicking the Exit button, closes this window 
+         * Note that the main Admin window was never closed/hidden previously, so does not need to be opened/shown
+         * Kevin and Uriah
+         */
         private void buttonExit_Click(object sender, EventArgs e)
         {
-            /*var admin = (AdminForm)Tag;
-            admin.Show();
-            admin.Activate();
-            Close();*/
             Close();
         }
 
+        /* CHECKBOX CHANGED event, triggered when checking or unchecking the checkbox (determining whether or not to show sets that haven't been attempted yet)
+         * Calls the function to redraw the list of problem sets.
+         * Kevin and Uriah
+         */
         private void checkBoxUnattempted_CheckedChanged(object sender, EventArgs e)
         {
             findProblemSets();
         }
 
+        /* MIN DATE CHANGED event, triggered when the Minimum DateTimePicker's date has been changed
+         * Calls the function to redraw the list of problem sets.
+         * Kevin and Uriah
+         */
         private void dateTimePickerMin_ValueChanged(object sender, EventArgs e)
         {
             findProblemSets();
         }
 
+        /* MAX DATE CHANGED event, triggered when the Maximum DateTimePicker's date has been changed
+         * Calls the function to redraw the list of problem sets.
+         * Kevin and Uriah
+         */
         private void dateTimePickerMax_ValueChanged(object sender, EventArgs e)
         {
             findProblemSets();
