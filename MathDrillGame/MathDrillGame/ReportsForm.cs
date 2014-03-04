@@ -28,7 +28,7 @@ namespace MathDrillGame
         {
             comboStudentList.DataSource = Program.users;
             comboStudentList.ValueMember = "userID";
-            comboStudentList.DisplayMember = "getRoleAndName";
+            comboStudentList.DisplayMember = "fullName";
             dateTimePickerMin.Value = new DateTime(2014, 1, 1);
             dateTimePickerMax.Value = new DateTime(2014, 12, 31).AddHours(23).AddMinutes(59).AddSeconds(59); //Get the very end of today
         }

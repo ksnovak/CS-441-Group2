@@ -37,10 +37,13 @@ namespace MathDrillGame
             foreach (XElement user in studentListXML.Descendants("Student"))
             {
 
-                Program.users.Add(new User { isAdmin = (user.Element("IsAdmin").Value == "1"? true : false), 
-                                            fullName = user.Element("FullName").Value, 
-                                            userID = Convert.ToInt32(user.Element("UserID").Value)
-                                            });
+                Program.users.Add(new User 
+                { 
+                    isAdmin = (user.Element("IsAdmin").Value == "1"? true : false), 
+                    fullName = user.Element("FullName").Value, 
+                    userID = Convert.ToInt32(user.Element("UserID").Value)
+                                            
+                });
             }
             
             listOfUsers.DataSource = Program.users; //This will link that List<Users> to the ListBox

@@ -38,24 +38,6 @@ namespace MathDrillGame
             newuser = new NewUserForm();
             newuser.FormClosed += new FormClosedEventHandler(newuser_FormClosed);
 
-            XElement studentListXML = XElement.Load(Program.USERSFILE);
-            Program.users.Clear();
-            foreach (XElement user in studentListXML.Descendants("Student"))
-            {
-
-                Program.users.Add(new User
-                {
-                    isAdmin = (user.Element("IsAdmin").Value == "1" ? true : false),
-                    fullName = user.Element("FullName").Value,
-                    userID = Convert.ToInt32(user.Element("UserID").Value)
-                });
-            }
-            listOfStudents.DataSource = null;
-            listOfStudents.DataSource = Program.users;
-            listOfStudents.DisplayMember = ""; //This is the value to show on-screen
-            listOfStudents.DisplayMember = "getRoleAndName"; //This is the value to show on-screen
-            listOfStudents.ValueMember = "userID"; //This is the value to pass
-            listOfStudents.Update();
 
 
         }
@@ -63,10 +45,25 @@ namespace MathDrillGame
         //When the form is opened, give a personalized greeting, and fill the user list with users.
         private void AdminForm_Load(object sender, EventArgs e)
         {
+            XElement studentListXML = XElement.Load(Program.USERSFILE);
+            Program.users.Clear();
+            foreach (XElement user in studentListXML.Descendants("Student"))
+            {
+                if (user.Element("IsAdmin").Value == "0")
+                {
+                    Program.users.Add(new User
+                    {
+                        isAdmin = (user.Element("IsAdmin").Value == "1" ? true : false),
+                        fullName = user.Element("FullName").Value,
+                        userID = Convert.ToInt32(user.Element("UserID").Value)
+                    });
+                }
+            }
             listOfStudents.DataSource = null;
             listOfStudents.DataSource = Program.users;
-            listOfStudents.DisplayMember = "getRoleAndName"; //This is the value to show on-screen
+            listOfStudents.DisplayMember = "fullName"; //This is the value to show on-screen
             listOfStudents.ValueMember = "userID"; //This is the value to pass
+
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
             this.Activate();
         }
