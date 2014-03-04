@@ -94,12 +94,6 @@ namespace MathDrillGame
                     foundForm = true;
                     this.Hide();
                 }
-                /*else if (f.GetType() == typeof(StudentForm) && !user.isAdmin)
-                {
-                    f.Show();
-                    foundForm = true;
-                    this.Hide();
-                }*/
             }
             if (!foundForm)
             {

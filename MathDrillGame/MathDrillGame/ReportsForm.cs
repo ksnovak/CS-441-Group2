@@ -17,6 +17,7 @@ namespace MathDrillGame
         string fileName = "";
         List<ProblemSet> usersSets = new List<ProblemSet>();
         List<Problem> problemsInSet = new List<Problem>();
+        List<User> adminStudentList = new List<User>();
         string summaryText = "";
 
         public ReportsForm()
@@ -26,7 +27,21 @@ namespace MathDrillGame
 
         private void Reports_Load(object sender, EventArgs e)
         {
-            comboStudentList.DataSource = Program.users;
+            XElement studentListXML = XElement.Load(Program.USERSFILE);
+            adminStudentList.Clear();
+            foreach (XElement user in studentListXML.Descendants("Student"))
+            {
+                if (user.Element("IsAdmin").Value == "0")
+                {
+                    adminStudentList.Add(new User
+                    {
+                        isAdmin = (user.Element("IsAdmin").Value == "1" ? true : false),
+                        fullName = user.Element("FullName").Value,
+                        userID = Convert.ToInt32(user.Element("UserID").Value)
+                    });
+                }
+            }
+            comboStudentList.DataSource = adminStudentList;
             comboStudentList.ValueMember = "userID";
             comboStudentList.DisplayMember = "fullName";
             dateTimePickerMin.Value = new DateTime(2014, 1, 1);
