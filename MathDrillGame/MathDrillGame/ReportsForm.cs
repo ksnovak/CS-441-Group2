@@ -47,10 +47,11 @@ namespace MathDrillGame
             usersSets.Clear();
             dataGridProblemSets.DataSource = null;
             textBoxReport.Text = "";
-            summaryText = "Problem Set Summary\r\n";
+            summaryText = "Problem Set Summary";
             if (File.Exists(fileName))
             {
                 XElement studentsSetsXML = XElement.Load(fileName);
+                summaryText += " for " + studentsSetsXML.Element("StudentName").Value + "\r\n";
                 foreach (XElement set in studentsSetsXML.Descendants("ProblemSet"))
                 {
                     int numSolved = 0;
@@ -69,8 +70,8 @@ namespace MathDrillGame
                     /* Sets which have been attempted have to be within the min and max range
                      * Unattempted problems need the checkbox to be set.
                      */
-                    //if ((lastAccessed.Date <= dateTimePickerMax.Value) && ((lastAccessed >= dateTimePickerMin.Value) || checkBoxUnattempted.Checked))
-                    if (    ((lastAccessed.Date <= dateTimePickerMax.Value) && (lastAccessed >= dateTimePickerMin.Value))   ||   (lastAccessed == Program.MINDATE && checkBoxUnattempted.Checked)   )
+                 
+                if (    ((lastAccessed.Date <= dateTimePickerMax.Value) && (lastAccessed >= dateTimePickerMin.Value))   ||   (lastAccessed == Program.MINDATE && checkBoxUnattempted.Checked)   )
                     {
                         usersSets.Add(new ProblemSet
                         {
@@ -85,26 +86,29 @@ namespace MathDrillGame
                     }
                                                    
                 }
-                dataGridProblemSets.DataSource = usersSets;
-                if (dataGridProblemSets.Columns.Count > 1)
-                {
-                    dataGridProblemSets.Columns[0].HeaderText = "Select";
-                    dataGridProblemSets.Columns[1].HeaderText = "Set ID";
-                    dataGridProblemSets.Columns[2].Visible = false;
-                    dataGridProblemSets.Columns[3].HeaderText = "All done?";
-                    dataGridProblemSets.Columns[4].Visible = false;
-                    dataGridProblemSets.Columns[5].Visible = false;
-                    dataGridProblemSets.Columns[6].HeaderText = "Score";
-                    dataGridProblemSets.Columns[7].HeaderText = "Attempted on";
-                }
 
-                summaryText = "Problem Set Summary \r\nID \tType \tQty \tCorrect \tScore \tQuiz Date \r\n";
-                foreach (ProblemSet set in usersSets)
+                if (usersSets.Count > 0)
                 {
-                    summaryText += set.printSummary();
+                    dataGridProblemSets.DataSource = usersSets;
+                    if (dataGridProblemSets.Columns.Count > 1)
+                    {
+                        dataGridProblemSets.Columns[0].HeaderText = "Set ID";
+                        dataGridProblemSets.Columns[1].Visible = false;
+                        dataGridProblemSets.Columns[2].HeaderText = "All done?";
+                        dataGridProblemSets.Columns[3].Visible = false;
+                        dataGridProblemSets.Columns[4].Visible = false;
+                        dataGridProblemSets.Columns[5].HeaderText = "Score";
+                        dataGridProblemSets.Columns[6].HeaderText = "Attempted on";
+                    }
+
+                    summaryText = "Problem Set Summary \r\nID \tType \tQty \tCorrect \tScore \tQuiz Date \r\n";
+                    foreach (ProblemSet set in usersSets)
+                    {
+                        summaryText += set.printSummary();
+                    }
+
+                    textBoxReport.AppendText(summaryText);
                 }
-                
-                textBoxReport.AppendText(summaryText);
 
                     
             }//End of if(file.exists)
@@ -112,10 +116,12 @@ namespace MathDrillGame
 
         private void dataGridProblemSets_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            
             textBoxReport.Text = summaryText + "\r\n";
 
             int selectedSet;
-
+            if (!File.Exists(fileName))
+                return;
             XDocument thefile = XDocument.Load(fileName);
             foreach (DataGridViewRow row in dataGridProblemSets.SelectedRows)
             {

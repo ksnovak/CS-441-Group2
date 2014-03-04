@@ -49,3 +49,16 @@ C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\De
 C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.NewUserForm.resources
 C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.ReportsForm.resources
 C:\Users\Novak\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.ReportsForm.resources
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\bin\Debug\MathDrillGame.exe.config
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\obj\Debug\MathDrillGame.exe
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\obj\Debug\MathDrillGame.pdb
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\bin\Debug\MathDrillGame.exe
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\bin\Debug\MathDrillGame.pdb
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\obj\Debug\MathDrillGame.csprojResolveAssemblyReference.cache
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\obj\Debug\MathDrillGame.AdminForm.resources
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\obj\Debug\MathDrillGame.NewUserForm.resources
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\obj\Debug\MathDrillGame.Properties.Resources.resources
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\obj\Debug\MathDrillGame.ReportsForm.resources
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
+C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\obj\Debug\MathDrillGame.csproj.GenerateResource.Cache

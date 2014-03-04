@@ -115,6 +115,7 @@ namespace MathDrillGame
                 }
                 quantity = Convert.ToInt32(inputQuantity.Text); //Turn the string input into ints
                 isAddition = radioAddition.Checked; //Determine the type of problem
+                generateProblemSet();
             }
         }
 

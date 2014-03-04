@@ -32,7 +32,6 @@
             this.labelSelectStudent = new System.Windows.Forms.Label();
             this.buttonExit = new System.Windows.Forms.Button();
             this.dataGridProblemSets = new System.Windows.Forms.DataGridView();
-            this.select = new System.Windows.Forms.DataGridViewButtonColumn();
             this.textBoxReport = new System.Windows.Forms.TextBox();
             this.labelMinDate = new System.Windows.Forms.Label();
             this.labelMaxDate = new System.Windows.Forms.Label();
@@ -82,8 +81,6 @@
             this.dataGridProblemSets.AllowUserToResizeRows = false;
             this.dataGridProblemSets.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridProblemSets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridProblemSets.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.select});
             this.dataGridProblemSets.Location = new System.Drawing.Point(11, 219);
             this.dataGridProblemSets.Name = "dataGridProblemSets";
             this.dataGridProblemSets.ReadOnly = true;
@@ -92,12 +89,6 @@
             this.dataGridProblemSets.Size = new System.Drawing.Size(346, 189);
             this.dataGridProblemSets.TabIndex = 4;
             this.dataGridProblemSets.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridProblemSets_CellClick);
-            // 
-            // select
-            // 
-            this.select.HeaderText = "Select";
-            this.select.Name = "select";
-            this.select.ReadOnly = true;
             // 
             // textBoxReport
             // 
@@ -199,7 +190,6 @@
         private System.Windows.Forms.Label labelSelectStudent;
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.DataGridView dataGridProblemSets;
-        private System.Windows.Forms.DataGridViewButtonColumn select;
         private System.Windows.Forms.TextBox textBoxReport;
         private System.Windows.Forms.Label labelMinDate;
         private System.Windows.Forms.Label labelMaxDate;
