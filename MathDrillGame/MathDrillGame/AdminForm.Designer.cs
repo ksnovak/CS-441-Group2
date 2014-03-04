@@ -55,7 +55,7 @@
             this.buttonLogout.Location = new System.Drawing.Point(602, 440);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(90, 43);
-            this.buttonLogout.TabIndex = 8;
+            this.buttonLogout.TabIndex = 9;
             this.buttonLogout.Text = "Log out";
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
@@ -199,7 +199,7 @@
             this.buttonNewUser.Location = new System.Drawing.Point(13, 440);
             this.buttonNewUser.Name = "buttonNewUser";
             this.buttonNewUser.Size = new System.Drawing.Size(178, 42);
-            this.buttonNewUser.TabIndex = 7;
+            this.buttonNewUser.TabIndex = 8;
             this.buttonNewUser.Text = "Add new user";
             this.buttonNewUser.UseVisualStyleBackColor = true;
             this.buttonNewUser.Click += new System.EventHandler(this.buttonNewUser_Click);
@@ -210,7 +210,7 @@
             this.buttonReports.Location = new System.Drawing.Point(12, 392);
             this.buttonReports.Name = "buttonReports";
             this.buttonReports.Size = new System.Drawing.Size(178, 42);
-            this.buttonReports.TabIndex = 100;
+            this.buttonReports.TabIndex = 7;
             this.buttonReports.Text = "Reports";
             this.buttonReports.UseVisualStyleBackColor = true;
             this.buttonReports.Click += new System.EventHandler(this.buttonReports_Click);

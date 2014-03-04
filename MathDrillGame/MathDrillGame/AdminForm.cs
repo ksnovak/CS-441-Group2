@@ -200,20 +200,12 @@ namespace MathDrillGame
             NewUserForm newUserForm = new NewUserForm();
             newUserForm.Show();
             Close();
-            /*newUserForm.Tag = this;
-            newUserForm.Show(this);
-            Hide();
-            //NewUserForm newuser = new NewUserForm();
-            newuser.Show();*/
+
 
         }
 
         private void buttonReports_Click(object sender, EventArgs e)
         {
-            /*ReportsForm reports = new ReportsForm();
-            reports.Tag = this;
-            reports.Show(this);
-            Hide();*/
             ReportsForm reports = new ReportsForm();
             reports.Show();
         }
@@ -233,12 +225,15 @@ namespace MathDrillGame
 
         private void goToLogin()
         {
-            foreach (Form f in Application.OpenForms)
+            if (Application.OpenForms.Count == 2)
             {
-                if (f.GetType() == typeof(LoginForm))
+                foreach (Form f in Application.OpenForms)
                 {
-                    f.Show();
-                    this.Hide();
+                    if (f.GetType() == typeof(LoginForm))
+                    {
+                        f.Show();
+                        this.Hide();
+                    }
                 }
             }
         }

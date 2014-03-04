@@ -33,7 +33,7 @@ namespace MathDrillGame
         public string lastAttempt { get; set; } //The last time they attempted a problem set. String form of a DateTime object
 
         /* PRINTSUMMARY is used for the reporting view, to get summary details on a set.
-         * 
+         * Kevin and Uriah
          */
         public string printSummary()
         {

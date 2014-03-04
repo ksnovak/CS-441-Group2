@@ -47,11 +47,25 @@ namespace MathDrillGame
             usersSets.Clear();
             dataGridProblemSets.DataSource = null;
             textBoxReport.Text = "";
-            summaryText = "Problem Set Summary";
+
+            XElement usersfile = XElement.Load(Program.USERSFILE);
+            var selectUser = from user in usersfile.Elements("Student")
+                             where Convert.ToInt32(user.Element("UserID").Value) == targetStudentID
+                             select user;
+            
+            summaryText = "Student activity report for ";
+            foreach (XElement user in selectUser)
+            {
+                summaryText += user.Element("FullName").Value + " (Student ID #" + user.Element("UserID").Value + ")\r\n";
+                if (user.Element("LastLogin").Value == Program.MINDATE.ToString("g"))
+                    summaryText += "Never logged in\r\n";
+                else
+                    summaryText += "Last logged in: " + user.Element("LastLogin").Value + "\r\n";
+            }
             if (File.Exists(fileName))
             {
                 XElement studentsSetsXML = XElement.Load(fileName);
-                summaryText += " for " + studentsSetsXML.Element("StudentName").Value + "\r\n";
+
                 foreach (XElement set in studentsSetsXML.Descendants("ProblemSet"))
                 {
                     int numSolved = 0;
@@ -101,17 +115,16 @@ namespace MathDrillGame
                         dataGridProblemSets.Columns[6].HeaderText = "Attempted on";
                     }
 
-                    summaryText = "Problem Set Summary \r\nID \tType \tQty \tCorrect \tScore \tQuiz Date \r\n";
+                    summaryText += "\r\nProblem Set Summary \r\nID \tType \tQty \tCorrect \tScore \tQuiz Date \r\n";
                     foreach (ProblemSet set in usersSets)
                     {
                         summaryText += set.printSummary();
                     }
 
-                    textBoxReport.AppendText(summaryText);
-                }
 
-                    
+                }
             }//End of if(file.exists)
+            textBoxReport.AppendText(summaryText);
         }
 
         private void dataGridProblemSets_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -166,7 +179,8 @@ namespace MathDrillGame
                         + "\t " + (prob.Element("Attempts").Value != "0" ? prob.Element("Attempts").Value : "no")
                         + (prob.Element("Attempts").Value == "1" ? " attempt " : " attempts ")
                         + (prob.Element("IsSolved").Value == "1" ? " (Solved)" : "") + "\r\n");
-                }            
+                }//End of foreach
+                textBoxReport.AppendText("\r\n");
             }
         }            
         
