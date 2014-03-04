@@ -218,7 +218,7 @@ namespace MathDrillGame
                     makingnewuser = true;
             }
 
-            if (makingnewuser)
+            if (!makingnewuser)
                 goToLogin();
         }
 
