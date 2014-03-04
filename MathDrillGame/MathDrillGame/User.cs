@@ -21,7 +21,7 @@ namespace MathDrillGame
         public bool isAdmin { get; set; }
         public string fullName { get; set; }
         public int userID { get; set; } //Should be unique. When setting, there is a public static function, Program.getNextProblemSetID() that you should use to enforce uniqueness
-
+        public DateTime lastLogin { get; set; }
 
         /* GETROLEANDNAME returns a string that concatenates the role (Teacher or Student) with the username.
          * Used for the listboxes, because only a single member may be the DisplayMember

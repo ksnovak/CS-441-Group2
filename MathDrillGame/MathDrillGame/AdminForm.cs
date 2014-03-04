@@ -21,6 +21,7 @@ namespace MathDrillGame
         bool isAddition; //Whether the problems are addition or subtraction for RNG
         
         static Random rng = new Random(); //Used for generating random numbers. Creates a random seed so that it is more random.
+        List<User> adminStudentList = new List<User>();
         User targetUser;
         string fileName;
         NewUserForm newuser;
@@ -33,25 +34,20 @@ namespace MathDrillGame
 
         void newuser_FormClosed(object sender, FormClosedEventArgs e)
         {
-
-
             newuser = new NewUserForm();
             newuser.FormClosed += new FormClosedEventHandler(newuser_FormClosed);
-
-
-
         }
 
         //When the form is opened, give a personalized greeting, and fill the user list with users.
         private void AdminForm_Load(object sender, EventArgs e)
         {
             XElement studentListXML = XElement.Load(Program.USERSFILE);
-            Program.users.Clear();
+            adminStudentList.Clear();
             foreach (XElement user in studentListXML.Descendants("Student"))
             {
                 if (user.Element("IsAdmin").Value == "0")
                 {
-                    Program.users.Add(new User
+                    adminStudentList.Add(new User
                     {
                         isAdmin = (user.Element("IsAdmin").Value == "1" ? true : false),
                         fullName = user.Element("FullName").Value,
@@ -60,7 +56,7 @@ namespace MathDrillGame
                 }
             }
             listOfStudents.DataSource = null;
-            listOfStudents.DataSource = Program.users;
+            listOfStudents.DataSource = adminStudentList;
             listOfStudents.DisplayMember = "fullName"; //This is the value to show on-screen
             listOfStudents.ValueMember = "userID"; //This is the value to pass
 
@@ -73,7 +69,7 @@ namespace MathDrillGame
         {
             
             Program.targetUser = Convert.ToInt32(listOfStudents.SelectedIndex);
-            targetUser = Program.users[Program.targetUser];
+            targetUser = adminStudentList[Program.targetUser];
 
             if (targetUser.isAdmin)
             {
@@ -135,7 +131,6 @@ namespace MathDrillGame
 
                 doc.AppendChild(allProblemSets);
                 doc.Save(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
-                
             }
 
             XDocument xml = XDocument.Load(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
@@ -216,21 +211,26 @@ namespace MathDrillGame
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            goToLogin();
+            bool makingnewuser = false;
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f.GetType() == typeof(NewUserForm))
+                    makingnewuser = true;
+            }
+
+            if (makingnewuser)
+                goToLogin();
         }
 
 
         private void goToLogin()
         {
-            if (Application.OpenForms.Count == 2)
+            foreach (Form f in Application.OpenForms)
             {
-                foreach (Form f in Application.OpenForms)
+                if (f.GetType() == typeof(LoginForm))
                 {
-                    if (f.GetType() == typeof(LoginForm))
-                    {
-                        f.Show();
-                        this.Hide();
-                    }
+                    f.Show();
+                    this.Hide();
                 }
             }
         }

@@ -30,27 +30,21 @@ namespace MathDrillGame
         public StudentForm()
         {
             InitializeComponent();
+            Shown += StudentShown;
         }
 
-        //When form loads, create personalized greeting and fill the side textbox with the problems 
-        //Note: the textbox is really just for coding knowledge, to keep track of problems and such. Won't be there for the end product.
-        /* When the student form loads
-         * Create a personalized greeting ("Welcome, John Q. Public"), set the proper file path, and try to get a problem
-         * If there are no unsolved problems assigned, say so and disable any inputs.
-         * Otherwise, retrieve and display the first problem.
-         */
-        private void StudentForm_Load(object sender, EventArgs e)
+        private void StudentShown(object sender, EventArgs e)
         {
             labelWelcome.Text = "Welcome, " + currentUser.fullName;
-            labelWelcome.Left = (this.ClientSize.Width - labelWelcome.Width) / 2; 
-            
+            labelWelcome.Left = (this.ClientSize.Width - labelWelcome.Width) / 2;
+
 
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml";
             if (File.Exists(fileName))
                 StudentXMLFile = XElement.Load(fileName);
 
             //If they don't have any file, then they don't have any problems assigned. Say so, and disable inputs to avoid issues.
-            else 
+            else
             {
                 buttonSubmit.Enabled = inputAnswer.Enabled = false;
                 labelQuestion.Text = "You have no problems assigned.";
@@ -64,9 +58,22 @@ namespace MathDrillGame
             problemSetSize = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count();
 
             //Get the first problem and display it.
-            currentProblem = getProblem(); 
-            if (currentProblem != null) 
+            currentProblem = getProblem();
+            if (currentProblem != null)
                 displayProblem();
+     
+        }
+
+
+        //When form loads, create personalized greeting and fill the side textbox with the problems 
+        //Note: the textbox is really just for coding knowledge, to keep track of problems and such. Won't be there for the end product.
+        /* When the student form loads
+         * Create a personalized greeting ("Welcome, John Q. Public"), set the proper file path, and try to get a problem
+         * If there are no unsolved problems assigned, say so and disable any inputs.
+         * Otherwise, retrieve and display the first problem.
+         */
+        private void StudentForm_Load(object sender, EventArgs e)
+        {
         }        
 
         /* GETPROBLEM returns the next unsolved problem, or null if there are none

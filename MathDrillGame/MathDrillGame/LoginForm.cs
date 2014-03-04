@@ -23,6 +23,7 @@ namespace MathDrillGame
         {
             InitializeComponent();
             buildUserList(); 
+
         }
 
         /* BUILDUSERLIST takes users from the XML file and stores them into a List<User>, primarily for displaying on the various List Boxes.
@@ -30,19 +31,17 @@ namespace MathDrillGame
          * For the List Box, it will display "Teacher - Bill J. Admin" or "Student - Susan M. Doe" but the value member is their unique ID
          * Uriah and Kevin
          */
-        private void buildUserList()
+        public void buildUserList()
         {
             studentListXML = XElement.Load(Program.USERSFILE);
             Program.users.Clear();
             foreach (XElement user in studentListXML.Descendants("Student"))
             {
-
                 Program.users.Add(new User 
                 { 
                     isAdmin = (user.Element("IsAdmin").Value == "1"? true : false), 
                     fullName = user.Element("FullName").Value, 
-                    userID = Convert.ToInt32(user.Element("UserID").Value)
-                                            
+                    userID = Convert.ToInt32(user.Element("UserID").Value)                         
                 });
             }
             
@@ -86,20 +85,39 @@ namespace MathDrillGame
          */
         private void buildUserForm(User user)
         {
-            if (user.isAdmin)
+            bool foundForm = false;
+            foreach (Form f in Application.OpenForms)
             {
-                AdminForm adminForm = new AdminForm();
-                adminForm.Tag = this;
-                adminForm.Show(this);
-                this.Hide();
-                
+                if (f.GetType() == typeof(AdminForm) && user.isAdmin)
+                {
+                    f.Show();
+                    foundForm = true;
+                    this.Hide();
+                }
+                /*else if (f.GetType() == typeof(StudentForm) && !user.isAdmin)
+                {
+                    f.Show();
+                    foundForm = true;
+                    this.Hide();
+                }*/
             }
-            else
+            if (!foundForm)
             {
-                StudentForm studentForm = new StudentForm();
-                studentForm.Tag = this;
-                studentForm.Show(this);
-                this.Hide();
+                if (user.isAdmin)
+                {
+                    AdminForm adminForm = new AdminForm();
+                    adminForm.Tag = this;
+                    adminForm.Show(this);
+                    this.Hide();
+                }
+                else
+                {
+                    StudentForm studentForm = new StudentForm();
+                    studentForm.Tag = this;
+                    studentForm.Show(this);
+                    this.Hide();
+
+                }
             }
         }
 

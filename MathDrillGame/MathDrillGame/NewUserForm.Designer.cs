@@ -34,13 +34,12 @@
             this.labelAdmin = new System.Windows.Forms.Label();
             this.checkAdmin = new System.Windows.Forms.CheckBox();
             this.inputFullName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonSaveUser
             // 
             this.buttonSaveUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonSaveUser.Location = new System.Drawing.Point(155, 200);
+            this.buttonSaveUser.Location = new System.Drawing.Point(155, 85);
             this.buttonSaveUser.Name = "buttonSaveUser";
             this.buttonSaveUser.Size = new System.Drawing.Size(121, 42);
             this.buttonSaveUser.TabIndex = 3;
@@ -52,7 +51,7 @@
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonCancel.Location = new System.Drawing.Point(15, 200);
+            this.buttonCancel.Location = new System.Drawing.Point(15, 85);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(121, 42);
             this.buttonCancel.TabIndex = 4;
@@ -95,24 +94,14 @@
             this.inputFullName.Size = new System.Drawing.Size(100, 20);
             this.inputFullName.TabIndex = 0;
             // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label1.Location = new System.Drawing.Point(11, 84);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(265, 92);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "BUG WARNING:The admin screen won\'t update with the new user, will have to log out" +
-                " and back in for them to show. Working on fixing this.";
-            // 
             // NewUserForm
             // 
             this.AcceptButton = this.buttonSaveUser;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(285, 252);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(285, 140);
             this.Controls.Add(this.inputFullName);
             this.Controls.Add(this.checkAdmin);
             this.Controls.Add(this.labelAdmin);
@@ -138,6 +127,5 @@
         private System.Windows.Forms.Label labelAdmin;
         private System.Windows.Forms.CheckBox checkAdmin;
         private System.Windows.Forms.TextBox inputFullName;
-        private System.Windows.Forms.Label label1;
     }
 }
