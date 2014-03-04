@@ -21,12 +21,14 @@ namespace MathDrillGame
         /// The main entry point for the application.
         /// </summary>
 
-        //These 3 are static variables so that I can use them throughout the program. The userlist will be XML, but there must be a better way than this for the other 2.
         public static List<User> users = new List<User>();
         public static int currentUserIndex; //Who is logged in
         public static int targetUser; //For the admin, this is who to generate problems for.
         public static int nextUserID = 101; //Enforces globally unique student IDs. When making new students, do "Program.nextUserID++"
         public static int nextProblemSetID = 1; //Enforces globally unique problem set IDs. When making new problem sets, do "Program.newProblemSetID++"
+        public static string USERSFILE = @"c:\users\public\MathDrills\users.xml";
+        public static string CONFIGFILE = @"c:\users\public\MathDrills\config.xml";
+        public static DateTime MINDATE = new DateTime(2013, 12, 31);
 
         [STAThread]
         static void Main()
@@ -45,7 +47,7 @@ namespace MathDrillGame
         private static void initializeUserList()
         {
             XmlDocument doc;
-            if (!File.Exists(@"c:\users\public\MathDrills\users.xml"))
+            if (!File.Exists(USERSFILE))
             {
                 doc = new XmlDocument();
                 XmlElement studentList = doc.CreateElement("StudentList");
@@ -57,10 +59,10 @@ namespace MathDrillGame
                 bisAdmin.InnerText = "1";
                 BillJAdmin.AppendChild(bisAdmin);
                 XmlElement buserID = doc.CreateElement("UserID");
-                buserID.InnerText = nextUserID++ + "";
+                buserID.InnerText = getNextUserID() + "";
                 BillJAdmin.AppendChild(buserID);
                 XmlElement blastLogin = doc.CreateElement("LastLogin");
-                blastLogin.InnerText = DateTime.MinValue.ToString();
+                blastLogin.InnerText = MINDATE.ToString("g");
                 BillJAdmin.AppendChild(blastLogin);
                 studentList.AppendChild(BillJAdmin);
 
@@ -75,26 +77,26 @@ namespace MathDrillGame
                     isAdmin.InnerText = "0";
                     newStudent.AppendChild(isAdmin);
                     XmlElement userID = doc.CreateElement("UserID");
-                    userID.InnerText = "" + nextUserID++;
+                    userID.InnerText = "" + getNextUserID();
                     newStudent.AppendChild(userID);
                     XmlElement lastLogin = doc.CreateElement("LastLogin");
-                    lastLogin.InnerText = DateTime.MinValue.ToString();
+                    lastLogin.InnerText = MINDATE.ToString("g");
                     newStudent.AppendChild(lastLogin);
                     studentList.AppendChild(newStudent);
                 }
                 doc.AppendChild(studentList);
-                doc.Save(@"c:\users\public\MathDrills\users.xml");
+                doc.Save(USERSFILE);
             }
             else //If there is already a list of users, make sure to still get the next valid User ID.
             {
-                XElement user = XElement.Load(@"c:\users\public\MathDrills\users.xml");
+                XElement user = XElement.Load(USERSFILE);
                 nextUserID = Convert.ToInt32(user.Descendants("Student").Last().Element("UserID").Value)+1;
             }
         }
         private static void initializeConfigFile()
         {
               
-              if (!File.Exists(@"c:\users\public\MathDrills\config.xml"))
+              if (!File.Exists(CONFIGFILE))
               {
                   XmlDocument doc = new XmlDocument();
                   XmlElement configs = doc.CreateElement("Configs");
@@ -105,14 +107,24 @@ namespace MathDrillGame
                   nextValidSet.InnerText = nextProblemSetID.ToString();
                   configs.AppendChild(nextValidSet);
                   doc.AppendChild(configs);
-                  doc.Save(@"c:\users\public\MathDrills\config.xml");
+                  doc.Save(CONFIGFILE);
               }
               else
               {
-                  XElement doc = XElement.Load(@"c:\users\public\MathDrills\config.xml");
+                  XElement doc = XElement.Load(CONFIGFILE);
                   nextUserID = Convert.ToInt32(doc.Element("NextValidUser").Value);
                   nextProblemSetID = Convert.ToInt32(doc.Element("NextValidSet").Value);
               }
+        }
+
+        public static int getNextUserID()
+        {
+            return nextUserID++;
+        }
+
+        public static int getNextProblemSetID()
+        {
+            return nextProblemSetID++;
         }
     }
 }

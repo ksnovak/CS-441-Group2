@@ -5,44 +5,52 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-//using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.IO;
 using System.Xml;
 
+/* The STUDENTFORM form
+ * This is the view shown to students after they log in, which currently only allows them to perform math drills.
+ * 
+ */
+
 namespace MathDrillGame
 {
     public partial class StudentForm : Form
     {
-        int problemIndex = 0; //Used to point to the index of the current problem in the student's problem set
-        int problemSetSize;
-        int setIndex = 0;
+        int problemIndex = 0; //Keeps track of the current problem number number within a set
+        int problemSetSize;   //How many problems are in the current set
+        int setIndex = 0;     //Keeps track of the current set being worked on.
         Problem currentProblem; //The individual problem currently being worked on
-        User currentUser = Program.users[Program.currentUserIndex];
-        XElement studentProblemSet;
-
-        string fileName;
+        User currentUser = Program.users[Program.currentUserIndex]; //The user who is logged in.
+        XElement StudentXMLFile; //The student's XML file, in XElement form, opened during the LOAD event
+        string fileName;      //The location of the student's XML file
 
         public StudentForm()
         {
             InitializeComponent();
-
         }
 
         //When form loads, create personalized greeting and fill the side textbox with the problems 
         //Note: the textbox is really just for coding knowledge, to keep track of problems and such. Won't be there for the end product.
+        /* When the student form loads
+         * Create a personalized greeting ("Welcome, John Q. Public"), set the proper file path, and try to get a problem
+         * If there are no unsolved problems assigned, say so and disable any inputs.
+         * Otherwise, retrieve and display the first problem.
+         */
         private void StudentForm_Load(object sender, EventArgs e)
         {
             labelWelcome.Text = "Welcome, " + currentUser.fullName;
-            //Center the welcome message. 119 accounts for the textbox
             labelWelcome.Left = (this.ClientSize.Width - labelWelcome.Width) / 2; 
             
-            //If there are no problems for them, say so, and disable any potential issues.
+
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml";
             if (File.Exists(fileName))
-                studentProblemSet = XElement.Load(fileName);
-            else
+                StudentXMLFile = XElement.Load(fileName);
+
+            //If they don't have any file, then they don't have any problems assigned. Say so, and disable inputs to avoid issues.
+            else 
             {
                 buttonSubmit.Enabled = inputAnswer.Enabled = false;
                 labelQuestion.Text = "You have no problems assigned.";
@@ -52,31 +60,35 @@ namespace MathDrillGame
                 return;
             }
 
-            //Find out how many problems are in the active set
-            problemSetSize = studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count();
+            //Find out how many problems in the current problem set they have.
+            problemSetSize = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count();
 
-            currentProblem = getProblem(); //Find the first unsolved problem
+            //Get the first problem and display it.
+            currentProblem = getProblem(); 
             if (currentProblem != null) 
                 displayProblem();
         }        
 
-        //Find an unsolved problem.
-        //the "iteration" is to avoid infinite loops. As soon as we have gone through as many problems as there are in the set, break out and disable the input.
+        /* GETPROBLEM returns the next unsolved problem, or null if there are none
+         * The outer while loop goes through the list of problem sets, searching for one that isn't completely solved. Upon finding one, it enters and searches that set for an individual unsovled problem
+         * problemIterator and setIterator exist so that, if all of the problems or sets are solved, there is no infinite loop. When they decrement to 0 (a full loop through the list), it breaks from the loop
+         * Kevin and Uriah
+         */
         public Problem getProblem()
         {
-            int setIteration = studentProblemSet.Descendants("ProblemSet").Count();
+            int setIterator = StudentXMLFile.Descendants("ProblemSet").Count();
             XElement problemInXML;
             XElement setInXML;
             Problem newProblem = new Problem();
-            while (setIteration > 0)
+            while (setIterator > 0)
             {
-                setInXML = studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex);
-                int problemIteration = setInXML.Descendants("Problem").Count();
+                setInXML = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex);
+                int problemIterator = setInXML.Descendants("Problem").Count();
                 if (setInXML.Element("IsSolved").Value == "0")
                 {
-                    while (problemIteration > 0)
+                    while (problemIterator > 0)
                     {
-                        problemInXML = studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex);
+                        problemInXML = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex);
                         if (problemInXML.Element("IsSolved").Value == "0")
                         {
                             newProblem.operand1 = Convert.ToInt32(problemInXML.Element("Operand1").Value);
@@ -88,22 +100,23 @@ namespace MathDrillGame
                         {
                             problemIndex++;
                             problemIndex = (problemIndex % problemSetSize);
-                            problemIteration--;
+                            problemIterator--;
                         }
                     }//end problem while
                     labelFeedback.Text = "You've completed a problem set!";
-                    studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("LastAccessed", DateTime.Now.ToString("G"));
-                    studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("IsSolved", "1");
-                    studentProblemSet.Save(fileName);
+                    StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("LastAccessed", DateTime.Now.ToString("g"));
+                    StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("IsSolved", "1");
+                    StudentXMLFile.Save(fileName);
 
                     problemIndex = 0;
                 }
                 else
                 {
                     setIndex++;
-                    setIndex = (setIndex % studentProblemSet.Descendants("ProblemSet").Count());
-                    setIteration--;
-
+                    setIndex = (setIndex % StudentXMLFile.Descendants("ProblemSet").Count());
+                    setIterator--;
+                    problemIndex = 0;
+                    problemSetSize = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count();
                 }
             }//end set while
             labelFeedback.Text = "You've solved them all!";
@@ -167,23 +180,23 @@ namespace MathDrillGame
         {
             int answer;
 
-            if (studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex).Element("Operator").Value == "+")
+            if (StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Element("Operator").Value == "+")
                 answer = currentProblem.operand1 + currentProblem.operand2;
             else
                 answer = currentProblem.operand1 - currentProblem.operand2;
 
-            int prevAttempts = Convert.ToInt32(studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).Element("Attempts").Value);
-            studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("Attempts", prevAttempts + 1);
+            int prevAttempts = Convert.ToInt32(StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).Element("Attempts").Value);
+            StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("Attempts", prevAttempts + 1);
 
             if (answer == Convert.ToInt32(inputAnswer.Text))
             {
-                studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("IsSolved", "1");
-                studentProblemSet.Save(fileName);
+                StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("IsSolved", "1");
+                StudentXMLFile.Save(fileName);
                 return true;
             }
             else
             {
-                studentProblemSet.Save(fileName);
+                StudentXMLFile.Save(fileName);
                 return false;
             }
 
@@ -207,10 +220,10 @@ namespace MathDrillGame
         {
             if (File.Exists(fileName))
             {
-                if (studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex).Element("IsSolved").Value == "0")
+                if (StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Element("IsSolved").Value == "0")
                 {
-                    studentProblemSet.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("LastAccessed", DateTime.Now.ToString("G"));
-                    studentProblemSet.Save(fileName);
+                    StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("LastAccessed", DateTime.Now.ToString("g"));
+                    StudentXMLFile.Save(fileName);
                 }
             }
             var login = (LoginForm)Tag;

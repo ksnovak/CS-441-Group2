@@ -48,7 +48,6 @@
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Enabled = false;
             this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.buttonLogin.Location = new System.Drawing.Point(184, 226);
             this.buttonLogin.Name = "buttonLogin";
@@ -67,7 +66,6 @@
             this.listOfUsers.Name = "listOfUsers";
             this.listOfUsers.Size = new System.Drawing.Size(268, 164);
             this.listOfUsers.TabIndex = 1;
-            this.listOfUsers.SelectedIndexChanged += new System.EventHandler(this.listOfUsers_SelectedIndexChanged);
             // 
             // labelWelcome
             // 
@@ -82,7 +80,7 @@
             this.labelWelcome.Text = "Welcome, please log in";
             this.labelWelcome.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // Form1
+            // LoginForm
             // 
             this.AcceptButton = this.buttonLogin;
             this.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
@@ -97,7 +95,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Math Drills - Login";
             this.ResumeLayout(false);

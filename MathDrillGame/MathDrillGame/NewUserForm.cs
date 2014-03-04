@@ -31,7 +31,7 @@ namespace MathDrillGame
 
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"c:\users\public\MathDrills\users.xml");
+            doc.Load(Program.USERSFILE);
             XmlElement newStudent = doc.CreateElement("Student");
                 XmlElement fullName = doc.CreateElement("FullName");
                     fullName.InnerText = userName;
@@ -40,17 +40,17 @@ namespace MathDrillGame
                     isAdmin.InnerText = (checkAdmin.Checked ? "1" : "0");
                     newStudent.AppendChild(isAdmin);
                 XmlElement userID = doc.CreateElement("UserID");
-                    userID.InnerText = Program.nextUserID++ + "";
+                    userID.InnerText = Program.getNextUserID() + "";
                     newStudent.AppendChild(userID);
                 XmlElement lastLogin = doc.CreateElement("LastLogin");
-                    lastLogin.InnerText = DateTime.MinValue.ToString();
-                newStudent.AppendChild(lastLogin);
+                    lastLogin.InnerText = Program.MINDATE.ToString("g");
+                    newStudent.AppendChild(lastLogin);
             doc.DocumentElement.AppendChild(newStudent);
 
-            doc.Save(@"c:\users\public\MathDrills\users.xml");
-            
-            XElement studentListXML = XElement.Load(@"c:\users\public\MathDrills\users.xml");
+            doc.Save(Program.USERSFILE);
 
+            XElement studentListXML = XElement.Load(Program.USERSFILE);
+    
             Program.users.Add(new User
             {
                 isAdmin = (studentListXML.Descendants("Student").Last().Element("IsAdmin").Value == "1"? true : false),

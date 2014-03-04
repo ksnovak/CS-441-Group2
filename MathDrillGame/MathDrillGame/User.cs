@@ -2,18 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using System.Threading.Tasks;
-
-/*
- *<AllUsers>
-	<User>
-		<UserID>1</UserID>
-		<FullName>Fred Smith</FullName>
-		<Password>icecream</Password>
-		<IsAdmin>0</IsAdmin>
-		<LastLogin>2/1/2014</LastLogin>
-	</User>
-</AllUsers> 
+/* The USER class
+ * The official list of users is saved in xml. But when it is read from xml, each user (student or teacher) is a User object.
+ * Primarily used for the list views.
  */
 namespace MathDrillGame
 {
@@ -29,8 +20,14 @@ namespace MathDrillGame
 
         public bool isAdmin { get; set; }
         public string fullName { get; set; }
-        public int userID { get; set; }
-        public string getRoleAndName { get { return (isAdmin ? "Teacher" : "Student") + " - " + fullName; } }
-        //public List<Problem> problemSet = new List<Problem>(); //Where each individual has their problems stored.
+        public int userID { get; set; } //Should be unique. When setting, there is a public static function, Program.getNextProblemSetID() that you should use to enforce uniqueness
+
+
+        /* GETROLEANDNAME returns a string that concatenates the role (Teacher or Student) with the username.
+         * Used for the listboxes, because only a single member may be the DisplayMember
+         * Uriah and Kevin
+         */
+        public string getRoleAndName { get { return (isAdmin ? "Teacher" : "Student") + " - " + fullName; } } 
     }
+
 }

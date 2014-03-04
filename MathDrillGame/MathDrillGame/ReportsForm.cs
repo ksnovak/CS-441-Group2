@@ -17,6 +17,7 @@ namespace MathDrillGame
         string fileName = "";
         List<ProblemSet> usersSets = new List<ProblemSet>();
         List<Problem> problemsInSet = new List<Problem>();
+        string summaryText = "";
 
         public ReportsForm()
         {
@@ -28,6 +29,8 @@ namespace MathDrillGame
             comboStudentList.DataSource = Program.users;
             comboStudentList.ValueMember = "userID";
             comboStudentList.DisplayMember = "getRoleAndName";
+            dateTimePickerMin.Value = new DateTime(2014, 1, 1);
+            dateTimePickerMax.Value = new DateTime(2014, 12, 31).AddHours(23).AddMinutes(59).AddSeconds(59); //Get the very end of today
         }
 
 
@@ -43,7 +46,8 @@ namespace MathDrillGame
         {
             usersSets.Clear();
             dataGridProblemSets.DataSource = null;
-
+            textBoxReport.Text = "";
+            summaryText = "Problem Set Summary\r\n";
             if (File.Exists(fileName))
             {
                 XElement studentsSetsXML = XElement.Load(fileName);
@@ -61,14 +65,24 @@ namespace MathDrillGame
                         problemQuantity++;
                     }
 
-                    usersSets.Add(new ProblemSet { isSolved = (set.Element("IsSolved").Value == "1"? true : false),
-                                    operation = set.Element("Operator").Value,
-                                    problemSetID = Convert.ToInt32(set.Element("ProblemSetID").Value),
-                                    solvedQuantity = numSolved,
-                                    totalQuantity = problemQuantity,
-                                    score = ((float)numSolved / (float)problemQuantity).ToString("p1"), //Forces the division to result in a float, and then converts that into xx.xx%
-                                    lastAttempt = (set.Element("LastAccessed").Value == DateTime.MinValue.ToString())? "Never" : set.Element("LastAccessed").Value
-                    });
+                    DateTime lastAccessed = DateTime.Parse(set.Element("LastAccessed").Value);
+                    /* Sets which have been attempted have to be within the min and max range
+                     * Unattempted problems need the checkbox to be set.
+                     */
+                    //if ((lastAccessed.Date <= dateTimePickerMax.Value) && ((lastAccessed >= dateTimePickerMin.Value) || checkBoxUnattempted.Checked))
+                    if (    ((lastAccessed.Date <= dateTimePickerMax.Value) && (lastAccessed >= dateTimePickerMin.Value))   ||   (lastAccessed == Program.MINDATE && checkBoxUnattempted.Checked)   )
+                    {
+                        usersSets.Add(new ProblemSet
+                        {
+                            isSolved = (set.Element("IsSolved").Value == "1" ? true : false),
+                            operation = set.Element("Operator").Value,
+                            problemSetID = Convert.ToInt32(set.Element("ProblemSetID").Value),
+                            solvedQuantity = numSolved,
+                            totalQuantity = problemQuantity,
+                            score = ((float)numSolved / (float)problemQuantity).ToString("p1"), //Forces the division to result in a float, and then converts that into xx.xx%
+                            lastAttempt = (set.Element("LastAccessed").Value == DateTime.MinValue.ToString("g")) ? "Never" : set.Element("LastAccessed").Value
+                        });
+                    }
                                                    
                 }
                 dataGridProblemSets.DataSource = usersSets;
@@ -76,37 +90,53 @@ namespace MathDrillGame
                 {
                     dataGridProblemSets.Columns[0].HeaderText = "Select";
                     dataGridProblemSets.Columns[1].HeaderText = "Set ID";
-                    dataGridProblemSets.Columns[2].HeaderText = "Operation";
+                    dataGridProblemSets.Columns[2].Visible = false;
                     dataGridProblemSets.Columns[3].HeaderText = "All done?";
-                    dataGridProblemSets.Columns[4].HeaderText = "# Solved";
-                    dataGridProblemSets.Columns[5].HeaderText = "# Total";
+                    dataGridProblemSets.Columns[4].Visible = false;
+                    dataGridProblemSets.Columns[5].Visible = false;
                     dataGridProblemSets.Columns[6].HeaderText = "Score";
+                    dataGridProblemSets.Columns[7].HeaderText = "Attempted on";
                 }
 
+                summaryText = "Problem Set Summary \r\nID \tType \tQty \tCorrect \tScore \tQuiz Date \r\n";
+                foreach (ProblemSet set in usersSets)
+                {
+                    summaryText += set.printSummary();
+                }
                 
+                textBoxReport.AppendText(summaryText);
 
                     
-            }//End if file exists
+            }//End of if(file.exists)
         }
 
         private void dataGridProblemSets_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int selectedSet = dataGridProblemSets.CurrentCellAddress.Y;
+            textBoxReport.Text = summaryText + "\r\n";
 
-            dataGridProblems.DataSource = null;
+            int selectedSet = dataGridProblemSets.CurrentCellAddress.Y;
             
             XDocument thefile = XDocument.Load(fileName);
             var problemsFromXML = from problem in thefile.Elements("AllProblemSets").Elements("ProblemSet").Elements("Problem")
                                   where problem.Parent.Element("ProblemSetID").Value == Convert.ToString(usersSets[selectedSet].problemSetID)
                                   select problem;
 
+            textBoxReport.AppendText("Problem Set #" + usersSets[selectedSet].problemSetID + " Details");
+            if (thefile.Elements("AllProblemSets").Elements("ProblemSet").ElementAt(selectedSet).Element("LastAccessed").Value == Program.MINDATE.ToString("g"))
+            {
+                textBoxReport.AppendText("(NOT TAKEN)");
+            }
+            textBoxReport.AppendText(" \r\n");
+            
+
+
             List<Problem> problemsInSet = new List<Problem>();
             int numSolved = 0;
-            textBoxReport.Text = "";
 
-            string tempString = "";
+            int iterator = 0;
             foreach (XElement prob in problemsFromXML)
             {
+                iterator++;
                 if (prob.Element("IsSolved").Value == "1")
                     numSolved++;
                 
@@ -115,31 +145,19 @@ namespace MathDrillGame
                     isSolved = (prob.Element("IsSolved").Value == "1" ? true : false),
                     operand1 = Convert.ToInt32(prob.Element("Operand1").Value),
                     operand2 = Convert.ToInt32(prob.Element("Operand2").Value),
-                    //operation = 
                     attemptNumber = Convert.ToInt32(prob.Element("Attempts").Value),
 
                 });
-               tempString += prob.Element("Operand1").Value + " " + prob.Parent.Element("Operator").Value + " " + prob.Element("Operand2").Value + (prob.Element("Attempts").Value != "0" ? "\tTried " + prob.Element("Attempts").Value + " times" : "") + (prob.Element("IsSolved").Value == "1" ? " (Solved)" : "") + "\r\n";
-            }
-            textBoxReport.AppendText("Report for problem set " + Convert.ToString(usersSets[selectedSet].problemSetID) + "\r\n");
-
-            textBoxReport.AppendText("Last attempted on " + usersSets[selectedSet].lastAttempt + "\r\n");
-
-            textBoxReport.AppendText("Questions solved: " + numSolved + "\r\n" + "Questions in the set: " + problemsFromXML.Count() + "\r\n");
-
-            textBoxReport.AppendText("\r\nProblems in set: \r\n-----\r\n");
-            textBoxReport.AppendText(tempString);
-            
-            dataGridProblemSets.DataSource = null;
-            dataGridProblemSets.DataSource = usersSets;
-
-            dataGridProblems.DataSource = problemsInSet;
-            dataGridProblems.Columns[0].HeaderText = "First Operand";
-            dataGridProblems.Columns[1].HeaderText = "Second Operand";
-            dataGridProblems.Columns[2].HeaderText = "Answer";
-            dataGridProblems.Columns[3].Visible = false; //Operation section
-            dataGridProblems.Columns[4].HeaderText = "Solved?";
-            dataGridProblems.Columns[5].HeaderText = "Attempts taken";
+               
+               /*Examples of how the next line will actually appear, under different circumstances
+                    1) 	66 + 63	 2 attempts  (Solved)
+                    2) 	60 + 66	 1 attempt 
+                    3) 	62 + 67	 no attempts */
+               textBoxReport.AppendText(iterator + ")\t" + prob.Element("Operand1").Value + " " + prob.Parent.Element("Operator").Value + " " + prob.Element("Operand2").Value 
+                   + "\t " + (prob.Element("Attempts").Value != "0" ? prob.Element("Attempts").Value : "no") 
+                   + (prob.Element("Attempts").Value == "1"? " attempt " : " attempts ") 
+                   + (prob.Element("IsSolved").Value == "1" ? " (Solved)" : "") + "\r\n");
+            }            
         }
 
         
@@ -154,6 +172,21 @@ namespace MathDrillGame
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void checkBoxUnattempted_CheckedChanged(object sender, EventArgs e)
+        {
+            findProblemSets();
+        }
+
+        private void dateTimePickerMin_ValueChanged(object sender, EventArgs e)
+        {
+            findProblemSets();
+        }
+
+        private void dateTimePickerMax_ValueChanged(object sender, EventArgs e)
+        {
+            findProblemSets();
         }
     }
 }

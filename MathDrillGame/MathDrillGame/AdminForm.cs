@@ -39,14 +39,6 @@ namespace MathDrillGame
             this.Activate();
         }
 
-    
-        private void AdminForm_Activated(object sender, System.EventArgs e)
-        {
-            labelGenProblemsFor.Text = "asfdsdfsf";
-            listOfStudents.DataSource = null;
-            listOfStudents.DataSource = Program.users;
-        }
-
         //When you select someone from the list, save to a variable which member it is, and personalize a message.
         private void listOfStudents_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -56,7 +48,7 @@ namespace MathDrillGame
 
             if (targetUser.isAdmin)
             {
-                //labelGenProblemsFor.Text = targetUser.fullName + " is not a student";
+                labelGenProblemsFor.Text = targetUser.fullName + " is not a student";
                 labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
                 inputMin.Enabled = inputMax.Enabled = inputQuantity.Enabled = Operation.Enabled = buttonGenerate.Enabled = false;
             }
@@ -64,7 +56,7 @@ namespace MathDrillGame
             else
             {
                 fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
-                //labelGenProblemsFor.Text = "Generating problems for " + targetUser.fullName;
+                labelGenProblemsFor.Text = "Generating problems for " + targetUser.fullName;
                 labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
                 inputMin.Enabled = inputMax.Enabled = inputQuantity.Enabled = Operation.Enabled = buttonGenerate.Enabled = true;
             }
@@ -123,16 +115,16 @@ namespace MathDrillGame
                 doc.Save(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
                 
             }
-            DateTime now = DateTime.Now;
+
             XDocument xml = XDocument.Load(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
             XElement newProblemSet = new XElement("ProblemSet");
-            XElement problemSetID = new XElement("ProblemSetID", Program.nextProblemSetID++);
+            XElement problemSetID = new XElement("ProblemSetID", Program.getNextProblemSetID());
             newProblemSet.Add(problemSetID);
             XElement operation = new XElement("Operator", (isAddition? "+" : "-"));
             newProblemSet.Add(operation);
             XElement problemSetSolved = new XElement("IsSolved", "0");
             newProblemSet.Add(problemSetSolved);
-            XElement lastAccessed = new XElement("LastAccessed", DateTime.MinValue.ToString());
+            XElement lastAccessed = new XElement("LastAccessed", Program.MINDATE.ToString("g"));
             newProblemSet.Add(lastAccessed);
             for (int i = 0; i < quantity; i++)
             {
@@ -162,7 +154,7 @@ namespace MathDrillGame
             }
 
             //Quantity must take a positive integer value. Blank entry unacceptable.
-            else if (Convert.ToInt32(inputQuantity.Text) <= 0 || inputQuantity.Text.Length == 0 || !int.TryParse(inputQuantity.Text, out value))
+            else if (inputQuantity.Text.Length == 0 || Convert.ToInt32(inputQuantity.Text) <= 0 || !int.TryParse(inputQuantity.Text, out value))
             {
                 listOfProblems.Text = "You must enter a positive number of problems to generate.";
                 return false;
@@ -205,6 +197,6 @@ namespace MathDrillGame
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }        
+        }
     } //end AdminForm class
 } //end namespace
