@@ -4,7 +4,7 @@ March 4, 2014
 
 Programmers: Kevin Novak and Uriah Mirandon
 Testers: Jorge Torres and Aurelio "Leo" Arango
-Analyst: Stephanie Yao
+Analyst: Stephanie Yao 
 
 Compatability with Windows XP, 7, and 8
 All data stored in C:\Users\Public\MathDrills
