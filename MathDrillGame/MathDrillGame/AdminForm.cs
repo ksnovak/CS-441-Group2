@@ -10,6 +10,8 @@ using System.Xml.Linq;
 using System.Xml;
 using System.IO;
 
+using System.Diagnostics;
+
 /* The ADMINISTRATOR form, the main page that administrators are shown when logged in
  * Used for generating problems for students, and also has buttons to go to Reports or New User creation
  */
@@ -21,6 +23,8 @@ namespace MathDrillGame
         int max; //Maximum range for RNG
         int quantity; //Quantity of problems to generate
         bool isAddition; //Whether the problems are addition or subtraction for RNG
+        //Aurelio Arango
+        User currentUser = Program.users[Program.currentUserIndex]; //The user who is logged in.
         
         static Random rng = new Random();   //Used for generating random numbers. Creates a random seed so that it is more random.
         List<User> adminStudentList = new List<User>(); //A list of students (and ONLY students) for the administrator
@@ -68,9 +72,13 @@ namespace MathDrillGame
         {
             Program.targetUser = Convert.ToInt32(listOfStudents.SelectedIndex);
             targetUser = adminStudentList[Program.targetUser];
+            //Aurelio Arango
+            //adding string for date and user
+            string admin_welcome = "Welcome " + currentUser.fullName + " "+getUserDate(currentUser.userID);
+
 
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
-            labelGenProblemsFor.Text = "Generating problems for " + targetUser.fullName;
+            labelGenProblemsFor.Text = admin_welcome+"\nGenerating problems for " + targetUser.fullName;
             labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
         }
 
@@ -170,21 +178,30 @@ namespace MathDrillGame
         {
             //Min and Max must take an integer value. Blank entry unacceptable.
             int value; //Just a temp variable used for the TryParse function. Otherwise not used.
-            if (inputMin.Text.Length == 0 || inputMax.Text.Length == 0 || !int.TryParse(inputMin.Text, out value) || !int.TryParse(inputMax.Text, out value))
+            if (inputMin.Text.Length == 0 || inputMax.Text.Length == 0 || !int.TryParse(inputMin.Text, out value) 
+                || !int.TryParse(inputMax.Text, out value) && !int.TryParse(inputQuantity.Text, out value))
             {
                 listOfProblems.Text = "You must enter a number range for problems.";
                 return false;
             }
 
             //Quantity must take a positive integer value. Blank entry unacceptable.
-            else if (inputQuantity.Text.Length == 0 || Convert.ToInt32(inputQuantity.Text) <= 0 || !int.TryParse(inputQuantity.Text, out value))
+            else if (inputQuantity.Text.Length > 0 && int.TryParse(inputQuantity.Text, out value))
             {
-                listOfProblems.Text = "You must enter a positive number of problems to generate.";
-                return false;
+                if (Convert.ToInt32(inputQuantity.Text) <= 0)
+                {
+                    listOfProblems.Text = "You must enter a positive number of problems to generate.";
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
 
             else
-                return true;
+                listOfProblems.Text = "You must enter a valid numbers of problems.";
+                return false;
         }
 
         /* NEWUSER CLICK event, when clicking on the "Add new user" button, show the form to make a new user
@@ -249,6 +266,26 @@ namespace MathDrillGame
                     this.Hide();
                 }
             }
+        }
+        /* Aurelio Arango 
+         * This method gets the date and name for the current administrator.
+         */
+        public string getUserDate(int user_id)
+        {
+            string string_date = "";
+            XElement studentListXML;
+            studentListXML = XElement.Load(Program.USERSFILE);
+            
+            foreach (XElement user in studentListXML.Descendants("Student"))
+            {
+                if (Convert.ToInt32(user.Element("UserID").Value) == user_id)
+                {
+                    //Debug.WriteLine("Last Date"+ user.Element("LastLogin").Value);
+                    string_date = user.Element("LastLogin").Value + " ";//+user.Element("LastLogin").Value;
+                }
+            }
+
+            return string_date;
         }
     } //end AdminForm class
 } //end namespace

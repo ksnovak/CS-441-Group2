@@ -39,7 +39,7 @@ namespace MathDrillGame
          */
         private void StudentShown(object sender, EventArgs e)
         {
-            labelWelcome.Text = "Welcome, " + currentUser.fullName;
+            labelWelcome.Text = "Welcome, " + currentUser.fullName +"\n"+getDate(currentUser.userID);
             labelWelcome.Left = (this.ClientSize.Width - labelWelcome.Width) / 2;
 
 
@@ -272,10 +272,32 @@ namespace MathDrillGame
             {
                 if (f.GetType() == typeof(LoginForm))
                 {
+                    //f.Refresh();
                     f.Show();
                     this.Hide();
                 }
             }
         }
+        /*Aurelio Arango
+         * This method retrieves the last login date for a given user based user id.
+         * 
+         */
+        public string getDate(int user_id)
+        {
+            string string_date="";
+            XElement studentListXML;
+            studentListXML = XElement.Load(Program.USERSFILE);
+
+            foreach (XElement user in studentListXML.Descendants("Student"))
+            {
+                if (Convert.ToInt32(user.Element("UserID").Value) == user_id)
+                {
+                    string_date = user.Element("LastLogin").Value;
+                }
+            }
+
+            return string_date;
+        }
+        
     }//end StudentForm class
 }//end namespace

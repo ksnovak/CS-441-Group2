@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
+using System.Diagnostics;
+
 /* The LOGINFORM form
  * This is the first screen shown to the user, although there is some background work done in Program.cs
  * This is where they identify themselves and enter the rest of the program.
@@ -17,6 +19,7 @@ namespace MathDrillGame
 {
     public partial class LoginForm : Form
     {
+        int size =0;
         XElement studentListXML;
         public LoginForm()
         {
@@ -29,8 +32,10 @@ namespace MathDrillGame
          * For the List Box, it will display "Teacher - Bill J. Admin" or "Student - Susan M. Doe" but the value member is their unique ID
          * Uriah and Kevin
          */
+
         public void buildUserList()
         {
+            //Debug.WriteLine("buildUserList"+(size++));
             studentListXML = XElement.Load(Program.USERSFILE);
             Program.users.Clear();
             foreach (XElement user in studentListXML.Descendants("Student"))
@@ -128,5 +133,28 @@ namespace MathDrillGame
             doc.Save(Program.CONFIGFILE);
             Application.Exit();
         }
+        //Aurelio Arango
+        //
+        public new void Show()
+        {
+            
+            //Debug.WriteLine("Show");
+            base.Show();
+        }
+        protected override void  OnShown(EventArgs e)
+        {
+            //Debug.WriteLine("OnShow");
+            buildUserList();
+            base.OnShown(e);
+        }
+        
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            //Debug.WriteLine("onvisible");
+          
+            buildUserList();
+            base.OnVisibleChanged(e);
+        }
+
     }//end Form1 class
 }//end namespace
