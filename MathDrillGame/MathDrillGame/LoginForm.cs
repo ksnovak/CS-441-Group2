@@ -1,4 +1,17 @@
-﻿using System;
+﻿/* CS 441
+ * Created by: Kevin
+ * Date:
+ * 
+ * Modification: Added on show(), onShown(), OnVisibleChanged()
+ * date: 3-11-14
+ * Name: Aurelio Arango
+ * What/Why? Debugging for purposes of updating list.
+ */
+
+
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -125,29 +138,58 @@ namespace MathDrillGame
          * currently just tracking the unique IDs for users and problem sets
          * Uriah and Kevin
          */
+        /*
         private void buttonClose_Click(object sender, EventArgs e)
         {
-            XElement doc = XElement.Load(Program.CONFIGFILE);
-            doc.SetElementValue("NextValidUser", Program.nextUserID);
-            doc.SetElementValue("NextValidSet", Program.nextProblemSetID);
-            doc.Save(Program.CONFIGFILE);
-            Application.Exit();
+            //XElement doc = XElement.Load(Program.CONFIGFILE);
+            //doc.SetElementValue("NextValidUser", Program.nextUserID);
+            //doc.SetElementValue("NextValidSet", Program.nextProblemSetID);
+            //doc.Save(Program.CONFIGFILE);
+            //Application.Exit();
+
+           
+
+        }*/
+        //Aurelio Arango 3-18-14
+        //On selection of teacher, listOfStudents updates.
+        //
+        private void listOfTeachers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listOfUsers.Enabled = true;
+        }
+
+        private void back_button_Click(object sender, EventArgs e)
+        {
+            //Aurelio Arango 3-18-14
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f.GetType() == typeof(StartForm))
+                {
+                    f.Show();
+                    this.Hide();
+                }
+            }
+
         }
         //Aurelio Arango
-        //
+        //Debugging for update of list
+        /*
         public new void Show()
         {
             
             //Debug.WriteLine("Show");
             base.Show();
         }
+        //Aurelio Arango
+        //Debugging for update of list
         protected override void  OnShown(EventArgs e)
         {
             //Debug.WriteLine("OnShow");
             buildUserList();
             base.OnShown(e);
         }
-        
+        //Aurelio Arango
+        //Debugging for update of list
         protected override void OnVisibleChanged(EventArgs e)
         {
             //Debug.WriteLine("onvisible");
@@ -155,6 +197,6 @@ namespace MathDrillGame
             buildUserList();
             base.OnVisibleChanged(e);
         }
-
+        */
     }//end Form1 class
 }//end namespace
