@@ -45,7 +45,7 @@ namespace MathDrillGame
                 {
                     adminStudentList.Add(new User
                     {
-                        isAdmin = false,
+                        //isAdmin = false,
                         fullName = user.Element("FullName").Value,
                         userID = Convert.ToInt32(user.Element("UserID").Value)
                     });

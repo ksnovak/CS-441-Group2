@@ -11,14 +11,19 @@ namespace MathDrillGame
     class User
     {
         public User() { }
-        public User(bool isAdmin, string fullName, int userID)
+        /*public User(bool isAdmin, string fullName, int userID)
         {
-            this.isAdmin = isAdmin;
+            //this.isAdmin = isAdmin;
+            this.fullName = fullName;
+            this.userID = userID;
+        }*/
+        public User(string fullName, int userID)
+        {
+            //this.isAdmin = isAdmin;
             this.fullName = fullName;
             this.userID = userID;
         }
-
-        public bool isAdmin { get; set; }
+        //public bool isAdmin { get; set; }
         public string fullName { get; set; }
         public int userID { get; set; } //Should be unique. When setting, there is a public static function, Program.getNextProblemSetID() that you should use to enforce uniqueness
         public DateTime lastLogin { get; set; }
@@ -27,7 +32,7 @@ namespace MathDrillGame
          * Used for the listboxes, because only a single member may be the DisplayMember
          * Uriah and Kevin
          */
-        public string getRoleAndName { get { return (isAdmin ? "Teacher" : "Student") + " - " + fullName; } } 
+       // public string getRoleAndName { get { return (isAdmin ? "Teacher" : "Student") + " - " + fullName; } } 
     }
 
 }

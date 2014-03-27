@@ -77,3 +77,36 @@ C:\Users\Lyuz\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Deb
 C:\Users\Lyuz\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.csproj.GenerateResource.Cache
 C:\Users\Lyuz\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.StartForm.resources
 C:\Users\Lyuz\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.AdminLoginForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\bin\Debug\MathDrillGame.exe.config
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.exe
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.pdb
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\bin\Debug\MathDrillGame.exe
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\bin\Debug\MathDrillGame.pdb
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.AdminForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.AdminLoginForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.NewUserForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.Properties.Resources.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.ReportsForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.StartForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\ResGen.read.1.tlog
+C:\Users\polyonymous\Desktop\CS-441-Group2-master\MathDrillGame\MathDrillGame\obj\Debug\ResGen.write.1.tlog
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\bin\Debug\MathDrillGame.exe.config
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.exe
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.pdb
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\bin\Debug\MathDrillGame.exe
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\bin\Debug\MathDrillGame.pdb
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.AdminForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.AdminLoginForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.NewUserForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.Properties.Resources.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.ReportsForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.StartForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\ResGen.read.1.tlog
+C:\Users\polyonymous\Desktop\CS-441-Group2-master 2.1.2 - Copy\MathDrillGame\MathDrillGame\obj\Debug\ResGen.write.1.tlog
+C:\Users\Lyuz\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Debug\MathDrillGame.StudentLoginForm.resources

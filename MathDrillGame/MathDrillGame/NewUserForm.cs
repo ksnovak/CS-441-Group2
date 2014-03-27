@@ -64,7 +64,7 @@ namespace MathDrillGame
             //Rebuild the list of users to accomodate for the new user.
             Program.users.Add(new User
             {
-                isAdmin = (studentListXML.Descendants("Student").Last().Element("IsAdmin").Value == "1"? true : false),
+                //isAdmin = (studentListXML.Descendants("Student").Last().Element("IsAdmin").Value == "1"? true : false),
                 fullName = studentListXML.Descendants("Student").Last().Element("FullName").Value,
                 userID = Convert.ToInt32(studentListXML.Descendants("Student").Last().Element("UserID").Value)
             });

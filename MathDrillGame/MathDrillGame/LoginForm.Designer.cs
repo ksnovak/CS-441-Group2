@@ -68,6 +68,7 @@
             this.listOfUsers.Name = "listOfUsers";
             this.listOfUsers.Size = new System.Drawing.Size(268, 84);
             this.listOfUsers.TabIndex = 1;
+            this.listOfUsers.SelectedIndexChanged += new System.EventHandler(this.listOfUsers_SelectedIndexChanged);
             // 
             // labelWelcome
             // 
@@ -86,7 +87,7 @@
             // 
             this.listOfTeachers.FormattingEnabled = true;
             this.listOfTeachers.Items.AddRange(new object[] {
-            "Admin"});
+            "something"});
             this.listOfTeachers.Location = new System.Drawing.Point(12, 47);
             this.listOfTeachers.Name = "listOfTeachers";
             this.listOfTeachers.Size = new System.Drawing.Size(268, 69);

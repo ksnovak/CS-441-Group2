@@ -21,11 +21,17 @@ namespace MathDrillGame
         /// </summary>
 
         public static List<User> users = new List<User>();
+        public static List<Teacher> teachers = new List<Teacher>();// stores all the teachers
+        public static List<Student> students = new List<Student>();// stores the students for a given teacher
+
         public static int currentUserIndex; //Who is logged in
-        public static int targetUser; //For the admin, this is who to generate problems for.
+        public static int currentTeacherIndex;//Aurelio Arango 3-25-14 - admin logged in
+        public static int currentStudentIndex;//Aurelio Arango 3-25-14 - student logged in
+        public static int targetUser; //For the admin, this is who to generate problems for
         public static int nextUserID = 101; //Enforces globally unique student IDs. When making new students, do "Program.nextUserID++"
         public static int nextProblemSetID = 1; //Enforces globally unique problem set IDs. When making new problem sets, do "Program.newProblemSetID++"
-        public static string USERSFILE = @"c:\users\public\MathDrills\users.xml";
+        //public static string USERSFILE = @"c:\users\public\MathDrills\users.xml";
+        public static string USERSFILE = @"c:\users\public\MathDrills\users_v2.xml";
         public static string CONFIGFILE = @"c:\users\public\MathDrills\config.xml";
         public static DateTime MINDATE = new DateTime(2013, 12, 31);
 

@@ -6,10 +6,10 @@
  * date: 3-11-14
  * Name: Aurelio Arango
  * What/Why? Debugging for purposes of updating list.
+ * 
+ * 
+ * 
  */
-
-
-
 
 using System;
 using System.Collections.Generic;
@@ -32,12 +32,13 @@ namespace MathDrillGame
 {
     public partial class LoginForm : Form
     {
-        int size =0;
-        XElement studentListXML;
+        //int size =0;
+        XElement teachersListXML;
         public LoginForm()
         {
             InitializeComponent();
-            buildUserList(); 
+            buildTeacherList();
+            //buildUserList(); //removed 3-25-14
         }
 
         /* BUILDUSERLIST takes users from the XML file and stores them into a List<User>, primarily for displaying on the various List Boxes.
@@ -46,7 +47,8 @@ namespace MathDrillGame
          * Uriah and Kevin
          */
 
-        public void buildUserList()
+        //Not using this function anymore. We're not using different functions to populate Student and Teacher list.
+        /*public void buildUserList()
         {
             //Debug.WriteLine("buildUserList"+(size++));
             studentListXML = XElement.Load(Program.USERSFILE);
@@ -55,7 +57,7 @@ namespace MathDrillGame
             {
                 Program.users.Add(new User 
                 { 
-                    isAdmin = (user.Element("IsAdmin").Value == "1"? true : false), 
+                    //isAdmin = (user.Element("IsAdmin").Value == "1"? true : false), 
                     fullName = user.Element("FullName").Value, 
                     userID = Convert.ToInt32(user.Element("UserID").Value)                         
                 });
@@ -65,6 +67,60 @@ namespace MathDrillGame
             listOfUsers.DataSource = Program.users; //This will link that List<Users> to the ListBox
             listOfUsers.DisplayMember = "getRoleAndName"; //What will be shown. Note, this is a function in the User class to show both the role and the name.
             listOfUsers.ValueMember = "userID";
+        }*/
+
+        public void buildTeacherList()
+        {
+            teachersListXML = XElement.Load(Program.USERSFILE);
+            Program.teachers.Clear();
+            Debug.WriteLine("Show");
+            foreach (XElement user in teachersListXML.Descendants("Teacher"))
+            {
+                string newName = user.Element("FullName").Value;
+                string pass = user.Element("pass").Value;
+                int userID = Convert.ToInt32(user.Element("UserID").Value);
+                
+                List<Student> studentList = getStudentList( user);
+                Teacher tempTeacher = new Teacher(newName,userID,studentList,pass); 
+
+                Program.teachers.Add(tempTeacher);
+                //Debug.WriteLine(newName);
+                //Debug.WriteLine(userID);
+
+                /*Program.teachers.Add(new Teacher
+                {
+                    //isAdmin = (user.Element("IsAdmin").Value == "1"? true : false), 
+                    fullName = user.Element("FullName").Value,
+                    userID = Convert.ToInt32(user.Element("UserID").Value)
+                   
+                });*/
+                
+            }
+            //listOfTeachers.DataSource = Program.users; //This will link that List<Users> to the ListBox
+            listOfTeachers.DataSource = Program.teachers;
+            listOfTeachers.DisplayMember = "getRoleAndName"; //What will be shown. Note, this is a function in the User class to show both the role and the name.
+            listOfTeachers.ValueMember = "userID";
+
+        }
+
+        private List<Student> getStudentList(XElement userList)
+        {
+            List<Student> student_list = new List<Student>();
+            foreach (XElement user in userList.Descendants("Student"))
+            {
+                //XElement user_student = user.Parent;
+                //string userid = Parent.Name;
+                
+                    string user_name = user.Element("FullName").Value;
+                    string user_id = user.Element("UserID").Value;
+                    int user_id_int = Convert.ToInt32(user_id);
+                    string user_group = user.Element("Group").Value;
+                    string user_p = user.Element("pass").Value;
+                    student_list.Add(new Student(user_name,user_id_int,user_group,user_p));
+            }
+            //Debug.WriteLine("done");
+
+            return student_list;
         }
 
         /* When the LOG IN button is pressed, 
@@ -74,14 +130,47 @@ namespace MathDrillGame
         private void buttonLogin_Click(object sender, EventArgs e)
         {
 
-            Program.currentUserIndex = Convert.ToInt32(listOfUsers.SelectedIndex);
-            User currentUser = Program.users[Program.currentUserIndex];
-            if (authUser(currentUser, ""))
-            {
+            Program.currentStudentIndex = Convert.ToInt32(listOfUsers.SelectedIndex);
+            Program.currentUserIndex = Program.currentStudentIndex;
+            //User currentUser = Program.students[Program.currentUserIndex];
+            //Debug.WriteLine("Index"+Program.currentStudentIndex);
+            //Debug.WriteLine("size"+Program.students.Count);
+
+            Student currentStudent = Program.students[Program.currentStudentIndex];
+
+            //Removed because students will authenticate in a different window
+            //if (authUser(currentStudent, ""))
+            //{
                 //Search userlist for user, update lastLoggedIn
-                studentListXML.Descendants("Student").ElementAt(Program.currentUserIndex).SetElementValue("LastLogin", DateTime.Now.ToString("g"));
-                studentListXML.Save(Program.USERSFILE);
-                buildUserForm(Program.users[Program.currentUserIndex]);
+                //*********Rewrite************studentListXML.Descendants("Student").ElementAt(Program.currentUserIndex).SetElementValue("LastLogin", DateTime.Now.ToString("g"));
+                //*********Rewrite************//studentListXML.Save(Program.USERSFILE);
+               // buildUserForm(Program.users[Program.currentUserIndex]);
+            //}
+            buildStudentLoginForm();
+
+        }
+        //Aurelio Arango 3-25-14
+        //This funtion creates a new Form in which the selected student needs to authenticate itself
+        private void buildStudentLoginForm()
+        {
+            
+            bool foundForm = false; 
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f.GetType() == typeof(StudentLoginForm))
+                {
+                    f.Show();
+                    foundForm = true;
+                    this.Hide();
+                }
+            }
+            if (!foundForm)
+            { 
+                StudentLoginForm loginForm = new StudentLoginForm();
+                loginForm.Tag = this;
+                loginForm.Show(this);
+                this.Hide();
+                
             }
         }
 
@@ -89,21 +178,22 @@ namespace MathDrillGame
          * Currently always returns true, but set up as preparation for the future
          * Kevin and Uriah
          */
-        private bool authUser(User user, string password)
+        /*private bool authUser(Student user, string password)
         {
             return true;
-        }
+        }*/
 
         //Depending on whether the user is an administrator or student, build the appropriate form and hide the login.
         /* BUILDUSERFORM is called after the user is authenticated
          * It will create either the Administrator or Student form and display that.
          * Kevin and Uriah
          */
-        private void buildUserForm(User user)
+
+        /*private void buildUserForm(User user)
         {
-            /*When trying to build the administrator form, checks if one already exists
-             *If it does, just show that form, otherwise you'll create a new one
-             */
+           // When trying to build the administrator form, checks if one already exists
+             /If it does, just show that form, otherwise you'll create a new one
+             //
             bool foundForm = false; 
             foreach (Form f in Application.OpenForms)
             {
@@ -132,7 +222,8 @@ namespace MathDrillGame
                     this.Hide();
                 }
             }
-        }
+        }*/
+
 
         /* When the EXIT button is clicked, do some last saving of data before exiting
          * currently just tracking the unique IDs for users and problem sets
@@ -156,8 +247,26 @@ namespace MathDrillGame
         private void listOfTeachers_SelectedIndexChanged(object sender, EventArgs e)
         {
             listOfUsers.Enabled = true;
-        }
+            //Debug.WriteLine(listOfTeachers.SelectedIndex);
+            //Debug.WriteLine(Program.teachers.ElementAt(listOfTeachers.SelectedIndex).fullName);
 
+            Program.currentTeacherIndex = Convert.ToInt32(listOfTeachers.SelectedIndex);//getting current user index
+           // listOfUser.DataSource = Program.teachers.ElementAt(listOfTeachers.SelectedIndex).students;
+
+            var source = new BindingSource();
+            source.DataSource = Program.teachers.ElementAt(listOfTeachers.SelectedIndex).students;
+            //Program.students.Clear();
+            Program.students = Program.teachers.ElementAt(listOfTeachers.SelectedIndex).students;
+            listOfUsers.DataSource = source;
+            //listOfUsers.DataSource = Program.teachers.i;
+            listOfUsers.DisplayMember = "fullName"; //What will be shown. Note, this is a function in the User class to show both the role and the name.
+            listOfUsers.ValueMember = "userID";
+            //getuser id from list of users
+            //populate list
+
+        }
+        //Aurelio Arango
+        //Method looks for previous form, displays it and hides current form
         private void back_button_Click(object sender, EventArgs e)
         {
             //Aurelio Arango 3-18-14
@@ -169,7 +278,13 @@ namespace MathDrillGame
                     this.Hide();
                 }
             }
-
+        }
+        //Aurelio Arango
+        //This funtion sets the current student that is selected from the list of users.
+        private void listOfUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Debug.WriteLine(listOfUsers.SelectedIndex);
+            Program.currentStudentIndex = Convert.ToInt32(listOfUsers.SelectedIndex);
         }
         //Aurelio Arango
         //Debugging for update of list

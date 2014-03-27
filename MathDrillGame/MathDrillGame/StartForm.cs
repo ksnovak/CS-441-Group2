@@ -21,21 +21,29 @@ namespace MathDrillGame
         {
             InitializeComponent();
         }
-
+        //Aurelio Arango
+        //Exit application when exit button is pressed
         private void exit_button_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+        //Aurelio Arango
+        //Calls start_form when student button is clicked, sets admin to false
         private void Student_Button_Click(object sender, EventArgs e)
         {
             bool admin = false;
             start_form(admin);
         }
+        //Aurelio Arango
+        //calls start_form when admin button is click, sets admin to true
         private void admin_button_Click(object sender, EventArgs e)
         {
             bool admin = true;
             start_form(admin);
         }
+        //Aurelio Arango
+        //This method takes a boolean if user is admin or not
+        //Depending on user, it creates a form for the user if it does not exist otherwise it shows the form for the user
         private void start_form(bool user)
         {
             bool foundForm = false;
@@ -60,9 +68,6 @@ namespace MathDrillGame
                 }
                 else
                 {
-                    //StudentForm studentForm = new StudentForm();
-                    //studentForm.Tag = this;
-                    //studentForm.Show(this);
                     LoginForm loginform = new LoginForm();
                     loginform.Tag = this;
                     loginform.Show(this);
@@ -70,9 +75,5 @@ namespace MathDrillGame
                 }
             }
         }
-
-       
-
-       
     }
 }

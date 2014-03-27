@@ -2,10 +2,15 @@
  * Created by: Kevin
  * Date:
  * 
- * Modification: Added getUserDate() and 
+ * Modification: Added getUserDate() and display content
  * date: 3-11-14
  * Name: Aurelio Arango
- * What/Why? Displaying date and name for current administrator. 
+ * What/Why? Displaying date and name for current administrator.
+ * 
+ * Modifiction: change AdminForm_Load()
+ * date: 3-26-14
+ * Name: Aurelio Arango
+ * What/Why?: load list of students assigned to teacher object, not openning xml
  * 
  */
 
@@ -27,19 +32,22 @@ using System.Diagnostics;
  * Used for generating problems for students, and also has buttons to go to Reports or New User creation
  */
 namespace MathDrillGame
-{
+{//this shit makes me miss function prototypes Q_Q
     public partial class AdminForm : Form
     {
-        int min; //Minimum range for RNG
-        int max; //Maximum range for RNG
-        int quantity; //Quantity of problems to generate
-        bool isAddition; //Whether the problems are addition or subtraction for RNG
+        int min;            //Minimum range for RNG
+        int max;            //Maximum range for RNG
+        int quantity;       //Quantity of problems to generate
+        bool isAddition;    //Whether the problems are addition or subtraction for RNG
         //Aurelio Arango
-        User currentUser = Program.users[Program.currentUserIndex]; //The user who is logged in.
-        
-        static Random rng = new Random();   //Used for generating random numbers. Creates a random seed so that it is more random.
+
+        //crash site here. complaints about this being a NULL value.
+        //User currentUser = Program.users[Program.currentUserIndex]; //The user who is logged in.
+        Teacher currentTeacher = Program.teachers[Program.currentTeacherIndex];//aurelio arango, admin logged in
+
+        static Random rng = new Random();               //Used for generating random numbers. Creates a random seed so that it is more random.
         List<User> adminStudentList = new List<User>(); //A list of students (and ONLY students) for the administrator
-        User targetUser;                    //Holds user details on the selected user
+        User targetUser;                                //Holds user details on the selected user
         string fileName;
         public AdminForm()
         {
@@ -50,7 +58,7 @@ namespace MathDrillGame
          * This will only display students, doesn't include administrators.
          * Kevin and Uriah
          */
-        private void AdminForm_Load(object sender, EventArgs e)
+        /*private void AdminForm_Load(object sender, EventArgs e)
         {
             XElement studentListXML = XElement.Load(Program.USERSFILE);
             adminStudentList.Clear();
@@ -60,19 +68,41 @@ namespace MathDrillGame
                 {
                     adminStudentList.Add(new User
                     {
-                        isAdmin = false,
+                        //isAdmin = false,
                         fullName = user.Element("FullName").Value,
                         userID = Convert.ToInt32(user.Element("UserID").Value)
-                    });
-                }
-            }
+                    });//new user init
+                }//end if
+            }//end foreach
+            
+            //Following below both are to show the roster for the class
             listOfStudents.DataSource = null;   
             listOfStudents.DataSource = adminStudentList;
-            listOfStudents.DisplayMember = "fullName"; //This is the value to show on-screen
-            listOfStudents.ValueMember = "userID"; //This is the value to pass
+            listOfStudents.DisplayMember = "fullName";  //This is the value to show on-screen
+            listOfStudents.ValueMember = "userID";      //This is the value to pass
+            
+            manageStudentList.DataSource = adminStudentList;
+            manageStudentList.DisplayMember = "fullName";
+            manageStudentList.ValueMember = "userID";
 
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
+        }*/
+        /* 
+         * Aurelio Arango 
+         * This function populates the list with the current teacher's students
+         * Returns nothing
+         */
+        private void AdminForm_Load(object sender, EventArgs e)    
+        {
+            listOfStudents.DataSource = null;//data biding
+            listOfStudents.DataSource = currentTeacher.students;//set data source
+            listOfStudents.DisplayMember = "fullName";
+            listOfStudents.ValueMember = "userID";
+            //Debug.WriteLine(targetUser); debug line
+            //fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
         }
+
+
 
         //When you select someone from the list, save to a variable which member it is, and personalize a message.
         /* SELECTEDINDEXCHANGED event triggered when selecting a different student for whom to create problems
@@ -82,17 +112,19 @@ namespace MathDrillGame
         private void listOfStudents_SelectedIndexChanged(object sender, EventArgs e)
         {
             Program.targetUser = Convert.ToInt32(listOfStudents.SelectedIndex);
+            Debug.WriteLine(listOfStudents.SelectedIndex);
             targetUser = adminStudentList[Program.targetUser];
             //Aurelio Arango
             //adding string for date and user
-            string admin_welcome = "Welcome " + currentUser.fullName + " "+getUserDate(currentUser.userID);
-
+            //string admin_welcome = "Welcome " + currentUser.fullName + " "+getUserDate(currentUser.userID);
+            string admin_welcome = "Welcome " + currentTeacher.fullName + " " + getUserDate(currentTeacher.userID);
 
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
             labelGenProblemsFor.Text = admin_welcome+"\nGenerating problems for " + targetUser.fullName;
             labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
         }
 
+//---------------------------------------------------------------------------------------
         /* GENERATION CLICK event, when the administrator clicks the "Generate!" button to make problems for a student
          * Makes sure the input is valid, and if so, calls the function to generate problems
          * Kevin and Uriah
@@ -107,20 +139,21 @@ namespace MathDrillGame
             //If the inputs are valid, then start generating problems in those constraints.
             else
             {
-                min = Convert.ToInt32(inputMin.Text); //Turn the string input into ints
-                max = Convert.ToInt32(inputMax.Text); //Turn the string input into ints
-                if (min > max) //If users mistook min for max, swap the values.
+                min = Convert.ToInt32(inputMin.Text);   //Turn the string input into ints
+                max = Convert.ToInt32(inputMax.Text);   //Turn the string input into ints
+                if (min > max)                          //If users mistook min for max, swap the values.
                 {
                     int temp = min;
                     min = max;
                     max = temp;
                 }
                 quantity = Convert.ToInt32(inputQuantity.Text); //Turn the string input into ints
-                isAddition = radioAddition.Checked; //Determine the type of problem
+                isAddition = radioAddition.Checked;             //Determine the type of problem
                 generateProblemSet();
-            }
-        }
+            }//end else
+        }//end function
 
+//---------------------------------------------------------------------------------------
         /* GENERATEPROBLEMSET actually creates the set of problems in XML, and also displays in a textbox.
          * Kevin and Uriah
          */
@@ -176,6 +209,7 @@ namespace MathDrillGame
             return true;
         }
 
+//---------------------------------------------------------------------------------------
         //Ensures that the admin entered valid arguments for problem generation.
         /* VALIDATEINPUT makes sure that the attributes the teacher input for problem sets is valid.
          * Min, Max, and Quantity all have to have some value in them.
@@ -188,7 +222,10 @@ namespace MathDrillGame
         private bool validateInput()
         {
             //Min and Max must take an integer value. Blank entry unacceptable.
-            int value; //Just a temp variable used for the TryParse function. Otherwise not used.
+
+            //Just a temp variable used for the TryParse function. Otherwise not used.
+            int value;
+
             if (inputMin.Text.Length == 0 || inputMax.Text.Length == 0 || !int.TryParse(inputMin.Text, out value) 
                 || !int.TryParse(inputMax.Text, out value) && !int.TryParse(inputQuantity.Text, out value))
             {
@@ -207,14 +244,15 @@ namespace MathDrillGame
                 else
                 {
                     return true;
-                }
-            }
+                }//end else
+            }//end else if
 
             else
                 listOfProblems.Text = "You must enter a valid numbers of problems.";
                 return false;
-        }
+        }//end if
 
+//---------------------------------------------------------------------------------------
         /* NEWUSER CLICK event, when clicking on the "Add new user" button, show the form to make a new user
          * Will close this form. Done so specifically because we need the listView to update after a user has been added, and this was the best way to guarantee that.
          * Kevin and Uriah
@@ -226,6 +264,7 @@ namespace MathDrillGame
             Close();
         }
 
+//---------------------------------------------------------------------------------------
         /* REPORTS CLICK event, when clicking on the "Reports" button, show the reports window
          * Kevin and Uriah
          */
@@ -235,6 +274,7 @@ namespace MathDrillGame
             reports.Show();
         }
 
+//---------------------------------------------------------------------------------------
         /* LOGOUT click event, when clicking the "Log out" button, starts the logout sequence
          * Kevin and Uriah
          */
@@ -242,7 +282,7 @@ namespace MathDrillGame
         {
             goToLogin();
         }
-
+//---------------------------------------------------------------------------------------
         /* ONFORMCLOSING event, triggered when this form closes.
          * If triggered by the opening of the NEWUSER form, then this does nothing special.
          * If triggered by the LOGOUT event, then this will show the already-open-but-hidden Login form, and hide the admin form instead.
@@ -262,7 +302,7 @@ namespace MathDrillGame
                 goToLogin();
         }
 
-
+//---------------------------------------------------------------------------------------
         /* GOTOLOGIN, called from different occasions of closing the form
          * Finds the login form object and shows that, hiding the admin form (rather than creating a new instance, which can lead to multiple instance of the program)
          * Kevin and Uriah
@@ -275,9 +315,11 @@ namespace MathDrillGame
                 {
                     f.Show();
                     this.Hide();
-                }
-            }
-        }
+                }//end if
+            }//end foreach
+        }//end function
+
+//---------------------------------------------------------------------------------------
         /* Aurelio Arango 
          * Int takes an integer that is the user_id
          * This method gets the date
@@ -295,10 +337,65 @@ namespace MathDrillGame
                 {
                     //Debug.WriteLine("Last Date"+ user.Element("LastLogin").Value);
                     string_date = user.Element("LastLogin").Value + " ";//+user.Element("LastLogin").Value;
-                }
-            }
-
+                }//end if
+            }//end foreach
             return string_date;
         }
+//---------------------------------------------------------------------------------------
+        /*Below is used by buttons in the Manager Users Tab of the Admin Form. 
+         * Fuck if I'm going to sort the shit above*/
+        /*
+         * //Need to dynamically create tab pages somehow. Each tab page comes with it's own listBox to
+         * hold it's roster of students- the add/remove button should target the right list- which it isn't doing now.
+         * 
+         * //manageStudentList = class roster. Named this way because it's a student list under the manage tab.
+         * //these are out of place compared to where they really need to be.
+         * List<User> addUs;    //this the data source for an individual group roster
+         *                      //there is one per tab page
+         * List<User> removeUs; //likewise for this thing
+         
+         * //First need to load the Group's XML into addUs
+         */
+        private void targetListBox()
+        {
+ 
+        }
+
+        private void addUserToGroupBtn_Click(object sender, EventArgs e)
+        {
+            /*
+             * ***
+             * //Pick the sucker to manipulate
+             * Program.TargetUser = ConvertToInt32(manageStudentList.SelectedIndex);
+             * targetUser = adminStudentList[Program.targetUser];
+             * addUs.Add(targetUser);
+             * //Update the list on the right to reflect changes (left list = class roster; right = group roster)
+             * ***
+             */
+        }
+
+        /*Deletes a user from the group (temporary storage)*/
+        private void delUserFromGroupBtn_Click(object sender, EventArgs e)
+        {
+            //Select User
+            //Add to a list of "to remove from Group XML"
+            /*
+             * //Pick the sucker to manipulate
+             * Program.TargetUser = ConvertToInt32(manageStudentList.SelectedIndex);
+             * targetUser = adminStudentList[Program.targetUser];
+             *
+             */
+        }//end function
+
+        /*Saves changes to an XML- if non-existant creates it.*/
+        private void manageSaveChangesBtn_Click(object sender, EventArgs e)
+        {
+            //Actually changes the XML- if there is none, make it
+            /*
+             * 
+             */
+        }
+//---------------------------------------------------------------------------------------
+
     } //end AdminForm class
 } //end namespace
