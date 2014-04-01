@@ -1,4 +1,13 @@
-﻿using System;
+﻿/* CS 441
+ * Created by: Aurelio Arango
+ * Date: 3-31-14
+ * Purpose: This class handles reading and saving xml
+ * 
+ * 
+ * 
+ * 
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,8 +50,6 @@ namespace MathDrillGame
                 doc = new XmlDocument();
 
                 XmlElement userList = doc.CreateElement("UserList");//root
-
-                
 
                 //load teachers
                 for (int i = 0; i < listofTeachers.Count; i++)

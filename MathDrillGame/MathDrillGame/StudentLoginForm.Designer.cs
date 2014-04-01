@@ -33,6 +33,7 @@
             this.pentagon_button = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Button();
+            this.back_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // triangle_button
@@ -77,11 +78,22 @@
             this.exit_button.UseVisualStyleBackColor = true;
             this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
+            // back_button
+            // 
+            this.back_button.Location = new System.Drawing.Point(95, 260);
+            this.back_button.Name = "back_button";
+            this.back_button.Size = new System.Drawing.Size(74, 50);
+            this.back_button.TabIndex = 4;
+            this.back_button.Text = "Back";
+            this.back_button.UseVisualStyleBackColor = true;
+            this.back_button.Click += new System.EventHandler(this.back_button_Click);
+            // 
             // StudentLoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(566, 327);
+            this.Controls.Add(this.back_button);
             this.Controls.Add(this.exit_button);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.pentagon_button);
@@ -98,5 +110,6 @@
         private System.Windows.Forms.Button pentagon_button;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button exit_button;
+        private System.Windows.Forms.Button back_button;
     }
 }

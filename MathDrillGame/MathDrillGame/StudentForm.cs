@@ -6,6 +6,12 @@
  * date: 3-11-14
  * Name: Aurelio Arango
  * What/Why? Debugging for purposes of updating list.
+ * 
+ * 
+ * Modification: commented-out reading last login because Student holds that information
+ * date: 4-1-14
+ * Name: Aurelio Arango
+ * What/Why? .
  */
 
 using System;
@@ -32,7 +38,11 @@ namespace MathDrillGame
         int problemSetSize;   //How many problems are in the current set
         int setIndex = 0;     //Keeps track of the current set being worked on.
         Problem currentProblem; //The individual problem currently being worked on
-        User currentUser = Program.users[Program.currentUserIndex]; //The user who is logged in.
+        //User currentUser = Program.users[Program.currentUserIndex]; //The user who is logged in.
+        //4-1-14
+        //
+        Student currentUser = Program.teachers[Program.currentTeacherIndex].students[Program.currentStudentIndex];//get current student
+        
         XElement StudentXMLFile; //The student's XML file, in XElement form, opened during the LOAD event
         string fileName;      //The location of the student's XML file
 
@@ -51,7 +61,8 @@ namespace MathDrillGame
         {
             //Aurelio Arango
             //Modified to get current date from current student
-            labelWelcome.Text = "Welcome, " + currentUser.fullName +"\n"+getDate(currentUser.userID);
+            //labelWelcome.Text = "Welcome, " + currentUser.fullName +"\n"+getDate(currentUser.userID);
+            labelWelcome.Text = "Welcome, " + currentUser.fullName + "\n" + currentUser.lastLogin;
             labelWelcome.Left = (this.ClientSize.Width - labelWelcome.Width) / 2;
 
 
@@ -294,7 +305,9 @@ namespace MathDrillGame
          * This method retrieves the last login date for a given user based user id.
          * Returns a string of the last date a student was logged. 
          */
-        public string getDate(int user_id)
+        //Aurelio Arango
+        //Not in use because student object holds last loggin
+       /* public string getDate(int user_id)
         {
             string string_date="";
             XElement studentListXML;
@@ -309,7 +322,7 @@ namespace MathDrillGame
             }
 
             return string_date;
-        }
+        }*/
         
     }//end StudentForm class
 }//end namespace
