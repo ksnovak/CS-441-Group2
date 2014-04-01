@@ -31,7 +31,7 @@ namespace MathDrillGame
         public static int nextUserID = 101; //Enforces globally unique student IDs. When making new students, do "Program.nextUserID++"
         public static int nextProblemSetID = 1; //Enforces globally unique problem set IDs. When making new problem sets, do "Program.newProblemSetID++"
         //public static string USERSFILE = @"c:\users\public\MathDrills\users.xml";
-        public static string USERSFILE = @"c:\users\public\MathDrills\users_v2.xml";
+        public static string USERSFILE = @"c:\users\public\MathDrills\users_v3.xml";
         public static string CONFIGFILE = @"c:\users\public\MathDrills\config.xml";
         public static DateTime MINDATE = new DateTime(2013, 12, 31);
 
@@ -57,7 +57,12 @@ namespace MathDrillGame
             Directory.CreateDirectory(@"c:\users\public\MathDrills\ProblemSets"); //Make sure there is a directory into which to save the problems
             
             initializeConfigFile();
-            initializeUserList();
+            //initializeUserList();
+            //Aurelio Arango
+            //3-31-14 
+
+            XML_Handler xml = new XML_Handler();
+            xml.create_xml(xml.check_xml_exists(USERSFILE));
 
             Application.Run(new StartForm());
 
@@ -79,8 +84,11 @@ namespace MathDrillGame
                 XmlElement studentList = doc.CreateElement("StudentList");
                 XmlElement DefaultAdmin = doc.CreateElement("Student");
                 XmlElement afullName = doc.CreateElement("FullName");
+
+
                 afullName.InnerText = "Default Admin";
                 DefaultAdmin.AppendChild(afullName);
+
                 XmlElement aisAdmin = doc.CreateElement("IsAdmin");
                 aisAdmin.InnerText = "1";
                 DefaultAdmin.AppendChild(aisAdmin);

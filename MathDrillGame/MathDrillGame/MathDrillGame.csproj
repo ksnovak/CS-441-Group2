@@ -59,6 +59,7 @@
     <Compile Include="AdminLoginForm.Designer.cs">
       <DependentUpon>AdminLoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="XML_Handler.cs" />
     <Compile Include="StudentLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

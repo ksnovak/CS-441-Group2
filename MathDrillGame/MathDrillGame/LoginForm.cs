@@ -73,7 +73,7 @@ namespace MathDrillGame
         {
             teachersListXML = XElement.Load(Program.USERSFILE);
             Program.teachers.Clear();
-            Debug.WriteLine("Show");
+            //Debug.WriteLine("Show");
             foreach (XElement user in teachersListXML.Descendants("Teacher"))
             {
                 string newName = user.Element("FullName").Value;
