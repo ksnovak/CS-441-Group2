@@ -35,6 +35,7 @@ namespace MathDrillGame
         public static string CONFIGFILE = @"c:\users\public\MathDrills\config.xml";
         public static DateTime MINDATE = new DateTime(2013, 12, 31);
 
+        static XML_Handler xml;
         [STAThread]
         /* mutex tries to create a mutex lock, titled "MathDrills". result will be whether or not that succeeded. It won't succeed if it is already locked
          * GC.KeepAlive means that the garbage collector will never release that mutex.
@@ -61,7 +62,7 @@ namespace MathDrillGame
             //Aurelio Arango
             //3-31-14 
 
-            XML_Handler xml = new XML_Handler();
+            xml = new XML_Handler();
             xml.create_xml(xml.check_xml_exists(USERSFILE));
 
             Application.Run(new StartForm());
@@ -171,6 +172,13 @@ namespace MathDrillGame
         public static int getNextProblemSetID()
         {
             return nextProblemSetID++;
+        }
+        //4-2-14
+        //Aurelio Arango
+        //This method can be called to sabe the data of the file
+        public static void saveData()
+        {
+            xml.save_data();
         }
     }
 }

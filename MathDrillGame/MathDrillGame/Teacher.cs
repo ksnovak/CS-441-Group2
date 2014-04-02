@@ -1,15 +1,15 @@
 ﻿/* CS 441
- * Created by: Aurelio Arango
- * Date: 3-25-14
- * Purpose: This is a Teacher class that contains all the information about a teacher and its students
- * 
- * Modification: added a field for password
- * date: 3-26-14
- * Name: Aurelio Arango
- * What/Why? store password after reading xml
- * 
- * 
- */
+* Created by: Aurelio Arango
+* Date: 3-25-14
+* Purpose: This is a Teacher class that contains all the information about a teacher and its students
+* 
+* Modification: added a field for password
+* date: 3-26-14
+* Name: Aurelio Arango
+* What/Why? store password after reading xml
+* 
+* 
+*/
 using System;
 using System.Collections.Generic;
 using System.Linq;

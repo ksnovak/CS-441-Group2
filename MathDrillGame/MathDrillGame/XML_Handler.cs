@@ -82,19 +82,21 @@ namespace MathDrillGame
                         XmlElement sgroup = doc.CreateElement("Group");
                         XmlElement suserid = doc.CreateElement("UserID");
                         XmlElement spass = doc.CreateElement("pass");
+                        XmlElement sinvisible = doc.CreateElement("Invisible");
                         XmlElement slastlogin = doc.CreateElement("LastLogin");
 
                         sfullName.InnerText = listofTeachers[i].students[j].fullName;
                         sgroup.InnerText = listofTeachers[i].students[j].group;
                         suserid.InnerText = listofTeachers[i].students[j].userID.ToString();
                         spass.InnerText = listofTeachers[i].students[j].pass;
+                        sinvisible.InnerText = listofTeachers[i].students[j].invisible;
                         slastlogin.InnerText = listofTeachers[i].students[j].lastLogin.ToString("g");
-
 
                         student.AppendChild(sfullName);
                         student.AppendChild(sgroup);
                         student.AppendChild(suserid);
                         student.AppendChild(spass);
+                        student.AppendChild(sinvisible);
                         student.AppendChild(slastlogin);
                         studentlist.AppendChild(student);
                     }
@@ -105,7 +107,7 @@ namespace MathDrillGame
                     doc.Save(Program.USERSFILE);
                 }//end of teachers loop
 
-                Debug.WriteLine(doc.ToString());
+                
             }//end of if
             else //If there is already a list of users, make sure to still get the next valid User ID.
             {
@@ -125,14 +127,81 @@ namespace MathDrillGame
 
             students_1.Add(new Student("David Davidson",101,"A","1"));
             students_1.Add( new Student("John Smith",102,"B","2"));
-            students_1.Add(new Student("Eric Erickson",103,"c","3"));
+            students_1.Add(new Student("Eric Erickson",103,"C","3"));
 
             students_2.Add( new Student("David Smith",201,"A","1"));
             students_2.Add( new Student("John Wood",202,"B","2"));
-            students_2.Add( new Student("Blue Mary",203,"c","3"));
+            students_2.Add( new Student("Blue Mary",203,"C","3"));
 
             listofTeachers.Add(new Teacher("Admin",100,students_1,"admin"));
             listofTeachers.Add(new Teacher("Ginder Bridges",200,students_2,"admin1"));
+        }
+        //This method will save all the current data from the teachers object into xml
+        //It includes the students data
+        //it will be called by the Program class.
+        public void save_data()
+        {
+            doc = new XmlDocument();
+
+            XmlElement userList = doc.CreateElement("UserList");//root
+
+            //load teachers
+            for (int i = 0; i < Program.teachers.Count; i++)
+            {
+                XmlElement teacher = doc.CreateElement("Teacher");
+                XmlElement tpass = doc.CreateElement("pass");
+                XmlElement tfullName = doc.CreateElement("FullName");
+                XmlElement tuserid = doc.CreateElement("UserID");
+                XmlElement tlastlogin = doc.CreateElement("LastLogin");
+                //set data
+                tfullName.InnerText = Program.teachers[i].fullName;
+                tuserid.InnerText = Program.teachers[i].userID.ToString();
+                tpass.InnerText = Program.teachers[i].pass;
+                tlastlogin.InnerText = Program.teachers[i].lastLogin.ToString("g");
+                //add data to xml doc in teacher
+                teacher.AppendChild(tfullName);
+                teacher.AppendChild(tuserid);
+                teacher.AppendChild(tpass);
+                teacher.AppendChild(tlastlogin);
+
+                XmlElement studentlist = doc.CreateElement("StudentList");
+
+
+                //adding students to a list
+                for (int j = 0; j < listofTeachers[i].students.Count; j++)
+                {
+
+                    XmlElement student = doc.CreateElement("Student");
+                    XmlElement sfullName = doc.CreateElement("FullName");
+                    XmlElement sgroup = doc.CreateElement("Group");
+                    XmlElement suserid = doc.CreateElement("UserID");
+                    XmlElement spass = doc.CreateElement("pass");
+                    XmlElement slastlogin = doc.CreateElement("LastLogin");
+                    XmlElement sinvisible = doc.CreateElement("Invisible");
+
+                    sfullName.InnerText = Program.teachers[i].students[j].fullName;
+                    sgroup.InnerText = Program.teachers[i].students[j].group;
+                    suserid.InnerText = Program.teachers[i].students[j].userID.ToString();
+                    spass.InnerText = Program.teachers[i].students[j].pass;
+                    sinvisible.InnerText = Program.teachers[i].students[j].invisible;//variable to "delete student"
+                    slastlogin.InnerText = Program.teachers[i].students[j].lastLogin.ToString("g");
+
+                    student.AppendChild(sfullName);
+                    student.AppendChild(sgroup);
+                    student.AppendChild(suserid);
+                    student.AppendChild(spass);
+                    student.AppendChild(sinvisible);
+                    student.AppendChild(slastlogin);
+                    studentlist.AppendChild(student);
+                }
+                //adding list of students to a teacher
+                teacher.AppendChild(studentlist);
+                userList.AppendChild(teacher);//append teacher student list
+                doc.AppendChild(userList);
+                doc.Save(Program.USERSFILE);
+            }//end of teachers loop
+
+
         }
     }
 }

@@ -46,9 +46,23 @@ namespace MathDrillGame
         Teacher currentTeacher = Program.teachers[Program.currentTeacherIndex];//aurelio arango, admin logged in
 
         static Random rng = new Random();               //Used for generating random numbers. Creates a random seed so that it is more random.
+        
+        //Below obsolete? All sections it appears in is commented out.
+        //[currentTeacher.students] appears to be used instead.
         List<User> adminStudentList = new List<User>(); //A list of students (and ONLY students) for the administrator
-        User targetUser;                                //Holds user details on the selected user
+
+        //Initialized in AdminLoad()
+        List<Student> GroupA;       //Added in for Grouping functionality
+        List<Student> GroupB;
+        List<Student> GroupC;
+        List<Student> Unassigned;   //a "Group" for students with no groups
+                                    //Assumed default value when a student is added with no specifications
+                                    //Also did the same thing this list as with A,B,C..
+                                    //However this one gets no Warnings
+        
+        Student targetUser;         //Holds user details on the selected user
         string fileName;
+//------------------------------------End attributes
         public AdminForm()
         {
             InitializeComponent();
@@ -88,22 +102,49 @@ namespace MathDrillGame
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
         }*/
         /* 
-         * Aurelio Arango 
-         * This function populates the list with the current teacher's students
+         * Aurelio Arango & SY
+         * Populates List boxes in the Generate (entire class) and Manage tabs (by group or lack of).
          * Returns nothing
          */
         private void AdminForm_Load(object sender, EventArgs e)    
         {
-            listOfStudents.DataSource = null;//data biding
+            Teacher currentTeacher =Program.teachers[Program.currentTeacherIndex];
+            //Used in Generate Tab
+            listOfStudents.DataSource = null;//data biding 
             listOfStudents.DataSource = currentTeacher.students;//set data source
             listOfStudents.DisplayMember = "fullName";
             listOfStudents.ValueMember = "userID";
+
             //Debug.WriteLine(targetUser); debug line
             //fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
-        }
+
+            //Used in Manage Tab
+
+            /*ISSUE: 
+             * List boxes on the right do not properly display the names
+             * Oddly for loop iterates once only*/
+           // Debug.WriteLine(Program.teachers[Program.currentTeacherIndex].students.Count);
+            Debug.WriteLine("students count "+currentTeacher.students.Count);
+            Debug.WriteLine("Teacher name"+currentTeacher.fullName);
+            //There needs to be Lists and listBoxes for individual Student Groups
 
 
+            load_ManageStudentList();
 
+           
+
+            groupRosterA.DataSource = GroupA;
+                groupRosterA.DisplayMember = "fullName";
+                groupRosterA.ValueMember = "userID";
+            groupRosterB.DataSource = GroupB;
+                groupRosterB.DisplayMember = "fullName";
+                groupRosterB.ValueMember = "userID";
+            groupRosterC.DataSource = GroupC;
+                groupRosterC.DisplayMember = "fullName";
+                groupRosterC.ValueMember = "userID";
+            
+        }//end function
+       
         //When you select someone from the list, save to a variable which member it is, and personalize a message.
         /* SELECTEDINDEXCHANGED event triggered when selecting a different student for whom to create problems
          * Will update the label (Generating problems for...) and the file path.
@@ -113,11 +154,11 @@ namespace MathDrillGame
         {
             Program.targetUser = Convert.ToInt32(listOfStudents.SelectedIndex);
             Debug.WriteLine(listOfStudents.SelectedIndex);
-            targetUser = adminStudentList[Program.targetUser];
+            targetUser = Program.teachers[Program.currentTeacherIndex].students[Program.currentStudentIndex];
             //Aurelio Arango
             //adding string for date and user
             //string admin_welcome = "Welcome " + currentUser.fullName + " "+getUserDate(currentUser.userID);
-            string admin_welcome = "Welcome " + currentTeacher.fullName + " " + getUserDate(currentTeacher.userID);
+            string admin_welcome = "Welcome " + currentTeacher.fullName + " " + currentTeacher.userID;
 
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
             labelGenProblemsFor.Text = admin_welcome+"\nGenerating problems for " + targetUser.fullName;
@@ -395,6 +436,45 @@ namespace MathDrillGame
              * 
              */
         }
+
+        private void load_ManageStudentList()
+        {
+            Unassigned = new List<Student>();
+            GroupA = new List<Student>();
+            GroupB = new List<Student>();
+            GroupC = new List<Student>();
+            for (int i = 0; i < currentTeacher.students.Count; i++)
+            {
+                switch (currentTeacher.students[i].group)
+                {
+                    case "U": Unassigned.Add(currentTeacher.students[i]); break;
+                    case "A": GroupA.Add(currentTeacher.students[i]); break;
+                    case "B": GroupB.Add(currentTeacher.students[i]); break;
+                    case "C": GroupC.Add(currentTeacher.students[i]); break;
+                }
+            }
+            manageStudentList.DataSource = null;
+            manageStudentList.DataSource = Unassigned;
+            manageStudentList.DisplayMember = "fullName";
+            manageStudentList.ValueMember = "userID";     
+        }
+
+        private void groupRosterA_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupRosterB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupRosterC_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
 //---------------------------------------------------------------------------------------
 
     } //end AdminForm class
