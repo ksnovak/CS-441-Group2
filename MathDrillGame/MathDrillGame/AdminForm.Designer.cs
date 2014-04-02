@@ -35,8 +35,6 @@ namespace MathDrillGame
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.genPage = new System.Windows.Forms.TabPage();
-            this.buttonReports = new System.Windows.Forms.Button();
-            this.buttonNewUser = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.labelProbsGenned = new System.Windows.Forms.Label();
             this.Operation = new System.Windows.Forms.GroupBox();
@@ -72,15 +70,16 @@ namespace MathDrillGame
             this.addStudentToClassToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.removeStudentFromClassToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.securityPage = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.studentSecurityNameLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.studentsSecurityListBox = new System.Windows.Forms.ListBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.passwordCheckBox = new System.Windows.Forms.CheckBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.studentSecurityNameLabel = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.exit_button = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.reportsPage.SuspendLayout();
             this.genPage.SuspendLayout();
@@ -93,9 +92,9 @@ namespace MathDrillGame
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.securityPage.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -107,7 +106,7 @@ namespace MathDrillGame
             this.tabControl1.Location = new System.Drawing.Point(-5, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(707, 508);
+            this.tabControl1.Size = new System.Drawing.Size(707, 451);
             this.tabControl1.TabIndex = 100;
             // 
             // reportsPage
@@ -118,7 +117,7 @@ namespace MathDrillGame
             this.reportsPage.Location = new System.Drawing.Point(4, 22);
             this.reportsPage.Name = "reportsPage";
             this.reportsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.reportsPage.Size = new System.Drawing.Size(699, 482);
+            this.reportsPage.Size = new System.Drawing.Size(699, 425);
             this.reportsPage.TabIndex = 0;
             this.reportsPage.Text = "Reports";
             this.reportsPage.UseVisualStyleBackColor = true;
@@ -152,9 +151,6 @@ namespace MathDrillGame
             // 
             // genPage
             // 
-            this.genPage.Controls.Add(this.buttonReports);
-            this.genPage.Controls.Add(this.buttonNewUser);
-            this.genPage.Controls.Add(this.buttonLogout);
             this.genPage.Controls.Add(this.labelProbsGenned);
             this.genPage.Controls.Add(this.Operation);
             this.genPage.Controls.Add(this.listOfProblems);
@@ -170,42 +166,22 @@ namespace MathDrillGame
             this.genPage.Location = new System.Drawing.Point(4, 22);
             this.genPage.Name = "genPage";
             this.genPage.Padding = new System.Windows.Forms.Padding(3);
-            this.genPage.Size = new System.Drawing.Size(699, 482);
+            this.genPage.Size = new System.Drawing.Size(699, 425);
             this.genPage.TabIndex = 1;
             this.genPage.Text = "Generate";
             this.genPage.UseVisualStyleBackColor = true;
-            // 
-            // buttonReports
-            // 
-            this.buttonReports.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonReports.Location = new System.Drawing.Point(6, 368);
-            this.buttonReports.Name = "buttonReports";
-            this.buttonReports.Size = new System.Drawing.Size(178, 42);
-            this.buttonReports.TabIndex = 113;
-            this.buttonReports.Text = "Reports";
-            this.buttonReports.UseVisualStyleBackColor = true;
-            this.buttonReports.Click += new System.EventHandler(this.buttonReports_Click);
-            // 
-            // buttonNewUser
-            // 
-            this.buttonNewUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonNewUser.Location = new System.Drawing.Point(6, 416);
-            this.buttonNewUser.Name = "buttonNewUser";
-            this.buttonNewUser.Size = new System.Drawing.Size(178, 42);
-            this.buttonNewUser.TabIndex = 114;
-            this.buttonNewUser.Text = "Add new user";
-            this.buttonNewUser.UseVisualStyleBackColor = true;
             // 
             // buttonLogout
             // 
             this.buttonLogout.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonLogout.Location = new System.Drawing.Point(603, 426);
+            this.buttonLogout.Location = new System.Drawing.Point(455, 454);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(90, 43);
             this.buttonLogout.TabIndex = 112;
             this.buttonLogout.Text = "Log out";
             this.buttonLogout.UseVisualStyleBackColor = true;
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click_1);
             // 
             // labelProbsGenned
             // 
@@ -258,7 +234,7 @@ namespace MathDrillGame
             this.listOfProblems.Name = "listOfProblems";
             this.listOfProblems.ReadOnly = true;
             this.listOfProblems.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.listOfProblems.Size = new System.Drawing.Size(224, 284);
+            this.listOfProblems.Size = new System.Drawing.Size(224, 250);
             this.listOfProblems.TabIndex = 106;
             this.listOfProblems.TabStop = false;
             // 
@@ -336,7 +312,7 @@ namespace MathDrillGame
             this.listOfStudents.FormattingEnabled = true;
             this.listOfStudents.Location = new System.Drawing.Point(6, 20);
             this.listOfStudents.Name = "listOfStudents";
-            this.listOfStudents.Size = new System.Drawing.Size(178, 342);
+            this.listOfStudents.Size = new System.Drawing.Size(178, 290);
             this.listOfStudents.TabIndex = 100;
             this.listOfStudents.ValueMemberChanged += new System.EventHandler(this.listOfStudents_SelectedIndexChanged);
             // 
@@ -352,7 +328,7 @@ namespace MathDrillGame
             this.manPage.Location = new System.Drawing.Point(4, 22);
             this.manPage.Name = "manPage";
             this.manPage.Padding = new System.Windows.Forms.Padding(3);
-            this.manPage.Size = new System.Drawing.Size(699, 482);
+            this.manPage.Size = new System.Drawing.Size(699, 425);
             this.manPage.TabIndex = 2;
             this.manPage.Text = "Manage Users";
             this.manPage.UseVisualStyleBackColor = true;
@@ -395,7 +371,7 @@ namespace MathDrillGame
             this.tabControl2.Location = new System.Drawing.Point(422, 41);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(236, 420);
+            this.tabControl2.Size = new System.Drawing.Size(236, 355);
             this.tabControl2.TabIndex = 1;
             // 
             // Group1
@@ -404,7 +380,7 @@ namespace MathDrillGame
             this.Group1.Location = new System.Drawing.Point(4, 22);
             this.Group1.Name = "Group1";
             this.Group1.Padding = new System.Windows.Forms.Padding(3);
-            this.Group1.Size = new System.Drawing.Size(228, 394);
+            this.Group1.Size = new System.Drawing.Size(228, 329);
             this.Group1.TabIndex = 0;
             this.Group1.Text = "Group A";
             this.Group1.UseVisualStyleBackColor = true;
@@ -414,7 +390,7 @@ namespace MathDrillGame
             this.groupRosterA.FormattingEnabled = true;
             this.groupRosterA.Location = new System.Drawing.Point(0, 0);
             this.groupRosterA.Name = "groupRosterA";
-            this.groupRosterA.Size = new System.Drawing.Size(226, 420);
+            this.groupRosterA.Size = new System.Drawing.Size(226, 329);
             this.groupRosterA.TabIndex = 1;
             this.groupRosterA.SelectedIndexChanged += new System.EventHandler(this.groupRosterA_SelectedIndexChanged);
             // 
@@ -463,7 +439,7 @@ namespace MathDrillGame
             this.manageStudentList.FormattingEnabled = true;
             this.manageStudentList.Location = new System.Drawing.Point(13, 67);
             this.manageStudentList.Name = "manageStudentList";
-            this.manageStudentList.Size = new System.Drawing.Size(226, 394);
+            this.manageStudentList.Size = new System.Drawing.Size(226, 329);
             this.manageStudentList.TabIndex = 0;
             // 
             // menuStrip1
@@ -529,10 +505,63 @@ namespace MathDrillGame
             this.securityPage.Location = new System.Drawing.Point(4, 22);
             this.securityPage.Name = "securityPage";
             this.securityPage.Padding = new System.Windows.Forms.Padding(3);
-            this.securityPage.Size = new System.Drawing.Size(699, 482);
+            this.securityPage.Size = new System.Drawing.Size(699, 425);
             this.securityPage.TabIndex = 3;
             this.securityPage.Text = "Security";
             this.securityPage.UseVisualStyleBackColor = true;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label2);
+            this.groupBox6.Controls.Add(this.studentSecurityNameLabel);
+            this.groupBox6.Controls.Add(this.label1);
+            this.groupBox6.Controls.Add(this.comboBox1);
+            this.groupBox6.Location = new System.Drawing.Point(432, 218);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(200, 157);
+            this.groupBox6.TabIndex = 2;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Set Password";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(21, 73);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(72, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Set Password";
+            // 
+            // studentSecurityNameLabel
+            // 
+            this.studentSecurityNameLabel.AutoSize = true;
+            this.studentSecurityNameLabel.ForeColor = System.Drawing.Color.Red;
+            this.studentSecurityNameLabel.Location = new System.Drawing.Point(106, 35);
+            this.studentSecurityNameLabel.Name = "studentSecurityNameLabel";
+            this.studentSecurityNameLabel.Size = new System.Drawing.Size(44, 13);
+            this.studentSecurityNameLabel.TabIndex = 2;
+            this.studentSecurityNameLabel.Text = "Student";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(21, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Student Name:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Triangle",
+            "Pentagon",
+            "Circle"});
+            this.comboBox1.Location = new System.Drawing.Point(101, 70);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(93, 21);
+            this.comboBox1.TabIndex = 0;
             // 
             // groupBox5
             // 
@@ -551,6 +580,7 @@ namespace MathDrillGame
             this.studentsSecurityListBox.Name = "studentsSecurityListBox";
             this.studentsSecurityListBox.Size = new System.Drawing.Size(134, 238);
             this.studentsSecurityListBox.TabIndex = 0;
+            this.studentsSecurityListBox.SelectedIndexChanged += new System.EventHandler(this.studentsSecurityListBox_SelectedIndexChanged);
             // 
             // groupBox4
             // 
@@ -572,64 +602,25 @@ namespace MathDrillGame
             this.passwordCheckBox.Text = "Enable Password";
             this.passwordCheckBox.UseVisualStyleBackColor = true;
             // 
-            // groupBox6
+            // exit_button
             // 
-            this.groupBox6.Controls.Add(this.label2);
-            this.groupBox6.Controls.Add(this.studentSecurityNameLabel);
-            this.groupBox6.Controls.Add(this.label1);
-            this.groupBox6.Controls.Add(this.comboBox1);
-            this.groupBox6.Location = new System.Drawing.Point(432, 218);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(200, 157);
-            this.groupBox6.TabIndex = 2;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Set Password";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Triangle",
-            "Pentagon",
-            "Circle"});
-            this.comboBox1.Location = new System.Drawing.Point(101, 70);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(93, 21);
-            this.comboBox1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 35);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Student Name:";
-            // 
-            // studentSecurityNameLabel
-            // 
-            this.studentSecurityNameLabel.AutoSize = true;
-            this.studentSecurityNameLabel.ForeColor = System.Drawing.Color.Red;
-            this.studentSecurityNameLabel.Location = new System.Drawing.Point(106, 35);
-            this.studentSecurityNameLabel.Name = "studentSecurityNameLabel";
-            this.studentSecurityNameLabel.Size = new System.Drawing.Size(44, 13);
-            this.studentSecurityNameLabel.TabIndex = 2;
-            this.studentSecurityNameLabel.Text = "Student";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 73);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Set Password";
+            this.exit_button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.exit_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.exit_button.Location = new System.Drawing.Point(582, 454);
+            this.exit_button.Name = "exit_button";
+            this.exit_button.Size = new System.Drawing.Size(90, 43);
+            this.exit_button.TabIndex = 113;
+            this.exit_button.Text = "Exit";
+            this.exit_button.UseVisualStyleBackColor = true;
+            this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(702, 504);
+            this.Controls.Add(this.exit_button);
+            this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
@@ -656,11 +647,11 @@ namespace MathDrillGame
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.securityPage.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -671,8 +662,6 @@ namespace MathDrillGame
         private System.Windows.Forms.TabPage reportsPage;   //reports
         private System.Windows.Forms.TabPage genPage;       //generate
         private System.Windows.Forms.TabPage manPage;       //manage
-        private System.Windows.Forms.Button buttonReports;
-        private System.Windows.Forms.Button buttonNewUser;
         private System.Windows.Forms.Button buttonLogout;
         private System.Windows.Forms.Label labelProbsGenned;
         private System.Windows.Forms.GroupBox Operation;
@@ -719,5 +708,6 @@ namespace MathDrillGame
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button exit_button;
     }
 }

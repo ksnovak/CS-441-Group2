@@ -131,7 +131,7 @@ namespace MathDrillGame
 
             load_ManageStudentList();
 
-           
+            loadvisibleStudents();
 
             groupRosterA.DataSource = GroupA;
                 groupRosterA.DisplayMember = "fullName";
@@ -319,17 +319,17 @@ namespace MathDrillGame
         /* LOGOUT click event, when clicking the "Log out" button, starts the logout sequence
          * Kevin and Uriah
          */
-        private void buttonLogout_Click(object sender, EventArgs e)
+       /* private void buttonLogout_Click(object sender, EventArgs e)
         {
             goToLogin();
-        }
+        }*/
 //---------------------------------------------------------------------------------------
         /* ONFORMCLOSING event, triggered when this form closes.
          * If triggered by the opening of the NEWUSER form, then this does nothing special.
          * If triggered by the LOGOUT event, then this will show the already-open-but-hidden Login form, and hide the admin form instead.
          * Kevin and Uriah
          */
-        protected override void OnFormClosing(FormClosingEventArgs e)
+        /*protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
             bool makingnewuser = false;
@@ -341,6 +341,11 @@ namespace MathDrillGame
 
             if (!makingnewuser)
                 goToLogin();
+        }*/
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            Application.Exit();
         }
 
 //---------------------------------------------------------------------------------------
@@ -352,7 +357,7 @@ namespace MathDrillGame
         {
             foreach (Form f in Application.OpenForms)
             {
-                if (f.GetType() == typeof(LoginForm))
+                if (f.GetType() == typeof(StartForm))
                 {
                     f.Show();
                     this.Hide();
@@ -456,8 +461,43 @@ namespace MathDrillGame
             manageStudentList.DataSource = null;
             manageStudentList.DataSource = Unassigned;
             manageStudentList.DisplayMember = "fullName";
-            manageStudentList.ValueMember = "userID";     
+            manageStudentList.ValueMember = "userID";
+
+
+            groupRosterA.DataSource = null;
+            groupRosterA.DataSource = GroupA;
+            groupRosterA.DisplayMember = "fullName";
+            groupRosterA.ValueMember = "userID";
+            groupRosterB.DataSource = null;
+            groupRosterB.DataSource = GroupB;
+            groupRosterB.DisplayMember = "fullName";
+            groupRosterB.ValueMember = "userID";
+            groupRosterC.DataSource = null;
+            groupRosterC.DataSource = GroupC;
+            groupRosterC.DisplayMember = "fullName";
+            groupRosterC.ValueMember = "userID";
         }
+
+        private void loadvisibleStudents()
+        {
+            studentsSecurityListBox.DataSource = null;
+
+            List<Student> visibleStudents = new List<Student>();
+            
+            for (int i = 0; i < currentTeacher.students.Count; i++)
+            { 
+                if(currentTeacher.students[i].invisible.Equals("n"))
+                {
+                    visibleStudents.Add(currentTeacher.students[i]);
+                }
+            }
+
+            studentsSecurityListBox.DataSource = visibleStudents;
+            studentsSecurityListBox.DisplayMember="fullName";
+            studentsSecurityListBox.ValueMember="userID";
+
+        }
+
 
         private void groupRosterA_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -472,6 +512,22 @@ namespace MathDrillGame
         private void groupRosterC_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void studentsSecurityListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        //Aurelio Arango 4-2-14
+        private void buttonLogout_Click_1(object sender, EventArgs e)
+        {
+            goToLogin();
+        }
+        //Aurelio Arango 4-2-14
+        //
+        private void exit_button_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
 

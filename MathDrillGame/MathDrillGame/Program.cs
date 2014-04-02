@@ -64,7 +64,7 @@ namespace MathDrillGame
 
             xml = new XML_Handler();
             xml.create_xml(xml.check_xml_exists(USERSFILE));
-
+            loadData();
             Application.Run(new StartForm());
 
             //Application.Run(new LoginForm());
@@ -179,6 +179,10 @@ namespace MathDrillGame
         public static void saveData()
         {
             xml.save_data();
+        }
+        public static void loadData()
+        {
+            xml.load_users();
         }
     }
 }

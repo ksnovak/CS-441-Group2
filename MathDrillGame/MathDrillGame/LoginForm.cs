@@ -33,7 +33,7 @@ namespace MathDrillGame
     public partial class LoginForm : Form
     {
         //int size =0;
-        XElement teachersListXML;
+        //XElement teachersListXML;
         public LoginForm()
         {
             InitializeComponent();
@@ -71,7 +71,8 @@ namespace MathDrillGame
 
         public void buildTeacherList()
         {
-            teachersListXML = XElement.Load(Program.USERSFILE);
+            //XML_handler takes care of loading data
+           /* teachersListXML = XElement.Load(Program.USERSFILE);
             Program.teachers.Clear();
             //Debug.WriteLine("Show");
             foreach (XElement user in teachersListXML.Descendants("Teacher"))
@@ -87,23 +88,24 @@ namespace MathDrillGame
                 //Debug.WriteLine(newName);
                 //Debug.WriteLine(userID);
 
-                /*Program.teachers.Add(new Teacher
+                Program.teachers.Add(new Teacher
                 {
                     //isAdmin = (user.Element("IsAdmin").Value == "1"? true : false), 
                     fullName = user.Element("FullName").Value,
                     userID = Convert.ToInt32(user.Element("UserID").Value)
                    
-                });*/
+                });
                 
-            }
+            }*/ 
             //listOfTeachers.DataSource = Program.users; //This will link that List<Users> to the ListBox
+            listOfTeachers.DataSource = null;
             listOfTeachers.DataSource = Program.teachers;
             listOfTeachers.DisplayMember = "getRoleAndName"; //What will be shown. Note, this is a function in the User class to show both the role and the name.
             listOfTeachers.ValueMember = "userID";
 
         }
 
-        private List<Student> getStudentList(XElement userList)
+        /*private List<Student> getStudentList(XElement userList)
         {
             List<Student> student_list = new List<Student>();
             foreach (XElement user in userList.Descendants("Student"))
@@ -121,7 +123,7 @@ namespace MathDrillGame
             //Debug.WriteLine("done");
 
             return student_list;
-        }
+        }*/
 
         /* When the LOG IN button is pressed, 
          * authenticate the user (for future cases where there is a password of some sorts), make note of the login time, and build the proper form (either Student or Admin)

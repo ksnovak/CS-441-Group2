@@ -24,6 +24,8 @@ namespace MathDrillGame
         XmlDocument doc;
         //XElement teachersListXML;
         List<Teacher> listofTeachers;
+        XElement teachersListXML;
+
         public XML_Handler()
         {
             
@@ -144,7 +146,7 @@ namespace MathDrillGame
             doc = new XmlDocument();
 
             XmlElement userList = doc.CreateElement("UserList");//root
-
+            
             //load teachers
             for (int i = 0; i < Program.teachers.Count; i++)
             {
@@ -201,7 +203,43 @@ namespace MathDrillGame
                 doc.Save(Program.USERSFILE);
             }//end of teachers loop
 
+        }//end of save function
 
-        }
+        public void load_users()
+        {
+            Program.teachers.Clear();
+            teachersListXML = XElement.Load(Program.USERSFILE);
+            foreach (XElement user in teachersListXML.Descendants("Teacher"))
+            {
+                string newName = user.Element("FullName").Value;
+                string pass = user.Element("pass").Value;
+                int userID = Convert.ToInt32(user.Element("UserID").Value);
+
+                List<Student> studentList = getStudentList(user);
+                Teacher tempTeacher = new Teacher(newName, userID, studentList, pass);
+
+                Program.teachers.Add(tempTeacher);
+        
+            }
+        }//end of load_users
+        private List<Student> getStudentList(XElement userList)
+        {
+            List<Student> student_list = new List<Student>();
+            foreach (XElement user in userList.Descendants("Student"))
+            {
+                //XElement user_student = user.Parent;
+                //string userid = Parent.Name;
+
+                string user_name = user.Element("FullName").Value;
+                string user_id = user.Element("UserID").Value;
+                int user_id_int = Convert.ToInt32(user_id);
+                string user_group = user.Element("Group").Value;
+                string user_p = user.Element("pass").Value;
+                student_list.Add(new Student(user_name, user_id_int, user_group, user_p));
+            }
+            //Debug.WriteLine("done");
+
+            return student_list;
+        }//end of getStudentsList
     }
 }
