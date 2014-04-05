@@ -60,16 +60,19 @@ namespace MathDrillGame
                     XmlElement tpass = doc.CreateElement("pass");
                     XmlElement tfullName = doc.CreateElement("FullName");
                     XmlElement tuserid = doc.CreateElement("UserID");
+                    XmlElement tsetpass = doc.CreateElement("SetPass");
                     XmlElement tlastlogin = doc.CreateElement("LastLogin");
                     //set data
                     tfullName.InnerText = listofTeachers[i].fullName;
                     tuserid.InnerText = listofTeachers[i].userID.ToString();
                     tpass.InnerText = listofTeachers[i].pass;
+                    tsetpass.InnerText = listofTeachers[i].setpass;
                     tlastlogin.InnerText = listofTeachers[i].lastLogin.ToString("g");
                     //add data to xml doc in teacher
                     teacher.AppendChild(tfullName);
                     teacher.AppendChild(tuserid);
                     teacher.AppendChild(tpass);
+                    teacher.AppendChild(tsetpass);
                     teacher.AppendChild(tlastlogin);
 
                     XmlElement studentlist = doc.CreateElement("StudentList");
@@ -154,16 +157,20 @@ namespace MathDrillGame
                 XmlElement tpass = doc.CreateElement("pass");
                 XmlElement tfullName = doc.CreateElement("FullName");
                 XmlElement tuserid = doc.CreateElement("UserID");
+                XmlElement tsetpass = doc.CreateElement("SetPass");
                 XmlElement tlastlogin = doc.CreateElement("LastLogin");
+                
                 //set data
                 tfullName.InnerText = Program.teachers[i].fullName;
                 tuserid.InnerText = Program.teachers[i].userID.ToString();
                 tpass.InnerText = Program.teachers[i].pass;
+                tsetpass.InnerText = Program.teachers[i].setpass;
                 tlastlogin.InnerText = Program.teachers[i].lastLogin.ToString("g");
                 //add data to xml doc in teacher
                 teacher.AppendChild(tfullName);
                 teacher.AppendChild(tuserid);
                 teacher.AppendChild(tpass);
+                teacher.AppendChild(tsetpass);
                 teacher.AppendChild(tlastlogin);
 
                 XmlElement studentlist = doc.CreateElement("StudentList");

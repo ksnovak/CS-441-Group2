@@ -24,6 +24,7 @@ namespace MathDrillGame
         public DateTime lastLogin { get; set; }
         public List<Student> students { get; set; }
         public string pass { get; set; }
+        public string setpass { get; set; }
         //Empty Constructor
         public Teacher() 
         {
@@ -37,6 +38,7 @@ namespace MathDrillGame
             this.userID = userID;
             this.students = students;
             this.pass = pass;
+            setpass = "n";
         }
         //Aurelio Arango
         //returns the role and its full name

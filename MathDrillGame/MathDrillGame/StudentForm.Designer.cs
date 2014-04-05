@@ -41,7 +41,7 @@
             this.labelWelcome.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelWelcome.AutoSize = true;
             this.labelWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.labelWelcome.Location = new System.Drawing.Point(7, 12);
+            this.labelWelcome.Location = new System.Drawing.Point(201, 139);
             this.labelWelcome.Name = "labelWelcome";
             this.labelWelcome.Size = new System.Drawing.Size(0, 20);
             this.labelWelcome.TabIndex = 0;
@@ -49,6 +49,7 @@
             // 
             // buttonLogout
             // 
+            this.buttonLogout.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.buttonLogout.Location = new System.Drawing.Point(217, 194);
             this.buttonLogout.Name = "buttonLogout";
@@ -103,7 +104,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonLogout;
-            this.ClientSize = new System.Drawing.Size(316, 258);
+            this.ClientSize = new System.Drawing.Size(704, 512);
             this.Controls.Add(this.labelFeedback);
             this.Controls.Add(this.buttonSubmit);
             this.Controls.Add(this.inputAnswer);

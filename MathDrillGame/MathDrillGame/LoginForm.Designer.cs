@@ -76,7 +76,7 @@
             this.labelWelcome.AutoSize = true;
             this.labelWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.labelWelcome.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.labelWelcome.Location = new System.Drawing.Point(42, 9);
+            this.labelWelcome.Location = new System.Drawing.Point(248, 129);
             this.labelWelcome.Name = "labelWelcome";
             this.labelWelcome.Size = new System.Drawing.Size(208, 24);
             this.labelWelcome.TabIndex = 3;
@@ -101,7 +101,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.back_button;
-            this.ClientSize = new System.Drawing.Size(292, 273);
+            this.ClientSize = new System.Drawing.Size(704, 512);
             this.Controls.Add(this.listOfTeachers);
             this.Controls.Add(this.labelWelcome);
             this.Controls.Add(this.listOfUsers);
