@@ -31,6 +31,16 @@ namespace MathDrillGame
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.reportsPage = new System.Windows.Forms.TabPage();
+            this.checkBoxUnattempted = new System.Windows.Forms.CheckBox();
+            this.labelSelectDate = new System.Windows.Forms.Label();
+            this.labelMaxDate = new System.Windows.Forms.Label();
+            this.labelMinDate = new System.Windows.Forms.Label();
+            this.dateTimePickerMax = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerMin = new System.Windows.Forms.DateTimePicker();
+            this.textBoxReport = new System.Windows.Forms.TextBox();
+            this.dataGridProblemSets = new System.Windows.Forms.DataGridView();
+            this.labelSelectStudent = new System.Windows.Forms.Label();
+            this.comboStudentList = new System.Windows.Forms.ComboBox();
             this.genPage = new System.Windows.Forms.TabPage();
             this.labelProbsGenned = new System.Windows.Forms.Label();
             this.Operation = new System.Windows.Forms.GroupBox();
@@ -67,12 +77,16 @@ namespace MathDrillGame
             this.addStudentToClassToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.removeStudentFromClassToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addPage = new System.Windows.Forms.TabPage();
+            this.inputFullName = new System.Windows.Forms.TextBox();
+            this.labelName = new System.Windows.Forms.Label();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonAddUser = new System.Windows.Forms.Button();
             this.securityPage = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.studentSecurityNameLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxSecurityPass = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.studentsSecurityListBox = new System.Windows.Forms.ListBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -80,24 +94,28 @@ namespace MathDrillGame
             this.aboutPage = new System.Windows.Forms.TabPage();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Button();
-            this.checkBoxUnattempted = new System.Windows.Forms.CheckBox();
-            this.labelSelectDate = new System.Windows.Forms.Label();
-            this.labelMaxDate = new System.Windows.Forms.Label();
-            this.labelMinDate = new System.Windows.Forms.Label();
-            this.dateTimePickerMax = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerMin = new System.Windows.Forms.DateTimePicker();
-            this.textBoxReport = new System.Windows.Forms.TextBox();
-            this.dataGridProblemSets = new System.Windows.Forms.DataGridView();
-            this.labelSelectStudent = new System.Windows.Forms.Label();
-            this.comboStudentList = new System.Windows.Forms.ComboBox();
-            this.inputFullName = new System.Windows.Forms.TextBox();
-            this.checkAdmin = new System.Windows.Forms.CheckBox();
-            this.labelAdmin = new System.Windows.Forms.Label();
-            this.labelName = new System.Windows.Forms.Label();
-            this.buttonClear = new System.Windows.Forms.Button();
-            this.buttonAddUser = new System.Windows.Forms.Button();
+            this.dashboardPage = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.groupAPage = new System.Windows.Forms.TabPage();
+            this.groupBPage = new System.Windows.Forms.TabPage();
+            this.dashboardTeacherLabel = new System.Windows.Forms.Label();
+            this.groupCPage = new System.Windows.Forms.TabPage();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.radioMultiplication = new System.Windows.Forms.RadioButton();
+            this.radioDivision = new System.Windows.Forms.RadioButton();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.radioA = new System.Windows.Forms.RadioButton();
+            this.radioB = new System.Windows.Forms.RadioButton();
+            this.radioC = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.reportsPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridProblemSets)).BeginInit();
             this.genPage.SuspendLayout();
             this.Operation.SuspendLayout();
             this.manPage.SuspendLayout();
@@ -113,11 +131,17 @@ namespace MathDrillGame
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridProblemSets)).BeginInit();
+            this.dashboardPage.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.dashboardPage);
             this.tabControl1.Controls.Add(this.reportsPage);
             this.tabControl1.Controls.Add(this.genPage);
             this.tabControl1.Controls.Add(this.manPage);
@@ -150,8 +174,108 @@ namespace MathDrillGame
             this.reportsPage.Text = "Reports";
             this.reportsPage.UseVisualStyleBackColor = true;
             // 
+            // checkBoxUnattempted
+            // 
+            this.checkBoxUnattempted.AutoSize = true;
+            this.checkBoxUnattempted.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.checkBoxUnattempted.Location = new System.Drawing.Point(-12, 153);
+            this.checkBoxUnattempted.Name = "checkBoxUnattempted";
+            this.checkBoxUnattempted.Size = new System.Drawing.Size(327, 17);
+            this.checkBoxUnattempted.TabIndex = 17;
+            this.checkBoxUnattempted.Text = "Check this box to include sets that have not yet been attempted";
+            this.checkBoxUnattempted.UseVisualStyleBackColor = true;
+            // 
+            // labelSelectDate
+            // 
+            this.labelSelectDate.AutoSize = true;
+            this.labelSelectDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.labelSelectDate.Location = new System.Drawing.Point(6, 68);
+            this.labelSelectDate.Name = "labelSelectDate";
+            this.labelSelectDate.Size = new System.Drawing.Size(248, 17);
+            this.labelSelectDate.TabIndex = 22;
+            this.labelSelectDate.Text = "Select a timespan to see reports from:";
+            // 
+            // labelMaxDate
+            // 
+            this.labelMaxDate.AutoSize = true;
+            this.labelMaxDate.Location = new System.Drawing.Point(167, 102);
+            this.labelMaxDate.Name = "labelMaxDate";
+            this.labelMaxDate.Size = new System.Drawing.Size(67, 13);
+            this.labelMaxDate.TabIndex = 21;
+            this.labelMaxDate.Text = "Ending date:";
+            // 
+            // labelMinDate
+            // 
+            this.labelMinDate.AutoSize = true;
+            this.labelMinDate.Location = new System.Drawing.Point(6, 102);
+            this.labelMinDate.Name = "labelMinDate";
+            this.labelMinDate.Size = new System.Drawing.Size(70, 13);
+            this.labelMinDate.TabIndex = 20;
+            this.labelMinDate.Text = "Starting date:";
+            // 
+            // dateTimePickerMax
+            // 
+            this.dateTimePickerMax.Location = new System.Drawing.Point(170, 118);
+            this.dateTimePickerMax.Name = "dateTimePickerMax";
+            this.dateTimePickerMax.Size = new System.Drawing.Size(155, 20);
+            this.dateTimePickerMax.TabIndex = 16;
+            this.dateTimePickerMax.Value = new System.DateTime(2018, 7, 7, 4, 17, 0, 0);
+            // 
+            // dateTimePickerMin
+            // 
+            this.dateTimePickerMin.Location = new System.Drawing.Point(9, 118);
+            this.dateTimePickerMin.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
+            this.dateTimePickerMin.Name = "dateTimePickerMin";
+            this.dateTimePickerMin.Size = new System.Drawing.Size(151, 20);
+            this.dateTimePickerMin.TabIndex = 14;
+            // 
+            // textBoxReport
+            // 
+            this.textBoxReport.Location = new System.Drawing.Point(376, 19);
+            this.textBoxReport.Multiline = true;
+            this.textBoxReport.Name = "textBoxReport";
+            this.textBoxReport.ReadOnly = true;
+            this.textBoxReport.Size = new System.Drawing.Size(315, 396);
+            this.textBoxReport.TabIndex = 19;
+            // 
+            // dataGridProblemSets
+            // 
+            this.dataGridProblemSets.AllowUserToAddRows = false;
+            this.dataGridProblemSets.AllowUserToDeleteRows = false;
+            this.dataGridProblemSets.AllowUserToOrderColumns = true;
+            this.dataGridProblemSets.AllowUserToResizeRows = false;
+            this.dataGridProblemSets.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridProblemSets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridProblemSets.Location = new System.Drawing.Point(6, 176);
+            this.dataGridProblemSets.Name = "dataGridProblemSets";
+            this.dataGridProblemSets.ReadOnly = true;
+            this.dataGridProblemSets.RowHeadersVisible = false;
+            this.dataGridProblemSets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridProblemSets.Size = new System.Drawing.Size(304, 239);
+            this.dataGridProblemSets.TabIndex = 18;
+            // 
+            // labelSelectStudent
+            // 
+            this.labelSelectStudent.AutoSize = true;
+            this.labelSelectStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.labelSelectStudent.Location = new System.Drawing.Point(4, 10);
+            this.labelSelectStudent.Name = "labelSelectStudent";
+            this.labelSelectStudent.Size = new System.Drawing.Size(261, 17);
+            this.labelSelectStudent.TabIndex = 15;
+            this.labelSelectStudent.Text = "Select a student to generate reports for:";
+            // 
+            // comboStudentList
+            // 
+            this.comboStudentList.FormattingEnabled = true;
+            this.comboStudentList.Location = new System.Drawing.Point(7, 30);
+            this.comboStudentList.Name = "comboStudentList";
+            this.comboStudentList.Size = new System.Drawing.Size(220, 21);
+            this.comboStudentList.TabIndex = 13;
+            this.comboStudentList.SelectedIndexChanged += new System.EventHandler(this.comboStudentList_SelectedIndexChanged);
+            // 
             // genPage
             // 
+            this.genPage.Controls.Add(this.groupBox8);
             this.genPage.Controls.Add(this.labelProbsGenned);
             this.genPage.Controls.Add(this.Operation);
             this.genPage.Controls.Add(this.listOfProblems);
@@ -185,11 +309,13 @@ namespace MathDrillGame
             // 
             // Operation
             // 
+            this.Operation.Controls.Add(this.radioDivision);
+            this.Operation.Controls.Add(this.radioMultiplication);
             this.Operation.Controls.Add(this.radioAddition);
             this.Operation.Controls.Add(this.radioSubtraction);
             this.Operation.Location = new System.Drawing.Point(456, 81);
             this.Operation.Name = "Operation";
-            this.Operation.Size = new System.Drawing.Size(110, 100);
+            this.Operation.Size = new System.Drawing.Size(110, 149);
             this.Operation.TabIndex = 103;
             this.Operation.TabStop = false;
             this.Operation.Text = "Operation:";
@@ -209,10 +335,11 @@ namespace MathDrillGame
             // radioSubtraction
             // 
             this.radioSubtraction.AutoSize = true;
-            this.radioSubtraction.Location = new System.Drawing.Point(6, 42);
+            this.radioSubtraction.Location = new System.Drawing.Point(6, 51);
             this.radioSubtraction.Name = "radioSubtraction";
             this.radioSubtraction.Size = new System.Drawing.Size(79, 17);
             this.radioSubtraction.TabIndex = 13;
+            this.radioSubtraction.TabStop = true;
             this.radioSubtraction.Text = "Subtraction";
             this.radioSubtraction.UseVisualStyleBackColor = true;
             // 
@@ -233,7 +360,7 @@ namespace MathDrillGame
             this.buttonGenerate.Location = new System.Drawing.Point(503, 323);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(116, 39);
-            this.buttonGenerate.TabIndex = 105;
+            this.buttonGenerate.TabIndex = 120;
             this.buttonGenerate.Text = "Generate!";
             this.buttonGenerate.UseVisualStyleBackColor = true;
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
@@ -499,18 +626,53 @@ namespace MathDrillGame
             // 
             // addPage
             // 
-            this.addPage.Controls.Add(this.inputFullName);
-            this.addPage.Controls.Add(this.checkAdmin);
-            this.addPage.Controls.Add(this.labelAdmin);
-            this.addPage.Controls.Add(this.labelName);
+            this.addPage.Controls.Add(this.groupBox3);
+            this.addPage.Controls.Add(this.groupBox2);
             this.addPage.Controls.Add(this.buttonClear);
             this.addPage.Controls.Add(this.buttonAddUser);
             this.addPage.Location = new System.Drawing.Point(4, 22);
             this.addPage.Name = "addPage";
             this.addPage.Size = new System.Drawing.Size(699, 425);
             this.addPage.TabIndex = 5;
-            this.addPage.Text = "Add User";
+            this.addPage.Text = "Add/Delete Student";
             this.addPage.UseVisualStyleBackColor = true;
+            // 
+            // inputFullName
+            // 
+            this.inputFullName.Location = new System.Drawing.Point(160, 46);
+            this.inputFullName.Name = "inputFullName";
+            this.inputFullName.Size = new System.Drawing.Size(100, 20);
+            this.inputFullName.TabIndex = 5;
+            // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(15, 46);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(126, 13);
+            this.labelName.TabIndex = 7;
+            this.labelName.Text = "What is the user\'s name?";
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.buttonClear.Location = new System.Drawing.Point(218, 326);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(121, 42);
+            this.buttonClear.TabIndex = 10;
+            this.buttonClear.Text = "Cancel";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddUser
+            // 
+            this.buttonAddUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.buttonAddUser.Location = new System.Drawing.Point(379, 326);
+            this.buttonAddUser.Name = "buttonAddUser";
+            this.buttonAddUser.Size = new System.Drawing.Size(121, 42);
+            this.buttonAddUser.TabIndex = 8;
+            this.buttonAddUser.Text = "Save";
+            this.buttonAddUser.UseVisualStyleBackColor = true;
             // 
             // securityPage
             // 
@@ -530,7 +692,7 @@ namespace MathDrillGame
             this.groupBox6.Controls.Add(this.label2);
             this.groupBox6.Controls.Add(this.studentSecurityNameLabel);
             this.groupBox6.Controls.Add(this.label1);
-            this.groupBox6.Controls.Add(this.comboBox1);
+            this.groupBox6.Controls.Add(this.comboBoxSecurityPass);
             this.groupBox6.Location = new System.Drawing.Point(432, 218);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(200, 157);
@@ -566,17 +728,19 @@ namespace MathDrillGame
             this.label1.TabIndex = 1;
             this.label1.Text = "Student Name:";
             // 
-            // comboBox1
+            // comboBoxSecurityPass
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBoxSecurityPass.FormattingEnabled = true;
+            this.comboBoxSecurityPass.Items.AddRange(new object[] {
+            "N/A",
             "Triangle",
             "Pentagon",
             "Circle"});
-            this.comboBox1.Location = new System.Drawing.Point(101, 70);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(93, 21);
-            this.comboBox1.TabIndex = 0;
+            this.comboBoxSecurityPass.Location = new System.Drawing.Point(101, 70);
+            this.comboBoxSecurityPass.Name = "comboBoxSecurityPass";
+            this.comboBoxSecurityPass.Size = new System.Drawing.Size(93, 21);
+            this.comboBoxSecurityPass.TabIndex = 0;
+            this.comboBoxSecurityPass.SelectedIndexChanged += new System.EventHandler(this.comboBoxSecurityPass_SelectedIndexChanged);
             // 
             // groupBox5
             // 
@@ -651,159 +815,205 @@ namespace MathDrillGame
             this.exit_button.UseVisualStyleBackColor = true;
             this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
-            // checkBoxUnattempted
+            // dashboardPage
             // 
-            this.checkBoxUnattempted.AutoSize = true;
-            this.checkBoxUnattempted.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.checkBoxUnattempted.Location = new System.Drawing.Point(-12, 153);
-            this.checkBoxUnattempted.Name = "checkBoxUnattempted";
-            this.checkBoxUnattempted.Size = new System.Drawing.Size(327, 17);
-            this.checkBoxUnattempted.TabIndex = 17;
-            this.checkBoxUnattempted.Text = "Check this box to include sets that have not yet been attempted";
-            this.checkBoxUnattempted.UseVisualStyleBackColor = true;
+            this.dashboardPage.Controls.Add(this.dashboardTeacherLabel);
+            this.dashboardPage.Controls.Add(this.tabControl2);
+            this.dashboardPage.Location = new System.Drawing.Point(4, 22);
+            this.dashboardPage.Name = "dashboardPage";
+            this.dashboardPage.Size = new System.Drawing.Size(699, 425);
+            this.dashboardPage.TabIndex = 6;
+            this.dashboardPage.Text = "Dashboard";
+            this.dashboardPage.UseVisualStyleBackColor = true;
             // 
-            // labelSelectDate
+            // tabControl2
             // 
-            this.labelSelectDate.AutoSize = true;
-            this.labelSelectDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.labelSelectDate.Location = new System.Drawing.Point(6, 68);
-            this.labelSelectDate.Name = "labelSelectDate";
-            this.labelSelectDate.Size = new System.Drawing.Size(248, 17);
-            this.labelSelectDate.TabIndex = 22;
-            this.labelSelectDate.Text = "Select a timespan to see reports from:";
+            this.tabControl2.Controls.Add(this.groupAPage);
+            this.tabControl2.Controls.Add(this.groupBPage);
+            this.tabControl2.Controls.Add(this.groupCPage);
+            this.tabControl2.Location = new System.Drawing.Point(0, 40);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(699, 382);
+            this.tabControl2.TabIndex = 0;
             // 
-            // labelMaxDate
+            // groupAPage
             // 
-            this.labelMaxDate.AutoSize = true;
-            this.labelMaxDate.Location = new System.Drawing.Point(167, 102);
-            this.labelMaxDate.Name = "labelMaxDate";
-            this.labelMaxDate.Size = new System.Drawing.Size(67, 13);
-            this.labelMaxDate.TabIndex = 21;
-            this.labelMaxDate.Text = "Ending date:";
+            this.groupAPage.Location = new System.Drawing.Point(4, 22);
+            this.groupAPage.Name = "groupAPage";
+            this.groupAPage.Padding = new System.Windows.Forms.Padding(3);
+            this.groupAPage.Size = new System.Drawing.Size(691, 356);
+            this.groupAPage.TabIndex = 0;
+            this.groupAPage.Text = "Group A";
+            this.groupAPage.UseVisualStyleBackColor = true;
             // 
-            // labelMinDate
+            // groupBPage
             // 
-            this.labelMinDate.AutoSize = true;
-            this.labelMinDate.Location = new System.Drawing.Point(6, 102);
-            this.labelMinDate.Name = "labelMinDate";
-            this.labelMinDate.Size = new System.Drawing.Size(70, 13);
-            this.labelMinDate.TabIndex = 20;
-            this.labelMinDate.Text = "Starting date:";
+            this.groupBPage.Location = new System.Drawing.Point(4, 22);
+            this.groupBPage.Name = "groupBPage";
+            this.groupBPage.Padding = new System.Windows.Forms.Padding(3);
+            this.groupBPage.Size = new System.Drawing.Size(691, 356);
+            this.groupBPage.TabIndex = 1;
+            this.groupBPage.Text = "Group B";
+            this.groupBPage.UseVisualStyleBackColor = true;
             // 
-            // dateTimePickerMax
+            // dashboardTeacherLabel
             // 
-            this.dateTimePickerMax.Location = new System.Drawing.Point(170, 118);
-            this.dateTimePickerMax.Name = "dateTimePickerMax";
-            this.dateTimePickerMax.Size = new System.Drawing.Size(140, 20);
-            this.dateTimePickerMax.TabIndex = 16;
-            this.dateTimePickerMax.Value = new System.DateTime(2018, 7, 7, 4, 17, 0, 0);
+            this.dashboardTeacherLabel.AutoSize = true;
+            this.dashboardTeacherLabel.ForeColor = System.Drawing.Color.Red;
+            this.dashboardTeacherLabel.Location = new System.Drawing.Point(13, 15);
+            this.dashboardTeacherLabel.Name = "dashboardTeacherLabel";
+            this.dashboardTeacherLabel.Size = new System.Drawing.Size(78, 13);
+            this.dashboardTeacherLabel.TabIndex = 1;
+            this.dashboardTeacherLabel.Text = "Teacher Name";
             // 
-            // dateTimePickerMin
+            // groupCPage
             // 
-            this.dateTimePickerMin.Location = new System.Drawing.Point(7, 118);
-            this.dateTimePickerMin.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
-            this.dateTimePickerMin.Name = "dateTimePickerMin";
-            this.dateTimePickerMin.Size = new System.Drawing.Size(138, 20);
-            this.dateTimePickerMin.TabIndex = 14;
+            this.groupCPage.Location = new System.Drawing.Point(4, 22);
+            this.groupCPage.Name = "groupCPage";
+            this.groupCPage.Size = new System.Drawing.Size(691, 356);
+            this.groupCPage.TabIndex = 2;
+            this.groupCPage.Text = "Group C";
+            this.groupCPage.UseVisualStyleBackColor = true;
             // 
-            // textBoxReport
+            // radioButton1
             // 
-            this.textBoxReport.Location = new System.Drawing.Point(376, 19);
-            this.textBoxReport.Multiline = true;
-            this.textBoxReport.Name = "textBoxReport";
-            this.textBoxReport.ReadOnly = true;
-            this.textBoxReport.Size = new System.Drawing.Size(315, 396);
-            this.textBoxReport.TabIndex = 19;
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(61, 19);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(62, 17);
+            this.radioButton1.TabIndex = 11;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Student";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // dataGridProblemSets
+            // radioButton2
             // 
-            this.dataGridProblemSets.AllowUserToAddRows = false;
-            this.dataGridProblemSets.AllowUserToDeleteRows = false;
-            this.dataGridProblemSets.AllowUserToOrderColumns = true;
-            this.dataGridProblemSets.AllowUserToResizeRows = false;
-            this.dataGridProblemSets.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridProblemSets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridProblemSets.Location = new System.Drawing.Point(6, 176);
-            this.dataGridProblemSets.Name = "dataGridProblemSets";
-            this.dataGridProblemSets.ReadOnly = true;
-            this.dataGridProblemSets.RowHeadersVisible = false;
-            this.dataGridProblemSets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridProblemSets.Size = new System.Drawing.Size(304, 239);
-            this.dataGridProblemSets.TabIndex = 18;
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(61, 58);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(65, 17);
+            this.radioButton2.TabIndex = 12;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Teacher";
+            this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // labelSelectStudent
+            // groupBox1
             // 
-            this.labelSelectStudent.AutoSize = true;
-            this.labelSelectStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.labelSelectStudent.Location = new System.Drawing.Point(4, 10);
-            this.labelSelectStudent.Name = "labelSelectStudent";
-            this.labelSelectStudent.Size = new System.Drawing.Size(261, 17);
-            this.labelSelectStudent.TabIndex = 15;
-            this.labelSelectStudent.Text = "Select a student to generate reports for:";
+            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Location = new System.Drawing.Point(18, 96);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 100);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "User Status";
             // 
-            // comboStudentList
+            // groupBox2
             // 
-            this.comboStudentList.FormattingEnabled = true;
-            this.comboStudentList.Location = new System.Drawing.Point(7, 30);
-            this.comboStudentList.Name = "comboStudentList";
-            this.comboStudentList.Size = new System.Drawing.Size(220, 21);
-            this.comboStudentList.TabIndex = 13;
+            this.groupBox2.Controls.Add(this.labelName);
+            this.groupBox2.Controls.Add(this.groupBox1);
+            this.groupBox2.Controls.Add(this.inputFullName);
+            this.groupBox2.Location = new System.Drawing.Point(13, 81);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(279, 215);
+            this.groupBox2.TabIndex = 14;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Add User";
             // 
-            // inputFullName
+            // groupBox3
             // 
-            this.inputFullName.Location = new System.Drawing.Point(360, 154);
-            this.inputFullName.Name = "inputFullName";
-            this.inputFullName.Size = new System.Drawing.Size(100, 20);
-            this.inputFullName.TabIndex = 5;
+            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.listBox1);
+            this.groupBox3.Location = new System.Drawing.Point(379, 81);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(266, 215);
+            this.groupBox3.TabIndex = 15;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Delete User";
             // 
-            // checkAdmin
+            // listBox1
             // 
-            this.checkAdmin.AutoSize = true;
-            this.checkAdmin.Location = new System.Drawing.Point(366, 195);
-            this.checkAdmin.Name = "checkAdmin";
-            this.checkAdmin.Size = new System.Drawing.Size(44, 17);
-            this.checkAdmin.TabIndex = 6;
-            this.checkAdmin.Text = "Yes";
-            this.checkAdmin.UseVisualStyleBackColor = true;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(28, 19);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(202, 82);
+            this.listBox1.TabIndex = 0;
             // 
-            // labelAdmin
+            // button1
             // 
-            this.labelAdmin.AutoSize = true;
-            this.labelAdmin.Location = new System.Drawing.Point(217, 195);
-            this.labelAdmin.Name = "labelAdmin";
-            this.labelAdmin.Size = new System.Drawing.Size(139, 13);
-            this.labelAdmin.TabIndex = 9;
-            this.labelAdmin.Text = "Is the user an administrator?";
+            this.button1.Location = new System.Drawing.Point(155, 148);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // labelName
+            // radioMultiplication
             // 
-            this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(217, 161);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(126, 13);
-            this.labelName.TabIndex = 7;
-            this.labelName.Text = "What is the user\'s name?";
+            this.radioMultiplication.AutoSize = true;
+            this.radioMultiplication.Location = new System.Drawing.Point(6, 84);
+            this.radioMultiplication.Name = "radioMultiplication";
+            this.radioMultiplication.Size = new System.Drawing.Size(86, 17);
+            this.radioMultiplication.TabIndex = 14;
+            this.radioMultiplication.TabStop = true;
+            this.radioMultiplication.Text = "Multiplication";
+            this.radioMultiplication.UseVisualStyleBackColor = true;
             // 
-            // buttonClear
+            // radioDivision
             // 
-            this.buttonClear.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonClear.Location = new System.Drawing.Point(220, 228);
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(121, 42);
-            this.buttonClear.TabIndex = 10;
-            this.buttonClear.Text = "Cancel";
-            this.buttonClear.UseVisualStyleBackColor = true;
+            this.radioDivision.AutoSize = true;
+            this.radioDivision.Location = new System.Drawing.Point(7, 117);
+            this.radioDivision.Name = "radioDivision";
+            this.radioDivision.Size = new System.Drawing.Size(62, 17);
+            this.radioDivision.TabIndex = 15;
+            this.radioDivision.TabStop = true;
+            this.radioDivision.Text = "Division";
+            this.radioDivision.UseVisualStyleBackColor = true;
             // 
-            // buttonAddUser
+            // groupBox8
             // 
-            this.buttonAddUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonAddUser.Location = new System.Drawing.Point(360, 228);
-            this.buttonAddUser.Name = "buttonAddUser";
-            this.buttonAddUser.Size = new System.Drawing.Size(121, 42);
-            this.buttonAddUser.TabIndex = 8;
-            this.buttonAddUser.Text = "Save";
-            this.buttonAddUser.UseVisualStyleBackColor = true;
+            this.groupBox8.Controls.Add(this.radioC);
+            this.groupBox8.Controls.Add(this.radioB);
+            this.groupBox8.Controls.Add(this.radioA);
+            this.groupBox8.Location = new System.Drawing.Point(598, 142);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(86, 100);
+            this.groupBox8.TabIndex = 106;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Group";
+            // 
+            // radioA
+            // 
+            this.radioA.AutoSize = true;
+            this.radioA.Checked = true;
+            this.radioA.Location = new System.Drawing.Point(26, 23);
+            this.radioA.Name = "radioA";
+            this.radioA.Size = new System.Drawing.Size(32, 17);
+            this.radioA.TabIndex = 107;
+            this.radioA.TabStop = true;
+            this.radioA.Text = "A";
+            this.radioA.UseVisualStyleBackColor = true;
+            // 
+            // radioB
+            // 
+            this.radioB.AutoSize = true;
+            this.radioB.Location = new System.Drawing.Point(26, 46);
+            this.radioB.Name = "radioB";
+            this.radioB.Size = new System.Drawing.Size(32, 17);
+            this.radioB.TabIndex = 108;
+            this.radioB.Text = "B";
+            this.radioB.UseVisualStyleBackColor = true;
+            // 
+            // radioC
+            // 
+            this.radioC.AutoSize = true;
+            this.radioC.Location = new System.Drawing.Point(26, 69);
+            this.radioC.Name = "radioC";
+            this.radioC.Size = new System.Drawing.Size(32, 17);
+            this.radioC.TabIndex = 109;
+            this.radioC.Text = "C";
+            this.radioC.UseVisualStyleBackColor = true;
             // 
             // AdminForm
             // 
@@ -824,6 +1034,7 @@ namespace MathDrillGame
             this.tabControl1.ResumeLayout(false);
             this.reportsPage.ResumeLayout(false);
             this.reportsPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridProblemSets)).EndInit();
             this.genPage.ResumeLayout(false);
             this.genPage.PerformLayout();
             this.Operation.ResumeLayout(false);
@@ -840,14 +1051,22 @@ namespace MathDrillGame
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.addPage.ResumeLayout(false);
-            this.addPage.PerformLayout();
             this.securityPage.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridProblemSets)).EndInit();
+            this.dashboardPage.ResumeLayout(false);
+            this.dashboardPage.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -899,7 +1118,7 @@ namespace MathDrillGame
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label studentSecurityNameLabel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxSecurityPass;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button exit_button;
         private System.Windows.Forms.TabPage aboutPage;
@@ -916,10 +1135,27 @@ namespace MathDrillGame
         private System.Windows.Forms.Label labelSelectStudent;
         private System.Windows.Forms.ComboBox comboStudentList;
         private System.Windows.Forms.TextBox inputFullName;
-        private System.Windows.Forms.CheckBox checkAdmin;
-        private System.Windows.Forms.Label labelAdmin;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Button buttonAddUser;
+        private System.Windows.Forms.TabPage dashboardPage;
+        private System.Windows.Forms.Label dashboardTeacherLabel;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage groupAPage;
+        private System.Windows.Forms.TabPage groupBPage;
+        private System.Windows.Forms.TabPage groupCPage;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton radioDivision;
+        private System.Windows.Forms.RadioButton radioMultiplication;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.RadioButton radioC;
+        private System.Windows.Forms.RadioButton radioB;
+        private System.Windows.Forms.RadioButton radioA;
     }
 }

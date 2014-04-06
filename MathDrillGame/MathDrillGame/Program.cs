@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using System.Diagnostics;
 /* The PROGRAM class
  * This is the class of the main program itself which runs
  * It holds some static values, including a user list and file paths
@@ -34,6 +35,7 @@ namespace MathDrillGame
         public static string USERSFILE = @"c:\users\public\MathDrills\users_v3.xml";
         public static string CONFIGFILE = @"c:\users\public\MathDrills\config.xml";
         public static DateTime MINDATE = new DateTime(2013, 12, 31);
+        public static Random rng;//single instance for random numbers, multiple instance create similar values
 
         static XML_Handler xml;
         [STAThread]
@@ -45,6 +47,7 @@ namespace MathDrillGame
         static void Main()
         {
             bool result;
+            rng = new Random();
             var mutex = new System.Threading.Mutex(true, "MathDrills", out result);
             if (!result)
             {
@@ -183,6 +186,10 @@ namespace MathDrillGame
         public static void loadData()
         {
             xml.load_users();
+        }
+        public static void saveProblemSet(ProblemSet set)
+        {
+            xml.generate_StudentXMLProblemSet(set);
         }
     }
 }

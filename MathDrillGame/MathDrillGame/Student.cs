@@ -32,6 +32,7 @@ namespace MathDrillGame
         public string group { get; set; }
         public string pass { get; set; }
         public string invisible { get; set; }
+        public int coins { get; set; }
         public Student()
         {
         }
@@ -44,6 +45,7 @@ namespace MathDrillGame
             this.group = group;
             this.pass = pass;
             this.invisible = "n";
+            this.coins = 0;
         }
         //function that gets the role and the name of the student.
         public string getRoleAndName

@@ -13,7 +13,7 @@ namespace MathDrillGame
     {
         public ProblemSet() { }
         public ProblemSet(int problemSetID, string operation, bool isSolved, 
-            int solvedQuantity, int totalQuantity, string score, string lastAttempt)
+            int solvedQuantity, int totalQuantity, string score, string lastAttempt,string group, int min, int max)
         {
             this.problemSetID = problemSetID;
             this.operation = operation;
@@ -22,6 +22,15 @@ namespace MathDrillGame
             this.totalQuantity = totalQuantity;
             this.score = score;
             this.lastAttempt = lastAttempt;
+            this.group = group;
+            this.problems = new List<Problem>();
+            
+            List<int> problem= new List<int>();//add operands
+            for (int i = 0; i < totalQuantity; i++)
+            {
+                problem = generateProblemSet(min,max);
+                problems.Add(new Problem(problem[0], problem[1], operation));
+            }
         }
 
         public int problemSetID { get; set;}
@@ -31,13 +40,32 @@ namespace MathDrillGame
         public int totalQuantity { get; set; }  //How many problems are in a set
         public string score { get; set; }       // Solved / Total = Score
         public string lastAttempt { get; set; } //The last time they attempted a problem set. String form of a DateTime object
-
+        public string group { get; set; }//this set pertains to a class, A, B, or C
+        public List<Problem> problems { get; set; }
+        
         /* PRINTSUMMARY is used for the reporting view, to get summary details on a set.
          * Kevin and Uriah
          */
         public string printSummary()
         {
-            return (problemSetID + "\t" + operation + "\t" + totalQuantity + "\t" + solvedQuantity + "\t" + score + "\t" + lastAttempt + "\r\n");
+            return (problemSetID + "\t" + operation + "\t" + totalQuantity + "\t" + solvedQuantity + "\t" + score + "\t" + lastAttempt +"\t"+group + "\r\n");
+        }
+
+        public List<int> generateProblemSet(int min,int max)
+        {
+            
+            List<int> operands = new List<int>();
+            int op1=0;
+            int op2=1;//initial value
+            while (op1 < op2)
+            {
+                op1 = Program.rng.Next(min, max);   //rng.Next will randomly generate an integer between min and max
+                op2 = Program.rng.Next(min, max);
+            }
+            operands.Add(op1);
+            operands.Add(op2);
+
+            return operands;
         }
     }
 

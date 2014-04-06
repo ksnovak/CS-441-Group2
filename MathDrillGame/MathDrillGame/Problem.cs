@@ -28,7 +28,7 @@ namespace MathDrillGame
         public string operation { get; set; } //Currently just addition or subtraction
         public bool isSolved { get; set; } //Gets set to 1 when the student correctly answers. Then the problem will not show up for them any more.
         public int attemptNumber { get; set; } //How many times a student has submitted an answer. Currently DOES keep track, but does NOT have consequences
-
+        
 
         /* PRINTPROBLEM will return the problem as a string, for displaying in various places
          * Uriah and Kevin

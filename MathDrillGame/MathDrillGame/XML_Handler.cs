@@ -88,6 +88,7 @@ namespace MathDrillGame
                         XmlElement suserid = doc.CreateElement("UserID");
                         XmlElement spass = doc.CreateElement("pass");
                         XmlElement sinvisible = doc.CreateElement("Invisible");
+                        XmlElement scoins = doc.CreateElement("Coins");
                         XmlElement slastlogin = doc.CreateElement("LastLogin");
 
                         sfullName.InnerText = listofTeachers[i].students[j].fullName;
@@ -95,6 +96,7 @@ namespace MathDrillGame
                         suserid.InnerText = listofTeachers[i].students[j].userID.ToString();
                         spass.InnerText = listofTeachers[i].students[j].pass;
                         sinvisible.InnerText = listofTeachers[i].students[j].invisible;
+                        scoins.InnerText = listofTeachers[i].students[j].coins.ToString();
                         slastlogin.InnerText = listofTeachers[i].students[j].lastLogin.ToString("g");
 
                         student.AppendChild(sfullName);
@@ -102,7 +104,9 @@ namespace MathDrillGame
                         student.AppendChild(suserid);
                         student.AppendChild(spass);
                         student.AppendChild(sinvisible);
+                        student.AppendChild(scoins);
                         student.AppendChild(slastlogin);
+
                         studentlist.AppendChild(student);
                     }
                     //adding list of students to a teacher
@@ -133,13 +137,16 @@ namespace MathDrillGame
             students_1.Add(new Student("David Davidson",101,"A","1"));
             students_1.Add( new Student("John Smith",102,"B","2"));
             students_1.Add(new Student("Eric Erickson",103,"C","3"));
+            students_1.Add(new Student("Rose Bernstein ", 104, "A", "1"));
+            students_1[3].invisible = "y";
 
             students_2.Add( new Student("David Smith",201,"A","1"));
             students_2.Add( new Student("John Wood",202,"B","2"));
             students_2.Add( new Student("Blue Mary",203,"C","3"));
+            students_2.Add(new Student("Rugal Bernstein", 204, "U", "1"));
 
             listofTeachers.Add(new Teacher("Admin",100,students_1,"admin"));
-            listofTeachers.Add(new Teacher("Ginder Bridges",200,students_2,"admin1"));
+            listofTeachers.Add(new Teacher("Ginger Bridges",200,students_2,"admin1"));
         }
         //This method will save all the current data from the teachers object into xml
         //It includes the students data
@@ -186,6 +193,7 @@ namespace MathDrillGame
                     XmlElement suserid = doc.CreateElement("UserID");
                     XmlElement spass = doc.CreateElement("pass");
                     XmlElement slastlogin = doc.CreateElement("LastLogin");
+                    XmlElement scoins = doc.CreateElement("Coins");
                     XmlElement sinvisible = doc.CreateElement("Invisible");
 
                     sfullName.InnerText = Program.teachers[i].students[j].fullName;
@@ -193,6 +201,7 @@ namespace MathDrillGame
                     suserid.InnerText = Program.teachers[i].students[j].userID.ToString();
                     spass.InnerText = Program.teachers[i].students[j].pass;
                     sinvisible.InnerText = Program.teachers[i].students[j].invisible;//variable to "delete student"
+                    scoins.InnerText = Program.teachers[i].students[j].coins.ToString();
                     slastlogin.InnerText = Program.teachers[i].students[j].lastLogin.ToString("g");
 
                     student.AppendChild(sfullName);
@@ -200,6 +209,7 @@ namespace MathDrillGame
                     student.AppendChild(suserid);
                     student.AppendChild(spass);
                     student.AppendChild(sinvisible);
+                    student.AppendChild(scoins);
                     student.AppendChild(slastlogin);
                     studentlist.AppendChild(student);
                 }
@@ -226,12 +236,23 @@ namespace MathDrillGame
                 Teacher tempTeacher = new Teacher(newName, userID, studentList, pass);
 
                 Program.teachers.Add(tempTeacher);
+                
         
             }
+            //Debug code
+            /*for (int i = 0; i < Program.teachers.Count; i++)
+            {
+                for (int j = 0; j < Program.teachers[i].students.Count; j++)
+                {
+                    Debug.WriteLine(Program.teachers[i].students[j].fullName);
+                    Debug.WriteLine(Program.teachers[i].students[j].invisible);
+                }
+            }*/
         }//end of load_users
         private List<Student> getStudentList(XElement userList)
         {
             List<Student> student_list = new List<Student>();
+            int index = 0;
             foreach (XElement user in userList.Descendants("Student"))
             {
                 //XElement user_student = user.Parent;
@@ -242,11 +263,65 @@ namespace MathDrillGame
                 int user_id_int = Convert.ToInt32(user_id);
                 string user_group = user.Element("Group").Value;
                 string user_p = user.Element("pass").Value;
+                string user_inv = user.Element("Invisible").Value;
+                string user_coins = user.Element("Coins").Value;
+                string user_lastlogin = user.Element("LastLogin").Value;
+
                 student_list.Add(new Student(user_name, user_id_int, user_group, user_p));
+                student_list[index].invisible = user_inv;//set invisibility
+                student_list[index].coins = Convert.ToInt32(user_coins);
+                //Debug.WriteLine(student_list[index].fullName);
+                //Debug.WriteLine(student_list[index].invisible);
+
+                index++;
             }
             //Debug.WriteLine("done");
 
             return student_list;
         }//end of getStudentsList
+        //Aurelio Arango
+        //4-6-14
+        public void generate_StudentXMLProblemSet( ProblemSet set)
+        {
+            XmlDocument doc;
+            List<int> problems= new List<int>();
+            if (!File.Exists(@"c:\users\public\MathDrills\ProblemSets\setGroup" + set.group + ".xml"))
+            {
+                doc = new XmlDocument();
+                XmlElement allProblemSets = doc.CreateElement("AllProblemSets");
+                doc.AppendChild(allProblemSets);
+                doc.Save(@"c:\users\public\MathDrills\ProblemSets\setGroup" + set.group + ".xml");
+            }
+
+            XDocument xml = XDocument.Load(@"c:\users\public\MathDrills\ProblemSets\setGroup" + set.group + ".xml");
+            XElement newProblemSet = new XElement("ProblemSet");
+            XElement problemSetID = new XElement("ProblemSetID", Program.getNextProblemSetID());
+            XElement problemSetSolved = new XElement("IsSetSolved", "0");
+            XElement lastAccessed = new XElement("LastAccessed", Program.MINDATE.ToString("g"));
+
+            newProblemSet.Add(problemSetID);
+            newProblemSet.Add(problemSetSolved);
+            newProblemSet.Add(lastAccessed);
+            
+            for(int i=0; i<set.problems.Count; i++)
+            {
+                XElement newProblem = new XElement("Problem",
+                    new XElement("Operator" , set.problems[i].operation),
+                    new XElement("Operand1", set.problems[i].operand1.ToString()),
+                    new XElement("Operand2", set.problems[i].operand2.ToString()),
+                    new XElement("IsSolved", "0"),
+                    new XElement("Attempts", "0")
+                    );
+
+                    //newProblemSet.Add(operation);
+                    
+                    newProblemSet.Add(newProblem);
+
+            }
+            xml.Root.Add(newProblemSet);
+            xml.Save(@"c:\users\public\MathDrills\ProblemSets\setGroup" + set.group + ".xml");
+
+        }
+
     }
 }

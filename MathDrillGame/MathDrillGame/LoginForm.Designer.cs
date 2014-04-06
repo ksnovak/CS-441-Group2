@@ -39,7 +39,7 @@
             // 
             this.back_button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.back_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.back_button.Location = new System.Drawing.Point(12, 226);
+            this.back_button.Location = new System.Drawing.Point(42, 423);
             this.back_button.Name = "back_button";
             this.back_button.Size = new System.Drawing.Size(96, 35);
             this.back_button.TabIndex = 3;
@@ -50,7 +50,7 @@
             // buttonLogin
             // 
             this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.buttonLogin.Location = new System.Drawing.Point(184, 226);
+            this.buttonLogin.Location = new System.Drawing.Point(577, 423);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(96, 35);
             this.buttonLogin.TabIndex = 2;
@@ -64,7 +64,7 @@
             this.listOfUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.listOfUsers.FormattingEnabled = true;
             this.listOfUsers.ItemHeight = 16;
-            this.listOfUsers.Location = new System.Drawing.Point(12, 127);
+            this.listOfUsers.Location = new System.Drawing.Point(228, 258);
             this.listOfUsers.Name = "listOfUsers";
             this.listOfUsers.Size = new System.Drawing.Size(268, 84);
             this.listOfUsers.TabIndex = 1;
@@ -76,7 +76,7 @@
             this.labelWelcome.AutoSize = true;
             this.labelWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.labelWelcome.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.labelWelcome.Location = new System.Drawing.Point(248, 129);
+            this.labelWelcome.Location = new System.Drawing.Point(248, 187);
             this.labelWelcome.Name = "labelWelcome";
             this.labelWelcome.Size = new System.Drawing.Size(208, 24);
             this.labelWelcome.TabIndex = 3;
@@ -88,7 +88,7 @@
             this.listOfTeachers.FormattingEnabled = true;
             this.listOfTeachers.Items.AddRange(new object[] {
             "something"});
-            this.listOfTeachers.Location = new System.Drawing.Point(12, 47);
+            this.listOfTeachers.Location = new System.Drawing.Point(228, 54);
             this.listOfTeachers.Name = "listOfTeachers";
             this.listOfTeachers.Size = new System.Drawing.Size(268, 69);
             this.listOfTeachers.TabIndex = 4;

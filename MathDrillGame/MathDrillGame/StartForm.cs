@@ -20,6 +20,7 @@ namespace MathDrillGame
         public StartForm()
         {
             InitializeComponent();
+            
         }
         //Aurelio Arango
         //Exit application when exit button is pressed
@@ -49,7 +50,13 @@ namespace MathDrillGame
             bool foundForm = false;
             foreach (Form f in Application.OpenForms)
             {
-                if (f.GetType() == typeof(AdminForm) && user)
+                if (f.GetType() == typeof(AdminLoginForm) && user)
+                {
+                    f.Show();
+                    foundForm = true;
+                    this.Hide();
+                }
+                else if(f.GetType() == typeof(LoginForm) && user)
                 {
                     f.Show();
                     foundForm = true;

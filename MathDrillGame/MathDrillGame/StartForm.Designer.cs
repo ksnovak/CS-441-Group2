@@ -39,7 +39,7 @@
             this.Student_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Student_Button.BackgroundImage")));
             this.Student_Button.Image = ((System.Drawing.Image)(resources.GetObject("Student_Button.Image")));
             this.Student_Button.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.Student_Button.Location = new System.Drawing.Point(132, 12);
+            this.Student_Button.Location = new System.Drawing.Point(252, 25);
             this.Student_Button.Name = "Student_Button";
             this.Student_Button.Size = new System.Drawing.Size(175, 175);
             this.Student_Button.TabIndex = 0;
@@ -50,7 +50,7 @@
             // 
             this.admin_button.Image = ((System.Drawing.Image)(resources.GetObject("admin_button.Image")));
             this.admin_button.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.admin_button.Location = new System.Drawing.Point(132, 223);
+            this.admin_button.Location = new System.Drawing.Point(252, 242);
             this.admin_button.Name = "admin_button";
             this.admin_button.Size = new System.Drawing.Size(175, 175);
             this.admin_button.TabIndex = 1;
@@ -60,7 +60,7 @@
             // exit_button
             // 
             this.exit_button.Image = ((System.Drawing.Image)(resources.GetObject("exit_button.Image")));
-            this.exit_button.Location = new System.Drawing.Point(377, 348);
+            this.exit_button.Location = new System.Drawing.Point(590, 357);
             this.exit_button.Name = "exit_button";
             this.exit_button.Size = new System.Drawing.Size(50, 50);
             this.exit_button.TabIndex = 2;

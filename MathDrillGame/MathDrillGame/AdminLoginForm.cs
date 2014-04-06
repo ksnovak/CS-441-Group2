@@ -58,18 +58,21 @@ namespace MathDrillGame
 {
     public partial class AdminLoginForm : Form
     {
-        XElement teachersListXML;//xml that holds teacher and students info
+        //XElement teachersListXML;//xml that holds teacher and students info
 
         public AdminLoginForm()
         {
             InitializeComponent();
             buildTeacherList();
+            
         }
+
         //Aurelio Arango
         //This function builds teacher list xml
         private void buildTeacherList()
         {
-            teachersListXML = XElement.Load(Program.USERSFILE);
+            //Aurelio Arango No longer needed 4-5-14, xml_handler takes care of reading info
+            /*teachersListXML = XElement.Load(Program.USERSFILE);
             Program.teachers.Clear();
             //Debug.WriteLine("Show");
             foreach (XElement user in teachersListXML.Descendants("Teacher"))
@@ -80,7 +83,8 @@ namespace MathDrillGame
                 List<Student> studentList = getStudentList(user);//setting list of students to teacher object
                 Teacher tempTeacher = new Teacher(newName, userID, studentList, pass);//creates a new teacher object
                 Program.teachers.Add(tempTeacher);//adds new teacher to the list of teachers
-            }
+            }*/
+            AdminUsersList.DataSource = null;
             AdminUsersList.DataSource = Program.teachers;
             AdminUsersList.DisplayMember = "getRoleAndName"; //What will be shown. Note, this is a function in the User class to show both the role and the name.
             AdminUsersList.ValueMember = "userID";
@@ -88,7 +92,7 @@ namespace MathDrillGame
         }
         //Aurelio Arango
         //This funtion returns a list of all "children" (Students) of the given teacher
-        private List<Student> getStudentList(XElement userList)
+       /* private List<Student> getStudentList(XElement userList)
         {
             List<Student> student_list = new List<Student>();
             foreach (XElement user in userList.Descendants("Student"))
@@ -102,7 +106,7 @@ namespace MathDrillGame
                     student_list.Add(new Student(user_name,user_id_int,user_group,user_p));
             }
             return student_list;
-        }
+        }*/
         //Aurelio Arango
         //This funtion closes the app when exit button is click
         private void exit_button_Click(object sender, EventArgs e)
@@ -127,10 +131,19 @@ namespace MathDrillGame
         //It also sets the current students from the selected administrator
         private void AdminUsersList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             passwordBox.Enabled = true;
             Program.currentTeacherIndex = Convert.ToInt32(AdminUsersList.SelectedIndex);
             var source = new BindingSource();
             Program.students = Program.teachers.ElementAt(AdminUsersList.SelectedIndex).students;
+            /*for (int i = 0; i < Program.teachers.Count; i++)
+            {
+                for (int j = 0; j < Program.teachers[i].students.Count; j++)
+                {
+                    Debug.WriteLine(Program.teachers[i].students[j].fullName);
+                    Debug.WriteLine(Program.teachers[i].students[j].invisible);
+                }
+            }*/
         }
         //Aurelio Arango
         //This method activates when the login button is click and it allows user to display password
@@ -153,6 +166,7 @@ namespace MathDrillGame
         private void create_Form()
         {
             bool foundForm = false;
+            passwordBox.Text = "";//resetting field after login
             foreach (Form f in Application.OpenForms)
             {
                 if (f.GetType() == typeof(AdminForm))

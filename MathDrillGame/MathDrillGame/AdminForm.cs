@@ -43,7 +43,7 @@ namespace MathDrillGame
 
         //crash site here. complaints about this being a NULL value.
         //User currentUser = Program.users[Program.currentUserIndex]; //The user who is logged in.
-        Teacher currentTeacher = Program.teachers[Program.currentTeacherIndex];//aurelio arango, admin logged in
+        Teacher currentTeacher;// = Program.teachers[Program.currentTeacherIndex];//aurelio arango, admin logged in
 
         int securityStudent;//current student index //security page
 
@@ -61,9 +61,18 @@ namespace MathDrillGame
                                     //Assumed default value when a student is added with no specifications
                                     //Also did the same thing this list as with A,B,C..
                                     //However this one gets no Warnings
+        List<Student> valid_students;
         
         Student targetUser;         //Holds user details on the selected user
         string fileName;
+        
+        //Reports variables
+        int reports_currentTargetID;
+        List<ProblemSet> reports_usersSets = new List<ProblemSet>();    //List of all of the problem sets to a specific students
+        List<Problem> reports_problemsInSet = new List<Problem>();      //List of all problems to a specific set
+
+        Student setProblems_targetStudent;
+
 //------------------------------------End attributes
 //--------------------------------On load start
         public AdminForm()
@@ -72,7 +81,8 @@ namespace MathDrillGame
         }
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            Teacher currentTeacher = Program.teachers[Program.currentTeacherIndex];
+            currentTeacher = new Teacher();
+            currentTeacher = Program.teachers[Program.currentTeacherIndex];
             //Used in Generate Tab
             listOfStudents.DataSource = null;//data biding 
             listOfStudents.DataSource = currentTeacher.students;//set data source
@@ -91,9 +101,44 @@ namespace MathDrillGame
             //There needs to be Lists and listBoxes for individual Student Groups
             load_ManageStudentList();
             loadvisibleStudents();
+            load_dashboard();
+            load_reportsPage();
 
+            /*for (int i = 0; i < 5; i++)
+            {
+                List<int> problems = ProblemSet.generateProblemSet(0, 10);
+
+                Debug.WriteLine(problems[0].ToString(), problems[1].ToString());
+            }*/
         }//end function
-        
+        protected override void  OnVisibleChanged(EventArgs e)
+        {
+ 	        base.OnVisibleChanged(e);
+            currentTeacher = new Teacher();
+            currentTeacher = Program.teachers[Program.currentTeacherIndex];
+            //Used in Generate Tab
+            listOfStudents.DataSource = null;//data biding 
+            listOfStudents.DataSource = currentTeacher.students;//set data source
+            listOfStudents.DisplayMember = "fullName";
+            listOfStudents.ValueMember = "userID";
+
+            //Debug.WriteLine(targetUser); debug line
+            //fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
+            //Used in Manage Tab
+            /*ISSUE: 
+             * List boxes on the right do not properly display the names
+             * Oddly for loop iterates once only*/
+            //Debug.WriteLine(Program.teachers[Program.currentTeacherIndex].students.Count);
+            //Debug.WriteLine("students count "+currentTeacher.students.Count);
+            //Debug.WriteLine("Teacher name"+currentTeacher.fullName);
+            //There needs to be Lists and listBoxes for individual Student Groups
+            load_ManageStudentList();
+            loadvisibleStudents();
+            load_dashboard();
+            load_reportsPage();
+
+        }
+       
 
         /* LOAD event is triggered when the form opens. It will read from the XML into a list in memory, which then will feed into the listbox
          * This will only display students, doesn't include administrators.
@@ -206,6 +251,18 @@ namespace MathDrillGame
 //---------------------------------------Main Page Buttons Ends
 
 //
+//----------------------------------------Dashboard page start
+//
+        protected void load_dashboard()
+        {
+            dashboardTeacherLabel.Text = currentTeacher.fullName + " " + currentTeacher.lastLogin;
+        }
+
+//
+//------------------------------------------------Dashboard page end
+//
+
+//
 // ----------------------------------------Reports Page Section Start
 //
         //Removed, no longer calling a new form, using a page to display reports. Aurelio Arango
@@ -218,30 +275,78 @@ namespace MathDrillGame
             reports.Show();
         }//end funtion*/
 
+        protected void load_reportsPage()
+        {
+            comboStudentList.DataSource = null;
+            load_valid_students();
+            comboStudentList.DataSource = valid_students;
+            comboStudentList.DisplayMember = "fullName";
+            comboStudentList.ValueMember = "userID";
 
-//
-//----------------------------------------Reports Page Section Ends
-//
-//
-//----------------------------------------Set Problems page start
-// 
+        }
+        protected void load_valid_students()
+        {
+            valid_students = new List<Student>();
+            for (int i = 0; i < currentTeacher.students.Count; i++)
+            {
+                if (currentTeacher.students[i].invisible.Equals("n"))
+                {
+                    valid_students.Add(currentTeacher.students[i]);
+                    //Debug.WriteLine(currentTeacher.students[i].fullName);
+                    //Debug.WriteLine(currentTeacher.students[i].invisible);
+                }
+            }
+            /*for(int i=0; i < Program.teachers[Program.currentTeacherIndex].students.Count;i++)
+            {
+                if (currentTeacher.students[i].invisible.Equals("n"))
+                {
+                    //valid_students.Add(currentTeacher.students[i]);
+                    Debug.WriteLine(currentTeacher.students[i].fullName);
+                    Debug.WriteLine(currentTeacher.students[i].invisible);
+                }
+            }*/
+        }
+        private void comboStudentList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //reports_currentTargetID = adminStudentList[comboStudentList.SelectedIndex].userID;
+        }
+
+        //
+        //----------------------------------------Reports Page Section Ends
+        //
+        //
+        //----------------------------------------Set Problems page start
+        // 
+        //
+        
         //When you select someone from the list, save to a variable which member it is, and personalize a message.
         /* SELECTEDINDEXCHANGED event triggered when selecting a different student for whom to create problems
          * Will update the label (Generating problems for...) and the file path.
          * Kevin and Uriah
          */
+
+       
         private void listOfStudents_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.targetUser = Convert.ToInt32(listOfStudents.SelectedIndex);
-            //Debug.WriteLine(listOfStudents.SelectedIndex);
-            targetUser = Program.teachers[Program.currentTeacherIndex].students[Program.currentStudentIndex];
+            //Program.targetUser = Convert.ToInt32(listOfStudents.SelectedIndex);
+            int selectedIndex = Convert.ToInt32(listOfStudents.SelectedIndex);;
+            Debug.WriteLine(listOfStudents.SelectedIndex);
+            if (selectedIndex <= 0)
+            {
+                selectedIndex = 0;
+            }
+            //targetUser = Program.teachers[Program.currentTeacherIndex].students[Program.currentStudentIndex];
+            setProblems_targetStudent = new Student();
+            setProblems_targetStudent = Program.teachers[Program.currentTeacherIndex].students[selectedIndex];
+            
             //Aurelio Arango
             //adding string for date and user
             //string admin_welcome = "Welcome " + currentUser.fullName + " "+getUserDate(currentUser.userID);
             string admin_welcome = "Welcome " + currentTeacher.fullName + " " + currentTeacher.userID;
 
-            fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
-            labelGenProblemsFor.Text = admin_welcome + "\nGenerating problems for " + targetUser.fullName;
+            fileName = @"c:\users\public\MathDrills\ProblemSets\" + setProblems_targetStudent.userID + ".xml";
+
+            labelGenProblemsFor.Text = admin_welcome + "\nGenerating problems for " + setProblems_targetStudent.fullName;
             labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
         }
         /* GENERATION CLICK event, when the administrator clicks the "Generate!" button to make problems for a student
@@ -258,29 +363,72 @@ namespace MathDrillGame
             //If the inputs are valid, then start generating problems in those constraints.
             else
             {
-                min = Convert.ToInt32(inputMin.Text);   //Turn the string input into ints
-                max = Convert.ToInt32(inputMax.Text);   //Turn the string input into ints
-                if (min > max)                          //If users mistook min for max, swap the values.
+                string radio="";
+                if(radioA.Checked)
                 {
-                    int temp = min;
-                    min = max;
-                    max = temp;
+                    radio ="A";
                 }
-                quantity = Convert.ToInt32(inputQuantity.Text); //Turn the string input into ints
-                isAddition = radioAddition.Checked;             //Determine the type of problem
-                generateProblemSet();
+                else if(radioB.Checked)
+                {
+                    radio ="B";
+                }
+                else
+                {
+                    radio ="C";
+                }
+
+                if (MessageBox.Show("Do you want to generate set for group " + radio + "?", "MathDrillGame", MessageBoxButtons.YesNo, MessageBoxIcon.Question) 
+                    == DialogResult.Yes)
+                {
+                    min = Convert.ToInt32(inputMin.Text);   //Turn the string input into ints
+                    max = Convert.ToInt32(inputMax.Text);   //Turn the string input into ints
+                    if (min > max)                          //If users mistook min for max, swap the values.
+                    {
+                        int temp = min;
+                        min = max;
+                        max = temp;
+                    }
+                    quantity = Convert.ToInt32(inputQuantity.Text); //Turn the string input into ints
+                    isAddition = radioAddition.Checked;             //Determine the type of problem
+                    generateProblemSet(radio,min,max, quantity);
+                }
             }//end else
         }//end function
+        private bool generateProblemSet(string group, int min, int max, int quantity)
+        {
+            string lastAccessed = Program.MINDATE.ToString("g");
+            string oper = "";
+
+            if (radioAddition.Checked)
+            {
+                oper = "+";
+            }
+            else if (radioSubtraction.Checked)
+            {
+                oper = "-";
+            }
+            else if (radioMultiplication.Checked)
+            {
+                oper = "*";
+            }
+            else
+            {
+                oper = "/";
+            }
+
+            Program.saveProblemSet(new ProblemSet(1, oper, false, 0, quantity, "0", lastAccessed, group, min, max));
+            return true;
+        }
         /* GENERATEPROBLEMSET actually creates the set of problems in XML, and also displays in a textbox.
          * Kevin and Uriah
          */
         private bool generateProblemSet()
         {
-            XmlDocument doc;
+            //XmlDocument doc;
             listOfProblems.Text = "";
 
             //If they have no file yet, create one with the base information.
-            if (!File.Exists(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml"))
+            /*if (!File.Exists(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml"))
             {
                 doc = new XmlDocument();
                 XmlElement allProblemSets = doc.CreateElement("AllProblemSets");
@@ -294,8 +442,8 @@ namespace MathDrillGame
 
                 doc.AppendChild(allProblemSets);
                 doc.Save(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
-            }
-
+            }*/
+            /*
             XDocument xml = XDocument.Load(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
             XElement newProblemSet = new XElement("ProblemSet");
             XElement problemSetID = new XElement("ProblemSetID", Program.getNextProblemSetID());
@@ -323,8 +471,16 @@ namespace MathDrillGame
 
             xml.Root.Add(newProblemSet);
             xml.Save(@"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml");
+            */
+            
+                
             return true;
         }//end function generate problem set
+
+        public void generate_individualProblems()
+        {
+
+        }
         //Ensures that the admin entered valid arguments for problem generation.
         /* VALIDATEINPUT makes sure that the attributes the teacher input for problem sets is valid.
          * Min, Max, and Quantity all have to have some value in them.
@@ -361,7 +517,6 @@ namespace MathDrillGame
                     return true;
                 }//end else
             }//end else if
-
             else
                 listOfProblems.Text = "You must enter a valid numbers of problems.";
             return false;
@@ -556,7 +711,8 @@ namespace MathDrillGame
         {
             securityStudent = Convert.ToInt32(studentsSecurityListBox.SelectedIndex);
 
-            studentSecurityNameLabel.Text = currentTeacher.students[securityStudent].fullName;
+           // studentSecurityNameLabel.Text = currentTeacher.students[securityStudent].fullName;
+
 
         }
         //4-3-14
@@ -565,12 +721,17 @@ namespace MathDrillGame
         {
             if(passwordCheckBox.Checked == true)
             {
-                //Debug.WriteLine("True");
+                Program.teachers[Program.currentTeacherIndex].setpass = "y";
             }
             else
             {
+                Program.teachers[Program.currentTeacherIndex].setpass = "n";
                 //Debug.WriteLine("False");
             }
+        }
+        private void comboBoxSecurityPass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Debug.Write(comboBoxSecurityPass.SelectedIndex);
         }
 
 //
@@ -627,6 +788,10 @@ namespace MathDrillGame
         {
 
         }
+
+       
+
+        
 
         
 
