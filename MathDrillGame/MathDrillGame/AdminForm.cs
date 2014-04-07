@@ -72,6 +72,9 @@ namespace MathDrillGame
         List<Problem> reports_problemsInSet = new List<Problem>();      //List of all problems to a specific set
 
         Student setProblems_targetStudent;
+        //=========================================== Security Page Variables 
+        List<Student> securityVisibleStudents;
+
 
 //------------------------------------End attributes
 //--------------------------------On load start
@@ -99,11 +102,7 @@ namespace MathDrillGame
             //Debug.WriteLine("students count "+currentTeacher.students.Count);
             //Debug.WriteLine("Teacher name"+currentTeacher.fullName);
             //There needs to be Lists and listBoxes for individual Student Groups
-            load_ManageStudentList();
-            loadvisibleStudents();
-            load_dashboard();
-            load_reportsPage();
-
+            loadAll();
             /*for (int i = 0; i < 5; i++)
             {
                 List<int> problems = ProblemSet.generateProblemSet(0, 10);
@@ -113,29 +112,26 @@ namespace MathDrillGame
         }//end function
         protected override void  OnVisibleChanged(EventArgs e)
         {
- 	        base.OnVisibleChanged(e);
+            base.OnVisibleChanged(e);
+            loadAll();
+
+        }
+        private void loadAll()
+        {
+            
             currentTeacher = new Teacher();
             currentTeacher = Program.teachers[Program.currentTeacherIndex];
-            //Used in Generate Tab
+
             listOfStudents.DataSource = null;//data biding 
             listOfStudents.DataSource = currentTeacher.students;//set data source
             listOfStudents.DisplayMember = "fullName";
             listOfStudents.ValueMember = "userID";
 
-            //Debug.WriteLine(targetUser); debug line
-            //fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
-            //Used in Manage Tab
-            /*ISSUE: 
-             * List boxes on the right do not properly display the names
-             * Oddly for loop iterates once only*/
-            //Debug.WriteLine(Program.teachers[Program.currentTeacherIndex].students.Count);
-            //Debug.WriteLine("students count "+currentTeacher.students.Count);
-            //Debug.WriteLine("Teacher name"+currentTeacher.fullName);
-            //There needs to be Lists and listBoxes for individual Student Groups
             load_ManageStudentList();
             loadvisibleStudents();
             load_dashboard();
             load_reportsPage();
+            load_AddDeleteUserPage();
 
         }
        
@@ -330,7 +326,7 @@ namespace MathDrillGame
         {
             //Program.targetUser = Convert.ToInt32(listOfStudents.SelectedIndex);
             int selectedIndex = Convert.ToInt32(listOfStudents.SelectedIndex);;
-            Debug.WriteLine(listOfStudents.SelectedIndex);
+            //Debug.WriteLine(listOfStudents.SelectedIndex);
             if (selectedIndex <= 0)
             {
                 selectedIndex = 0;
@@ -661,6 +657,70 @@ namespace MathDrillGame
             Close();
         }*/
 
+        private void load_AddDeleteUserPage()
+        {
+            add_delete_student_list.DataSource = null;
+            add_delete_student_list.DataSource = valid_students;
+            add_delete_student_list.DisplayMember = "fullName";
+            add_delete_student_list.ValueMember = "userID";
+        }
+        private void delete_student_button_Click(object sender, EventArgs e)
+        {
+            
+            
+        }
+        private void add_student_button_Click(object sender, EventArgs e)
+        {
+            string userFullName = "";
+            userFullName = inputFullName.Text;
+            userFullName = removeSpecialChars(userFullName);
+            if (userFullName.Count() > 0)
+            {
+                //if is a student, create a new student and add to main list
+                if (add_delete_Student_radioButton.Checked)
+                {
+
+                    int total_students = Program.teachers[Program.currentTeacherIndex].students.Count;
+                    int new_id = Program.teachers[Program.currentTeacherIndex].userID + total_students + 1;
+                    Student newStudent = new Student(userFullName, new_id, "U", "1");
+                    //add new student
+                    Program.teachers[Program.currentTeacherIndex].students.Add(newStudent);
+                    loadAll();//updating all pages
+                    inputFullName.Text = "";
+                }//add a teacher
+                else
+                {
+                    int new_id = Program.teachers[Program.currentTeacherIndex].userID  + 100;//increase by 100 each id
+                    List<Student> slist = new List<Student>();
+                    Teacher newTeacher = new Teacher(userFullName,new_id,slist,"admin");
+                    Program.teachers.Add(newTeacher);
+                    loadAll();//updating all pages
+                    inputFullName.Text = "";
+                }
+            }
+
+        }
+        private string removeSpecialChars(string str)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (char c in str)
+            {
+                if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '.' || c == '_')
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
+        }
+        private void addStudent(string name)
+        {
+
+        }
+        private void addTeacher()
+        {
+
+        }
+
 //
 //------------------------------------------------Add User page end
 //
@@ -691,17 +751,17 @@ namespace MathDrillGame
         {
             studentsSecurityListBox.DataSource = null;
 
-            List<Student> visibleStudents = new List<Student>();
+            securityVisibleStudents = new List<Student>();
 
             for (int i = 0; i < currentTeacher.students.Count; i++)
             {
                 if (currentTeacher.students[i].invisible.Equals("n"))
                 {
-                    visibleStudents.Add(currentTeacher.students[i]);
+                    securityVisibleStudents.Add(currentTeacher.students[i]);
                 }
             }
 
-            studentsSecurityListBox.DataSource = visibleStudents;
+            studentsSecurityListBox.DataSource = securityVisibleStudents;
             studentsSecurityListBox.DisplayMember = "fullName";
             studentsSecurityListBox.ValueMember = "userID";
         }
@@ -710,8 +770,13 @@ namespace MathDrillGame
         private void studentsSecurityListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             securityStudent = Convert.ToInt32(studentsSecurityListBox.SelectedIndex);
+            if (securityStudent <= 0)
+            {
+                securityStudent = 0;
+            }
 
-           // studentSecurityNameLabel.Text = currentTeacher.students[securityStudent].fullName;
+
+           studentSecurityNameLabel.Text = securityVisibleStudents[securityStudent].fullName;
 
 
         }
@@ -729,9 +794,35 @@ namespace MathDrillGame
                 //Debug.WriteLine("False");
             }
         }
+        //Aurelio Arango 4-6-14
         private void comboBoxSecurityPass_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Debug.Write(comboBoxSecurityPass.SelectedIndex);
+            string password = "";
+            password = comboBoxSecurityPass.Text;
+            int userId = securityVisibleStudents[securityStudent].userID;
+            Debug.Write(password + " " + userId);
+
+            
+            
+            if (MessageBox.Show("Do you want to change password to " + password + "?", "MathDrillGame", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    == DialogResult.Yes)
+            {
+                //change password
+                changeStudentPass(userId, comboBoxSecurityPass.SelectedIndex.ToString());
+            }
+            
+        }
+        //Aurelio Arango
+        //4-6-14
+        private void changeStudentPass(int id, string pass)
+        {
+            for(int i=0; i <Program.teachers[Program.currentTeacherIndex].students.Count;i++)
+            {
+                if (Program.teachers[Program.currentTeacherIndex].students[i].userID == id)
+                {
+                    Program.teachers[Program.currentTeacherIndex].students[i].pass = pass;
+                }
+            }
         }
 
 //
@@ -788,6 +879,10 @@ namespace MathDrillGame
         {
 
         }
+
+        
+
+        
 
        
 

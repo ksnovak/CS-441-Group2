@@ -30,6 +30,12 @@ namespace MathDrillGame
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.dashboardPage = new System.Windows.Forms.TabPage();
+            this.dashboardTeacherLabel = new System.Windows.Forms.Label();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.groupAPage = new System.Windows.Forms.TabPage();
+            this.groupBPage = new System.Windows.Forms.TabPage();
+            this.groupCPage = new System.Windows.Forms.TabPage();
             this.reportsPage = new System.Windows.Forms.TabPage();
             this.checkBoxUnattempted = new System.Windows.Forms.CheckBox();
             this.labelSelectDate = new System.Windows.Forms.Label();
@@ -42,8 +48,14 @@ namespace MathDrillGame
             this.labelSelectStudent = new System.Windows.Forms.Label();
             this.comboStudentList = new System.Windows.Forms.ComboBox();
             this.genPage = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.radioC = new System.Windows.Forms.RadioButton();
+            this.radioB = new System.Windows.Forms.RadioButton();
+            this.radioA = new System.Windows.Forms.RadioButton();
             this.labelProbsGenned = new System.Windows.Forms.Label();
             this.Operation = new System.Windows.Forms.GroupBox();
+            this.radioDivision = new System.Windows.Forms.RadioButton();
+            this.radioMultiplication = new System.Windows.Forms.RadioButton();
             this.radioAddition = new System.Windows.Forms.RadioButton();
             this.radioSubtraction = new System.Windows.Forms.RadioButton();
             this.listOfProblems = new System.Windows.Forms.TextBox();
@@ -77,8 +89,15 @@ namespace MathDrillGame
             this.addStudentToClassToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.removeStudentFromClassToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addPage = new System.Windows.Forms.TabPage();
-            this.inputFullName = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.delete_student_button = new System.Windows.Forms.Button();
+            this.add_delete_student_list = new System.Windows.Forms.ListBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelName = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.add_delete_Student_radioButton = new System.Windows.Forms.RadioButton();
+            this.add_delete_teacher_radioButton = new System.Windows.Forms.RadioButton();
+            this.inputFullName = new System.Windows.Forms.TextBox();
             this.buttonClear = new System.Windows.Forms.Button();
             this.buttonAddUser = new System.Windows.Forms.Button();
             this.securityPage = new System.Windows.Forms.TabPage();
@@ -94,29 +113,14 @@ namespace MathDrillGame
             this.aboutPage = new System.Windows.Forms.TabPage();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Button();
-            this.dashboardPage = new System.Windows.Forms.TabPage();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.groupAPage = new System.Windows.Forms.TabPage();
-            this.groupBPage = new System.Windows.Forms.TabPage();
-            this.dashboardTeacherLabel = new System.Windows.Forms.Label();
-            this.groupCPage = new System.Windows.Forms.TabPage();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.radioMultiplication = new System.Windows.Forms.RadioButton();
-            this.radioDivision = new System.Windows.Forms.RadioButton();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.radioA = new System.Windows.Forms.RadioButton();
-            this.radioB = new System.Windows.Forms.RadioButton();
-            this.radioC = new System.Windows.Forms.RadioButton();
+            this.add_student_button = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
+            this.dashboardPage.SuspendLayout();
+            this.tabControl2.SuspendLayout();
             this.reportsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProblemSets)).BeginInit();
             this.genPage.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.Operation.SuspendLayout();
             this.manPage.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -127,16 +131,13 @@ namespace MathDrillGame
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.addPage.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.securityPage.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.dashboardPage.SuspendLayout();
-            this.tabControl2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -153,6 +154,67 @@ namespace MathDrillGame
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(707, 451);
             this.tabControl1.TabIndex = 100;
+            // 
+            // dashboardPage
+            // 
+            this.dashboardPage.Controls.Add(this.dashboardTeacherLabel);
+            this.dashboardPage.Controls.Add(this.tabControl2);
+            this.dashboardPage.Location = new System.Drawing.Point(4, 22);
+            this.dashboardPage.Name = "dashboardPage";
+            this.dashboardPage.Size = new System.Drawing.Size(699, 425);
+            this.dashboardPage.TabIndex = 6;
+            this.dashboardPage.Text = "Dashboard";
+            this.dashboardPage.UseVisualStyleBackColor = true;
+            // 
+            // dashboardTeacherLabel
+            // 
+            this.dashboardTeacherLabel.AutoSize = true;
+            this.dashboardTeacherLabel.ForeColor = System.Drawing.Color.Red;
+            this.dashboardTeacherLabel.Location = new System.Drawing.Point(13, 15);
+            this.dashboardTeacherLabel.Name = "dashboardTeacherLabel";
+            this.dashboardTeacherLabel.Size = new System.Drawing.Size(78, 13);
+            this.dashboardTeacherLabel.TabIndex = 1;
+            this.dashboardTeacherLabel.Text = "Teacher Name";
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Controls.Add(this.groupAPage);
+            this.tabControl2.Controls.Add(this.groupBPage);
+            this.tabControl2.Controls.Add(this.groupCPage);
+            this.tabControl2.Location = new System.Drawing.Point(0, 40);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(699, 382);
+            this.tabControl2.TabIndex = 0;
+            // 
+            // groupAPage
+            // 
+            this.groupAPage.Location = new System.Drawing.Point(4, 22);
+            this.groupAPage.Name = "groupAPage";
+            this.groupAPage.Padding = new System.Windows.Forms.Padding(3);
+            this.groupAPage.Size = new System.Drawing.Size(691, 356);
+            this.groupAPage.TabIndex = 0;
+            this.groupAPage.Text = "Group A";
+            this.groupAPage.UseVisualStyleBackColor = true;
+            // 
+            // groupBPage
+            // 
+            this.groupBPage.Location = new System.Drawing.Point(4, 22);
+            this.groupBPage.Name = "groupBPage";
+            this.groupBPage.Padding = new System.Windows.Forms.Padding(3);
+            this.groupBPage.Size = new System.Drawing.Size(691, 356);
+            this.groupBPage.TabIndex = 1;
+            this.groupBPage.Text = "Group B";
+            this.groupBPage.UseVisualStyleBackColor = true;
+            // 
+            // groupCPage
+            // 
+            this.groupCPage.Location = new System.Drawing.Point(4, 22);
+            this.groupCPage.Name = "groupCPage";
+            this.groupCPage.Size = new System.Drawing.Size(691, 356);
+            this.groupCPage.TabIndex = 2;
+            this.groupCPage.Text = "Group C";
+            this.groupCPage.UseVisualStyleBackColor = true;
             // 
             // reportsPage
             // 
@@ -296,6 +358,50 @@ namespace MathDrillGame
             this.genPage.Text = "Set Problems";
             this.genPage.UseVisualStyleBackColor = true;
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.radioC);
+            this.groupBox8.Controls.Add(this.radioB);
+            this.groupBox8.Controls.Add(this.radioA);
+            this.groupBox8.Location = new System.Drawing.Point(598, 142);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(86, 100);
+            this.groupBox8.TabIndex = 106;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Group";
+            // 
+            // radioC
+            // 
+            this.radioC.AutoSize = true;
+            this.radioC.Location = new System.Drawing.Point(26, 69);
+            this.radioC.Name = "radioC";
+            this.radioC.Size = new System.Drawing.Size(32, 17);
+            this.radioC.TabIndex = 109;
+            this.radioC.Text = "C";
+            this.radioC.UseVisualStyleBackColor = true;
+            // 
+            // radioB
+            // 
+            this.radioB.AutoSize = true;
+            this.radioB.Location = new System.Drawing.Point(26, 46);
+            this.radioB.Name = "radioB";
+            this.radioB.Size = new System.Drawing.Size(32, 17);
+            this.radioB.TabIndex = 108;
+            this.radioB.Text = "B";
+            this.radioB.UseVisualStyleBackColor = true;
+            // 
+            // radioA
+            // 
+            this.radioA.AutoSize = true;
+            this.radioA.Checked = true;
+            this.radioA.Location = new System.Drawing.Point(26, 23);
+            this.radioA.Name = "radioA";
+            this.radioA.Size = new System.Drawing.Size(32, 17);
+            this.radioA.TabIndex = 107;
+            this.radioA.TabStop = true;
+            this.radioA.Text = "A";
+            this.radioA.UseVisualStyleBackColor = true;
+            // 
             // labelProbsGenned
             // 
             this.labelProbsGenned.AutoSize = true;
@@ -319,6 +425,28 @@ namespace MathDrillGame
             this.Operation.TabIndex = 103;
             this.Operation.TabStop = false;
             this.Operation.Text = "Operation:";
+            // 
+            // radioDivision
+            // 
+            this.radioDivision.AutoSize = true;
+            this.radioDivision.Location = new System.Drawing.Point(7, 117);
+            this.radioDivision.Name = "radioDivision";
+            this.radioDivision.Size = new System.Drawing.Size(62, 17);
+            this.radioDivision.TabIndex = 15;
+            this.radioDivision.TabStop = true;
+            this.radioDivision.Text = "Division";
+            this.radioDivision.UseVisualStyleBackColor = true;
+            // 
+            // radioMultiplication
+            // 
+            this.radioMultiplication.AutoSize = true;
+            this.radioMultiplication.Location = new System.Drawing.Point(6, 84);
+            this.radioMultiplication.Name = "radioMultiplication";
+            this.radioMultiplication.Size = new System.Drawing.Size(86, 17);
+            this.radioMultiplication.TabIndex = 14;
+            this.radioMultiplication.TabStop = true;
+            this.radioMultiplication.Text = "Multiplication";
+            this.radioMultiplication.UseVisualStyleBackColor = true;
             // 
             // radioAddition
             // 
@@ -637,6 +765,90 @@ namespace MathDrillGame
             this.addPage.Text = "Add/Delete Student";
             this.addPage.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.delete_student_button);
+            this.groupBox3.Controls.Add(this.add_delete_student_list);
+            this.groupBox3.Location = new System.Drawing.Point(379, 81);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(266, 215);
+            this.groupBox3.TabIndex = 15;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Delete Student";
+            // 
+            // delete_student_button
+            // 
+            this.delete_student_button.Location = new System.Drawing.Point(155, 148);
+            this.delete_student_button.Name = "delete_student_button";
+            this.delete_student_button.Size = new System.Drawing.Size(75, 23);
+            this.delete_student_button.TabIndex = 1;
+            this.delete_student_button.Text = "Delete Student";
+            this.delete_student_button.UseVisualStyleBackColor = true;
+            this.delete_student_button.Click += new System.EventHandler(this.delete_student_button_Click);
+            // 
+            // add_delete_student_list
+            // 
+            this.add_delete_student_list.FormattingEnabled = true;
+            this.add_delete_student_list.Location = new System.Drawing.Point(28, 19);
+            this.add_delete_student_list.Name = "add_delete_student_list";
+            this.add_delete_student_list.Size = new System.Drawing.Size(202, 82);
+            this.add_delete_student_list.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.add_student_button);
+            this.groupBox2.Controls.Add(this.labelName);
+            this.groupBox2.Controls.Add(this.groupBox1);
+            this.groupBox2.Controls.Add(this.inputFullName);
+            this.groupBox2.Location = new System.Drawing.Point(13, 81);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(279, 287);
+            this.groupBox2.TabIndex = 14;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Add Student";
+            // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(15, 46);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(141, 13);
+            this.labelName.TabIndex = 7;
+            this.labelName.Text = "What is the student\'s name?";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.add_delete_Student_radioButton);
+            this.groupBox1.Controls.Add(this.add_delete_teacher_radioButton);
+            this.groupBox1.Location = new System.Drawing.Point(18, 96);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 100);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "User Status";
+            // 
+            // add_delete_Student_radioButton
+            // 
+            this.add_delete_Student_radioButton.AutoSize = true;
+            this.add_delete_Student_radioButton.Location = new System.Drawing.Point(61, 19);
+            this.add_delete_Student_radioButton.Name = "add_delete_Student_radioButton";
+            this.add_delete_Student_radioButton.Size = new System.Drawing.Size(62, 17);
+            this.add_delete_Student_radioButton.TabIndex = 11;
+            this.add_delete_Student_radioButton.TabStop = true;
+            this.add_delete_Student_radioButton.Text = "Student";
+            this.add_delete_Student_radioButton.UseVisualStyleBackColor = true;
+            // 
+            // add_delete_teacher_radioButton
+            // 
+            this.add_delete_teacher_radioButton.AutoSize = true;
+            this.add_delete_teacher_radioButton.Location = new System.Drawing.Point(61, 58);
+            this.add_delete_teacher_radioButton.Name = "add_delete_teacher_radioButton";
+            this.add_delete_teacher_radioButton.Size = new System.Drawing.Size(65, 17);
+            this.add_delete_teacher_radioButton.TabIndex = 12;
+            this.add_delete_teacher_radioButton.TabStop = true;
+            this.add_delete_teacher_radioButton.Text = "Teacher";
+            this.add_delete_teacher_radioButton.UseVisualStyleBackColor = true;
+            // 
             // inputFullName
             // 
             this.inputFullName.Location = new System.Drawing.Point(160, 46);
@@ -644,20 +856,11 @@ namespace MathDrillGame
             this.inputFullName.Size = new System.Drawing.Size(100, 20);
             this.inputFullName.TabIndex = 5;
             // 
-            // labelName
-            // 
-            this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(15, 46);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(126, 13);
-            this.labelName.TabIndex = 7;
-            this.labelName.Text = "What is the user\'s name?";
-            // 
             // buttonClear
             // 
             this.buttonClear.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonClear.Location = new System.Drawing.Point(218, 326);
+            this.buttonClear.Location = new System.Drawing.Point(347, 326);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(121, 42);
             this.buttonClear.TabIndex = 10;
@@ -667,7 +870,7 @@ namespace MathDrillGame
             // buttonAddUser
             // 
             this.buttonAddUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonAddUser.Location = new System.Drawing.Point(379, 326);
+            this.buttonAddUser.Location = new System.Drawing.Point(524, 326);
             this.buttonAddUser.Name = "buttonAddUser";
             this.buttonAddUser.Size = new System.Drawing.Size(121, 42);
             this.buttonAddUser.TabIndex = 8;
@@ -815,205 +1018,15 @@ namespace MathDrillGame
             this.exit_button.UseVisualStyleBackColor = true;
             this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
-            // dashboardPage
+            // add_student_button
             // 
-            this.dashboardPage.Controls.Add(this.dashboardTeacherLabel);
-            this.dashboardPage.Controls.Add(this.tabControl2);
-            this.dashboardPage.Location = new System.Drawing.Point(4, 22);
-            this.dashboardPage.Name = "dashboardPage";
-            this.dashboardPage.Size = new System.Drawing.Size(699, 425);
-            this.dashboardPage.TabIndex = 6;
-            this.dashboardPage.Text = "Dashboard";
-            this.dashboardPage.UseVisualStyleBackColor = true;
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Controls.Add(this.groupAPage);
-            this.tabControl2.Controls.Add(this.groupBPage);
-            this.tabControl2.Controls.Add(this.groupCPage);
-            this.tabControl2.Location = new System.Drawing.Point(0, 40);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(699, 382);
-            this.tabControl2.TabIndex = 0;
-            // 
-            // groupAPage
-            // 
-            this.groupAPage.Location = new System.Drawing.Point(4, 22);
-            this.groupAPage.Name = "groupAPage";
-            this.groupAPage.Padding = new System.Windows.Forms.Padding(3);
-            this.groupAPage.Size = new System.Drawing.Size(691, 356);
-            this.groupAPage.TabIndex = 0;
-            this.groupAPage.Text = "Group A";
-            this.groupAPage.UseVisualStyleBackColor = true;
-            // 
-            // groupBPage
-            // 
-            this.groupBPage.Location = new System.Drawing.Point(4, 22);
-            this.groupBPage.Name = "groupBPage";
-            this.groupBPage.Padding = new System.Windows.Forms.Padding(3);
-            this.groupBPage.Size = new System.Drawing.Size(691, 356);
-            this.groupBPage.TabIndex = 1;
-            this.groupBPage.Text = "Group B";
-            this.groupBPage.UseVisualStyleBackColor = true;
-            // 
-            // dashboardTeacherLabel
-            // 
-            this.dashboardTeacherLabel.AutoSize = true;
-            this.dashboardTeacherLabel.ForeColor = System.Drawing.Color.Red;
-            this.dashboardTeacherLabel.Location = new System.Drawing.Point(13, 15);
-            this.dashboardTeacherLabel.Name = "dashboardTeacherLabel";
-            this.dashboardTeacherLabel.Size = new System.Drawing.Size(78, 13);
-            this.dashboardTeacherLabel.TabIndex = 1;
-            this.dashboardTeacherLabel.Text = "Teacher Name";
-            // 
-            // groupCPage
-            // 
-            this.groupCPage.Location = new System.Drawing.Point(4, 22);
-            this.groupCPage.Name = "groupCPage";
-            this.groupCPage.Size = new System.Drawing.Size(691, 356);
-            this.groupCPage.TabIndex = 2;
-            this.groupCPage.Text = "Group C";
-            this.groupCPage.UseVisualStyleBackColor = true;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(61, 19);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(62, 17);
-            this.radioButton1.TabIndex = 11;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Student";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(61, 58);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(65, 17);
-            this.radioButton2.TabIndex = 12;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Teacher";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Location = new System.Drawing.Point(18, 96);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 100);
-            this.groupBox1.TabIndex = 13;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "User Status";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.labelName);
-            this.groupBox2.Controls.Add(this.groupBox1);
-            this.groupBox2.Controls.Add(this.inputFullName);
-            this.groupBox2.Location = new System.Drawing.Point(13, 81);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(279, 215);
-            this.groupBox2.TabIndex = 14;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Add User";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Controls.Add(this.listBox1);
-            this.groupBox3.Location = new System.Drawing.Point(379, 81);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(266, 215);
-            this.groupBox3.TabIndex = 15;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Delete User";
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(28, 19);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(202, 82);
-            this.listBox1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(155, 148);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // radioMultiplication
-            // 
-            this.radioMultiplication.AutoSize = true;
-            this.radioMultiplication.Location = new System.Drawing.Point(6, 84);
-            this.radioMultiplication.Name = "radioMultiplication";
-            this.radioMultiplication.Size = new System.Drawing.Size(86, 17);
-            this.radioMultiplication.TabIndex = 14;
-            this.radioMultiplication.TabStop = true;
-            this.radioMultiplication.Text = "Multiplication";
-            this.radioMultiplication.UseVisualStyleBackColor = true;
-            // 
-            // radioDivision
-            // 
-            this.radioDivision.AutoSize = true;
-            this.radioDivision.Location = new System.Drawing.Point(7, 117);
-            this.radioDivision.Name = "radioDivision";
-            this.radioDivision.Size = new System.Drawing.Size(62, 17);
-            this.radioDivision.TabIndex = 15;
-            this.radioDivision.TabStop = true;
-            this.radioDivision.Text = "Division";
-            this.radioDivision.UseVisualStyleBackColor = true;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.radioC);
-            this.groupBox8.Controls.Add(this.radioB);
-            this.groupBox8.Controls.Add(this.radioA);
-            this.groupBox8.Location = new System.Drawing.Point(598, 142);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(86, 100);
-            this.groupBox8.TabIndex = 106;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Group";
-            // 
-            // radioA
-            // 
-            this.radioA.AutoSize = true;
-            this.radioA.Checked = true;
-            this.radioA.Location = new System.Drawing.Point(26, 23);
-            this.radioA.Name = "radioA";
-            this.radioA.Size = new System.Drawing.Size(32, 17);
-            this.radioA.TabIndex = 107;
-            this.radioA.TabStop = true;
-            this.radioA.Text = "A";
-            this.radioA.UseVisualStyleBackColor = true;
-            // 
-            // radioB
-            // 
-            this.radioB.AutoSize = true;
-            this.radioB.Location = new System.Drawing.Point(26, 46);
-            this.radioB.Name = "radioB";
-            this.radioB.Size = new System.Drawing.Size(32, 17);
-            this.radioB.TabIndex = 108;
-            this.radioB.Text = "B";
-            this.radioB.UseVisualStyleBackColor = true;
-            // 
-            // radioC
-            // 
-            this.radioC.AutoSize = true;
-            this.radioC.Location = new System.Drawing.Point(26, 69);
-            this.radioC.Name = "radioC";
-            this.radioC.Size = new System.Drawing.Size(32, 17);
-            this.radioC.TabIndex = 109;
-            this.radioC.Text = "C";
-            this.radioC.UseVisualStyleBackColor = true;
+            this.add_student_button.Location = new System.Drawing.Point(96, 230);
+            this.add_student_button.Name = "add_student_button";
+            this.add_student_button.Size = new System.Drawing.Size(75, 23);
+            this.add_student_button.TabIndex = 14;
+            this.add_student_button.Text = "Add";
+            this.add_student_button.UseVisualStyleBackColor = true;
+            this.add_student_button.Click += new System.EventHandler(this.add_student_button_Click);
             // 
             // AdminForm
             // 
@@ -1032,11 +1045,16 @@ namespace MathDrillGame
             this.Text = "Math Drills - Administrator";
             this.Load += new System.EventHandler(this.AdminForm_Load);
             this.tabControl1.ResumeLayout(false);
+            this.dashboardPage.ResumeLayout(false);
+            this.dashboardPage.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
             this.reportsPage.ResumeLayout(false);
             this.reportsPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProblemSets)).EndInit();
             this.genPage.ResumeLayout(false);
             this.genPage.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.Operation.ResumeLayout(false);
             this.Operation.PerformLayout();
             this.manPage.ResumeLayout(false);
@@ -1051,22 +1069,17 @@ namespace MathDrillGame
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.addPage.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.securityPage.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.dashboardPage.ResumeLayout(false);
-            this.dashboardPage.PerformLayout();
-            this.tabControl2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1145,11 +1158,11 @@ namespace MathDrillGame
         private System.Windows.Forms.TabPage groupBPage;
         private System.Windows.Forms.TabPage groupCPage;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton add_delete_Student_radioButton;
+        private System.Windows.Forms.RadioButton add_delete_teacher_radioButton;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button delete_student_button;
+        private System.Windows.Forms.ListBox add_delete_student_list;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioDivision;
         private System.Windows.Forms.RadioButton radioMultiplication;
@@ -1157,5 +1170,6 @@ namespace MathDrillGame
         private System.Windows.Forms.RadioButton radioC;
         private System.Windows.Forms.RadioButton radioB;
         private System.Windows.Forms.RadioButton radioA;
+        private System.Windows.Forms.Button add_student_button;
     }
 }
