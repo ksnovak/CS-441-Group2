@@ -184,7 +184,7 @@ namespace MathDrillGame
 
 
                 //adding students to a list
-                for (int j = 0; j < listofTeachers[i].students.Count; j++)
+                for (int j = 0; j < Program.teachers[i].students.Count(); j++)
                 {
 
                     XmlElement student = doc.CreateElement("Student");
@@ -202,7 +202,7 @@ namespace MathDrillGame
                     spass.InnerText = Program.teachers[i].students[j].pass;
                     sinvisible.InnerText = Program.teachers[i].students[j].invisible;//variable to "delete student"
                     scoins.InnerText = Program.teachers[i].students[j].coins.ToString();
-                    slastlogin.InnerText = Program.teachers[i].students[j].lastLogin.ToString("g");
+                    slastlogin.InnerText = Program.teachers[i].students[j].lastLogin.ToString();
 
                     student.AppendChild(sfullName);
                     student.AppendChild(sgroup);
@@ -226,6 +226,7 @@ namespace MathDrillGame
         {
             Program.teachers.Clear();
             teachersListXML = XElement.Load(Program.USERSFILE);
+            int index = 0;
             foreach (XElement user in teachersListXML.Descendants("Teacher"))
             {
                 string newName = user.Element("FullName").Value;
@@ -236,8 +237,8 @@ namespace MathDrillGame
                 Teacher tempTeacher = new Teacher(newName, userID, studentList, pass);
 
                 Program.teachers.Add(tempTeacher);
-                
-        
+                Program.teachers[index].lastLogin = Convert.ToDateTime(user.Element("LastLogin").Value);
+                index++;
             }
             //Debug code
             /*for (int i = 0; i < Program.teachers.Count; i++)
@@ -270,6 +271,7 @@ namespace MathDrillGame
                 student_list.Add(new Student(user_name, user_id_int, user_group, user_p));
                 student_list[index].invisible = user_inv;//set invisibility
                 student_list[index].coins = Convert.ToInt32(user_coins);
+                student_list[index].lastLogin = Convert.ToDateTime(user_lastlogin);
                 //Debug.WriteLine(student_list[index].fullName);
                 //Debug.WriteLine(student_list[index].invisible);
 
@@ -323,5 +325,62 @@ namespace MathDrillGame
 
         }
 
+        /*  NOTE: Heavy code reference from load_users(...)         */
+        public List<ProblemSet> load_ProblemSet(string group)
+        {
+            List<ProblemSet> problemSets = new List<ProblemSet>();
+            XElement problemSetsXML = XElement.Load(@"c:\users\public\MathDrills\ProblemSets\setGroup" + group + ".xml");
+            int index = 0;
+            if (File.Exists(@"c:\users\public\MathDrills\ProblemSets\setGroup" + group + ".xml"))
+                foreach (XElement set in problemSetsXML.Descendants("ProblemSet"))
+            {
+                string problemsetId = set.Element("ProblemSetID").Value;
+                string lastAccess = set.Element("LastAccessed").Value;
+                List<Problem> problems = load_Problem(set);
+                //List<Student> studentList = getStudentList(user);
+                //Teacher tempTeacher = new Teacher(newName, userID, studentList, pass);
+                
+                int psI = Convert.ToInt32(problemsetId);
+                //string problem_set_id, string operation, bool isSolved, int solvedQuant, int totalQuant, string score, string last attempt, string group, int min, int max
+                ProblemSet prob_set = new ProblemSet(psI, problems[0].operation, false, 0, problems.Count, "0", lastAccess, group, 0,0);
+
+                //Debug.WriteLine(" handler op1" + problems[index].operand1 + " handler op2" + problems[index].operand2);   
+                 //Debug.Write("Problems Count: " + problems.Count);
+                //problemSets[index].problems = problems;
+                 prob_set.problems = problems; 
+                problemSets.Add(prob_set);
+                
+                index++;
+            }
+            return problemSets;
+        }
+
+        /*  NOTE: Function component of load_ProblemSet(...)*/
+        public List<Problem> load_Problem(XElement setList)
+        {
+            List<Problem> problem_list = new List<Problem>();
+            int index = 0;
+            foreach (XElement problem in setList.Descendants("Problem"))
+            {
+                //XElement user_student = user.Parent;
+                //string userid = Parent.Name;
+
+                string operation = problem.Element("Operator").Value;
+                string operand1 = problem.Element("Operand1").Value;
+                string operand2 = problem.Element("Operand2").Value;
+                // string solved = problem.Element("IsSolved").Value;
+                // string attempts = problem.Element("Attempts").Value;
+
+                int op1 = Convert.ToInt32(operand1);
+                int op2 = Convert.ToInt32(operand2);
+
+                Problem newproblem = new Problem(op1, op2, operation);
+                problem_list.Add(newproblem);
+
+               // Debug.Write("OP1: " + problem_list[index].operand1 + " \n OP2: " + problem_list[index].operand2 + "\n");
+                index++;
+            }
+                return problem_list; 
+        }//end function
     }
 }

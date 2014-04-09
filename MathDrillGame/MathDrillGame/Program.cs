@@ -28,7 +28,7 @@ namespace MathDrillGame
         public static int currentUserIndex; //Who is logged in
         public static int currentTeacherIndex;//Aurelio Arango 3-25-14 - admin logged in
         public static int currentStudentIndex;//Aurelio Arango 3-25-14 - student logged in
-        public static int targetUser; //For the admin, this is who to generate problems for
+        //public static int targetUser; //For the admin, this is who to generate problems for
         public static int nextUserID = 101; //Enforces globally unique student IDs. When making new students, do "Program.nextUserID++"
         public static int nextProblemSetID = 1; //Enforces globally unique problem set IDs. When making new problem sets, do "Program.newProblemSetID++"
         //public static string USERSFILE = @"c:\users\public\MathDrills\users.xml";
@@ -190,6 +190,14 @@ namespace MathDrillGame
         public static void saveProblemSet(ProblemSet set)
         {
             xml.generate_StudentXMLProblemSet(set);
+        }
+
+        public static List<ProblemSet> loadProblems(string group)
+        {
+           List<ProblemSet> problemsets = xml.load_ProblemSet(group);
+           Debug.Write("Program.Operand 1 " + problemsets[0].problems[0].operand1);
+           Debug.Write("Program.Operand 2 " + problemsets[0].problems[0].operand2);
+           return problemsets;
         }
     }
 }

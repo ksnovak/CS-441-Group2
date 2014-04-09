@@ -26,6 +26,7 @@ namespace MathDrillGame
         //Exit application when exit button is pressed
         private void exit_button_Click(object sender, EventArgs e)
         {
+            Program.saveData();
             Application.Exit();
         }
         //Aurelio Arango

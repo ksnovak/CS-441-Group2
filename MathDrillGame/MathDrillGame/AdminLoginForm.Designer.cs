@@ -51,7 +51,7 @@
             this.AdminUsersList.Location = new System.Drawing.Point(101, 26);
             this.AdminUsersList.Name = "AdminUsersList";
             this.AdminUsersList.Size = new System.Drawing.Size(221, 121);
-            this.AdminUsersList.TabIndex = 0;
+            this.AdminUsersList.TabIndex = 1;
             this.AdminUsersList.SelectedIndexChanged += new System.EventHandler(this.AdminUsersList_SelectedIndexChanged);
             // 
             // passwordBox
@@ -61,7 +61,7 @@
             this.passwordBox.Name = "passwordBox";
             this.passwordBox.PasswordChar = '*';
             this.passwordBox.Size = new System.Drawing.Size(120, 20);
-            this.passwordBox.TabIndex = 1;
+            this.passwordBox.TabIndex = 2;
             // 
             // label1
             // 
@@ -89,7 +89,7 @@
             this.login_button.Location = new System.Drawing.Point(247, 196);
             this.login_button.Name = "login_button";
             this.login_button.Size = new System.Drawing.Size(75, 23);
-            this.login_button.TabIndex = 4;
+            this.login_button.TabIndex = 3;
             this.login_button.Text = "Login";
             this.login_button.UseVisualStyleBackColor = true;
             this.login_button.Click += new System.EventHandler(this.login_button_Click);
@@ -100,7 +100,7 @@
             this.label2.Location = new System.Drawing.Point(21, 201);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 3;
+            this.label2.TabIndex = 100;
             this.label2.Text = "Password:";
             // 
             // back_button
@@ -125,6 +125,7 @@
             // 
             // AdminLoginForm
             // 
+            this.AcceptButton = this.login_button;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 502);

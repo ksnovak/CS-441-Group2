@@ -26,6 +26,8 @@ using System.Xml.Linq;
 using System.IO;
 using System.Xml;
 
+
+using System.Diagnostics;
 /* The STUDENTFORM form is the view shown to students after they log in.
  * Currently the only function is to allow them to perform math drills.
  */
@@ -38,6 +40,10 @@ namespace MathDrillGame
         int problemSetSize;   //How many problems are in the current set
         int setIndex = 0;     //Keeps track of the current set being worked on.
         Problem currentProblem; //The individual problem currently being worked on
+        List<ProblemSet> setlist;
+        int solved = 0;
+        int max = 0;
+
         //User currentUser = Program.users[Program.currentUserIndex]; //The user who is logged in.
         //4-1-14
         //
@@ -45,6 +51,8 @@ namespace MathDrillGame
         
         XElement StudentXMLFile; //The student's XML file, in XElement form, opened during the LOAD event
         string fileName;      //The location of the student's XML file
+
+        DateTime loginTime;
 
         public StudentForm()
         {
@@ -65,13 +73,17 @@ namespace MathDrillGame
             labelWelcome.Text = "Welcome, " + currentUser.fullName + "\n" + currentUser.lastLogin;
             labelWelcome.Left = (this.ClientSize.Width - labelWelcome.Width) / 2;
 
+            loadTime();
+            //Obsolete code, replaced by following function call...
+            //fileName = @"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml";
+            //if (File.Exists(fileName))
+            //    StudentXMLFile = XElement.Load(fileName);
 
-            fileName = @"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml";
-            if (File.Exists(fileName))
-                StudentXMLFile = XElement.Load(fileName);
+            setlist = Program.loadProblems(currentUser.group);
 
             //If they don't have any file, then they don't have any problems assigned. Say so, and disable inputs to avoid issues.
-            else
+            //else
+            if (setlist[0].group != currentUser.group )
             {
                 buttonSubmit.Enabled = inputAnswer.Enabled = false;
                 labelQuestion.Text = "You have no problems assigned.";
@@ -80,16 +92,49 @@ namespace MathDrillGame
                 CancelButton = buttonLogout;
                 return;
             }
-
             //Find out how many problems in the current problem set they have.
-            problemSetSize = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count();
-
+            //problemSetSize = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count();
+            problemSetSize = setlist[0].problems.Count();
+            max = problemSetSize * 2;
             //Get the first problem and display it.
             currentProblem = getProblem();
-            if (currentProblem != null)
+            if (currentProblem != null )
                 displayProblem();
-        }      
+        }
+        //Aurelio Arango
+        //
+        public void loadTime()
+        {
+            //DateTime MINDATE = new DateTime();
+            //string time;//=DateTime.Now.TimeOfDay("dd/MM/yyyy");
+            //time = DateTime.Now.ToString();
+            //Debug.WriteLine(time);
+            loginTime = DateTime.Now;
+            //Program.teachers[Program.currentTeacherIndex].lastLogin = DateTime.Now;
+        }
 
+        public Problem getProblem()
+        {
+            Problem newproblem = new Problem();
+            // MARKER: WIP!!!
+            if (solved != setlist[0].problems.Count)
+            {
+                Debug.Write(setlist[0].problems[problemIndex]);
+                newproblem = setlist[0].problems[problemIndex];
+                //problemIndex++;
+                return newproblem;
+            }
+            else
+            {
+                labelFeedback.Text = "You've completed all problem sets assigned to you!";
+                buttonSubmit.Enabled = inputAnswer.Enabled = false;
+                CancelButton = buttonLogout;
+                return null;
+            }
+
+        }
+
+        //  NOTE: Made obsolete from above code.
         /* GETPROBLEM returns the next unsolved problem, or null if there are none
          * Outer loop iterates through all problem sets. Inner loop iterates through each set's individual problems.
          * Will only ever enter the inner loop if the problem as a whole has not been set to Solved
@@ -97,7 +142,7 @@ namespace MathDrillGame
          * Upon problemIterator hitting 0, it will go to the next set. Upon setIterator hitting 0, it will escape the loop entirely
          * Kevin and Uriah
          */
-        public Problem getProblem()
+        /*public Problem getProblem()
         {
             int setIterator = StudentXMLFile.Descendants("ProblemSet").Count();
             XElement problemInXML;
@@ -148,7 +193,7 @@ namespace MathDrillGame
             buttonSubmit.Enabled = inputAnswer.Enabled = false;
             CancelButton = buttonLogout;
             return null;
-        }
+        }*/
         
         /* DISPLAYPROBLEM displays the currently selected problem on screen
          * Kevin and Uriah
@@ -188,6 +233,8 @@ namespace MathDrillGame
             if (checkAnswer())
             {
                 inputAnswer.Text = "";
+                setlist[0].problems[problemIndex].isSolved = true;
+                solved++;
                 labelFeedback.Text = "Correct!";
             }
             else
@@ -204,10 +251,17 @@ namespace MathDrillGame
             //Whether they got the problem right or wrong, progress to the next one, display it, and focus on the input field.
             problemIndex++;
             problemIndex = (problemIndex % problemSetSize); //Make sure we loop through the problemset, not going out of bounds.
+          
             currentProblem = getProblem(); //Get a new problem
             if (currentProblem != null)
+            {
                 displayProblem(); //Display it
-            inputAnswer.Focus(); //Focus the textbox (so they can immediately type there)
+                inputAnswer.Focus(); //Focus the textbox (so they can immediately type there)
+            }
+            else
+            {
+
+            }
         }
 
         //Checks if an answer is correct. Return value is true for correct, false for incorrect.
@@ -217,29 +271,38 @@ namespace MathDrillGame
          */
         public bool checkAnswer()
         {
-            int answer;
+            int answer = 0;
 
             //Update the XML to specify how many times the problem has been attempted.
-            int prevAttempts = Convert.ToInt32(StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).Element("Attempts").Value);
-            StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("Attempts", prevAttempts + 1);
+            //int prevAttempts = Convert.ToInt32(StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).Element("Attempts").Value);
+            //StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("Attempts", prevAttempts + 1);
 
             //Figure out what the answer should be
-            if (StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Element("Operator").Value == "+")
+            //if (StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Element("Operator").Value == "+")
+            if (currentProblem.operation == "+")    
                 answer = currentProblem.operand1 + currentProblem.operand2;
-            else
+            else if (currentProblem.operation == "-")
                 answer = currentProblem.operand1 - currentProblem.operand2;
-
+            else if (currentProblem.operation == "*")
+                answer = currentProblem.operand1 * currentProblem.operand2;
+            else if (currentProblem.operation == "/")
+                answer = currentProblem.operand1 / currentProblem.operand2;
+            else
+            { 
+            
+            }
+            
             //Check if the answer is what it should be, and return a relevant boolean.
             //If it is correct, update the XML to say that the problem is solved.
             if (answer == Convert.ToInt32(inputAnswer.Text))
             {
-                StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("IsSolved", "1");
-                StudentXMLFile.Save(fileName);
+                //StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").ElementAt(problemIndex).SetElementValue("IsSolved", "1");
+                //StudentXMLFile.Save(fileName);
                 return true;
             }
             else
             {
-                StudentXMLFile.Save(fileName);
+                //StudentXMLFile.Save(fileName);
                 return false;
             }
 
@@ -266,12 +329,14 @@ namespace MathDrillGame
             {
                  if (File.Exists(fileName))
                     {
-                        if (StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Element("IsSolved").Value == "0")
+                        /*if (StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Element("IsSolved").Value == "0")
                         {
                             StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).SetElementValue("LastAccessed", DateTime.Now.ToString("g"));
                             StudentXMLFile.Save(fileName);
-                        }
+                        }*/
                     }
+                 Program.teachers[Program.currentTeacherIndex].students[Program.currentStudentIndex].lastLogin = loginTime;
+                 Program.saveData();
                  goToLogin();
             }
         }
@@ -282,6 +347,9 @@ namespace MathDrillGame
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
+            Program.teachers[Program.currentTeacherIndex].students[Program.currentStudentIndex].lastLogin = loginTime;
+                 
+            Program.saveData();
             goToLogin();
         }
 

@@ -288,6 +288,11 @@ namespace MathDrillGame
             //Debug.WriteLine(listOfUsers.SelectedIndex);
             Program.currentStudentIndex = Convert.ToInt32(listOfUsers.SelectedIndex);
         }
+
+        private void labelWelcome_Click(object sender, EventArgs e)
+        {
+
+        }
         //Aurelio Arango
         //Debugging for update of list
         /*

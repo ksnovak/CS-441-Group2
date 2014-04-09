@@ -70,7 +70,6 @@ namespace MathDrillGame
             this.listOfStudents = new System.Windows.Forms.ListBox();
             this.manPage = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.manageSaveChangesBtn = new System.Windows.Forms.Button();
             this.addUserToGroupBtn = new System.Windows.Forms.Button();
             this.delUserFromGroupBtn = new System.Windows.Forms.Button();
             this.manageGroupTabControl = new System.Windows.Forms.TabControl();
@@ -93,13 +92,12 @@ namespace MathDrillGame
             this.delete_student_button = new System.Windows.Forms.Button();
             this.add_delete_student_list = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.add_student_button = new System.Windows.Forms.Button();
             this.labelName = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.add_delete_Student_radioButton = new System.Windows.Forms.RadioButton();
             this.add_delete_teacher_radioButton = new System.Windows.Forms.RadioButton();
             this.inputFullName = new System.Windows.Forms.TextBox();
-            this.buttonClear = new System.Windows.Forms.Button();
-            this.buttonAddUser = new System.Windows.Forms.Button();
             this.securityPage = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -113,7 +111,7 @@ namespace MathDrillGame
             this.aboutPage = new System.Windows.Forms.TabPage();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Button();
-            this.add_student_button = new System.Windows.Forms.Button();
+            this.aboutTextBox = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
             this.dashboardPage.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -138,6 +136,7 @@ namespace MathDrillGame
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.aboutPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -489,7 +488,7 @@ namespace MathDrillGame
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(116, 39);
             this.buttonGenerate.TabIndex = 120;
-            this.buttonGenerate.Text = "Generate!";
+            this.buttonGenerate.Text = "Set Problems!";
             this.buttonGenerate.UseVisualStyleBackColor = true;
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
             // 
@@ -553,6 +552,7 @@ namespace MathDrillGame
             // 
             // listOfStudents
             // 
+            this.listOfStudents.Enabled = false;
             this.listOfStudents.FormattingEnabled = true;
             this.listOfStudents.Location = new System.Drawing.Point(3, 49);
             this.listOfStudents.Name = "listOfStudents";
@@ -578,7 +578,6 @@ namespace MathDrillGame
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.manageSaveChangesBtn);
             this.groupBox7.Controls.Add(this.addUserToGroupBtn);
             this.groupBox7.Controls.Add(this.delUserFromGroupBtn);
             this.groupBox7.Location = new System.Drawing.Point(245, 129);
@@ -587,16 +586,6 @@ namespace MathDrillGame
             this.groupBox7.TabIndex = 7;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Change Students";
-            // 
-            // manageSaveChangesBtn
-            // 
-            this.manageSaveChangesBtn.Location = new System.Drawing.Point(24, 101);
-            this.manageSaveChangesBtn.Name = "manageSaveChangesBtn";
-            this.manageSaveChangesBtn.Size = new System.Drawing.Size(124, 30);
-            this.manageSaveChangesBtn.TabIndex = 4;
-            this.manageSaveChangesBtn.Text = "Save Changes";
-            this.manageSaveChangesBtn.UseVisualStyleBackColor = true;
-            this.manageSaveChangesBtn.Click += new System.EventHandler(this.manageSaveChangesBtn_Click);
             // 
             // addUserToGroupBtn
             // 
@@ -696,6 +685,7 @@ namespace MathDrillGame
             this.manageStudentList.Name = "manageStudentList";
             this.manageStudentList.Size = new System.Drawing.Size(226, 329);
             this.manageStudentList.TabIndex = 0;
+            this.manageStudentList.SelectedIndexChanged += new System.EventHandler(this.manageStudentList_SelectedIndexChanged);
             // 
             // menuStrip1
             // 
@@ -756,8 +746,6 @@ namespace MathDrillGame
             // 
             this.addPage.Controls.Add(this.groupBox3);
             this.addPage.Controls.Add(this.groupBox2);
-            this.addPage.Controls.Add(this.buttonClear);
-            this.addPage.Controls.Add(this.buttonAddUser);
             this.addPage.Location = new System.Drawing.Point(4, 22);
             this.addPage.Name = "addPage";
             this.addPage.Size = new System.Drawing.Size(699, 425);
@@ -807,6 +795,16 @@ namespace MathDrillGame
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Add Student";
             // 
+            // add_student_button
+            // 
+            this.add_student_button.Location = new System.Drawing.Point(96, 230);
+            this.add_student_button.Name = "add_student_button";
+            this.add_student_button.Size = new System.Drawing.Size(75, 23);
+            this.add_student_button.TabIndex = 14;
+            this.add_student_button.Text = "Add";
+            this.add_student_button.UseVisualStyleBackColor = true;
+            this.add_student_button.Click += new System.EventHandler(this.add_student_button_Click);
+            // 
             // labelName
             // 
             this.labelName.AutoSize = true;
@@ -855,27 +853,6 @@ namespace MathDrillGame
             this.inputFullName.Name = "inputFullName";
             this.inputFullName.Size = new System.Drawing.Size(100, 20);
             this.inputFullName.TabIndex = 5;
-            // 
-            // buttonClear
-            // 
-            this.buttonClear.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonClear.Location = new System.Drawing.Point(347, 326);
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(121, 42);
-            this.buttonClear.TabIndex = 10;
-            this.buttonClear.Text = "Cancel";
-            this.buttonClear.UseVisualStyleBackColor = true;
-            // 
-            // buttonAddUser
-            // 
-            this.buttonAddUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonAddUser.Location = new System.Drawing.Point(524, 326);
-            this.buttonAddUser.Name = "buttonAddUser";
-            this.buttonAddUser.Size = new System.Drawing.Size(121, 42);
-            this.buttonAddUser.TabIndex = 8;
-            this.buttonAddUser.Text = "Save";
-            this.buttonAddUser.UseVisualStyleBackColor = true;
             // 
             // securityPage
             // 
@@ -987,6 +964,7 @@ namespace MathDrillGame
             // 
             // aboutPage
             // 
+            this.aboutPage.Controls.Add(this.aboutTextBox);
             this.aboutPage.Location = new System.Drawing.Point(4, 22);
             this.aboutPage.Name = "aboutPage";
             this.aboutPage.Size = new System.Drawing.Size(699, 425);
@@ -1018,15 +996,14 @@ namespace MathDrillGame
             this.exit_button.UseVisualStyleBackColor = true;
             this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
-            // add_student_button
+            // aboutTextBox
             // 
-            this.add_student_button.Location = new System.Drawing.Point(96, 230);
-            this.add_student_button.Name = "add_student_button";
-            this.add_student_button.Size = new System.Drawing.Size(75, 23);
-            this.add_student_button.TabIndex = 14;
-            this.add_student_button.Text = "Add";
-            this.add_student_button.UseVisualStyleBackColor = true;
-            this.add_student_button.Click += new System.EventHandler(this.add_student_button_Click);
+            this.aboutTextBox.Enabled = false;
+            this.aboutTextBox.Location = new System.Drawing.Point(33, 47);
+            this.aboutTextBox.Name = "aboutTextBox";
+            this.aboutTextBox.Size = new System.Drawing.Size(614, 326);
+            this.aboutTextBox.TabIndex = 0;
+            this.aboutTextBox.Text = "";
             // 
             // AdminForm
             // 
@@ -1080,6 +1057,7 @@ namespace MathDrillGame
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.aboutPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1112,7 +1090,6 @@ namespace MathDrillGame
         private System.Windows.Forms.ListBox manageStudentList;     //roster for group 
         private System.Windows.Forms.Button delUserFromGroupBtn;    //remove button
         private System.Windows.Forms.Button addUserToGroupBtn;
-        private System.Windows.Forms.Button manageSaveChangesBtn;
         private System.Windows.Forms.ListBox groupRosterB;
         private System.Windows.Forms.TabPage GroupPageC;
         private System.Windows.Forms.ListBox groupRosterC;
@@ -1149,8 +1126,6 @@ namespace MathDrillGame
         private System.Windows.Forms.ComboBox comboStudentList;
         private System.Windows.Forms.TextBox inputFullName;
         private System.Windows.Forms.Label labelName;
-        private System.Windows.Forms.Button buttonClear;
-        private System.Windows.Forms.Button buttonAddUser;
         private System.Windows.Forms.TabPage dashboardPage;
         private System.Windows.Forms.Label dashboardTeacherLabel;
         private System.Windows.Forms.TabControl tabControl2;
@@ -1171,5 +1146,6 @@ namespace MathDrillGame
         private System.Windows.Forms.RadioButton radioB;
         private System.Windows.Forms.RadioButton radioA;
         private System.Windows.Forms.Button add_student_button;
+        private System.Windows.Forms.RichTextBox aboutTextBox;
     }
 }

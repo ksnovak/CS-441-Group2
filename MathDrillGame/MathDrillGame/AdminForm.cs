@@ -62,12 +62,15 @@ namespace MathDrillGame
                                     //Also did the same thing this list as with A,B,C..
                                     //However this one gets no Warnings
         List<Student> valid_students;
-        
-        Student targetUser;         //Holds user details on the selected user
+
+        Student targetUserGroup;         //Holds user details on the selected user
+        Student targetUserUnassigned;
         string fileName;
-        
+        int userChangeGroupIndex;// holds the index of the student to change group
+        int manageStudentIndex;
         //Reports variables
-        int reports_currentTargetID;
+        //int reports_currentTargetID;
+        DateTime loginTime;
         List<ProblemSet> reports_usersSets = new List<ProblemSet>();    //List of all of the problem sets to a specific students
         List<Problem> reports_problemsInSet = new List<Problem>();      //List of all problems to a specific set
 
@@ -82,15 +85,14 @@ namespace MathDrillGame
         {
             InitializeComponent();
         }
+        //Aurelio Arango
+        //Load all data and fill all the list
         private void AdminForm_Load(object sender, EventArgs e)
         {
-            currentTeacher = new Teacher();
-            currentTeacher = Program.teachers[Program.currentTeacherIndex];
+            //currentTeacher = new Teacher();
+            //currentTeacher = Program.teachers[Program.currentTeacherIndex];
             //Used in Generate Tab
-            listOfStudents.DataSource = null;//data biding 
-            listOfStudents.DataSource = currentTeacher.students;//set data source
-            listOfStudents.DisplayMember = "fullName";
-            listOfStudents.ValueMember = "userID";
+            
 
             //Debug.WriteLine(targetUser); debug line
             //fileName = @"c:\users\public\MathDrills\ProblemSets\" + targetUser.userID + ".xml";
@@ -110,32 +112,42 @@ namespace MathDrillGame
                 Debug.WriteLine(problems[0].ToString(), problems[1].ToString());
             }*/
         }//end function
+        //Aurelio Arango
+        //Method helps refresh data when changing to visible
         protected override void  OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
             loadAll();
-
         }
+        //Aurelio Arango
+        //Helper method to fill/refresh all the data
         private void loadAll()
         {
             
             currentTeacher = new Teacher();
             currentTeacher = Program.teachers[Program.currentTeacherIndex];
-
-            listOfStudents.DataSource = null;//data biding 
-            listOfStudents.DataSource = currentTeacher.students;//set data source
-            listOfStudents.DisplayMember = "fullName";
-            listOfStudents.ValueMember = "userID";
-
-            load_ManageStudentList();
+            loadTime();
+            load_valid_students();
             loadvisibleStudents();
+            load_ManageStudentList();
+            load_problemSetPage();
             load_dashboard();
             load_reportsPage();
             load_AddDeleteUserPage();
+            load_aboutPage();
 
         }
-       
-
+        //Aurelio Arango
+        //4-8-14
+        public void loadTime()
+        {
+            //DateTime MINDATE = new DateTime();
+            //string time;//=DateTime.Now.TimeOfDay("dd/MM/yyyy");
+            //time = DateTime.Now.ToString();
+            //Debug.WriteLine(time);
+            loginTime = DateTime.Now;
+            //Program.teachers[Program.currentTeacherIndex].lastLogin = DateTime.Now;
+        }
         /* LOAD event is triggered when the form opens. It will read from the XML into a list in memory, which then will feed into the listbox
          * This will only display students, doesn't include administrators.
          * Kevin and Uriah
@@ -210,13 +222,35 @@ namespace MathDrillGame
            Functions for the buttons at the bottom of the Admin pane, these appear regardless of selected tabPage.*/
         private void buttonLogout_Click_1(object sender, EventArgs e)
         {
-            goToLogin();
+            int size = manageStudentList.Items.Count; 
+            //Debug.WriteLine(manageStudentList.Items.Count.ToString());
+            if (size > 0)
+            {
+                MessageBox.Show( size+" student(s) have no group assigned!", "MathDrillGame", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                Program.teachers[Program.currentTeacherIndex].lastLogin = loginTime;
+                goToLogin();
+                
+            }
         }//end funtion
         //Aurelio Arango 4-2-14
         //when exit button is pressed it closes the application
         private void exit_button_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            int size = manageStudentList.Items.Count; 
+            //Debug.WriteLine(manageStudentList.Items.Count.ToString());
+            if (size > 0)
+            {
+                MessageBox.Show(size + " student(s) have no group assigned!", "MathDrillGame", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                Program.teachers[Program.currentTeacherIndex].lastLogin = loginTime;
+                Program.saveData();
+                Application.Exit();
+            }
         }//end function
         /* GOTOLOGIN, called from different occasions of closing the form
          * Finds the login form object and shows that, hiding the admin form (rather than creating a new instance, which can lead to multiple instance of the program)
@@ -274,7 +308,7 @@ namespace MathDrillGame
         protected void load_reportsPage()
         {
             comboStudentList.DataSource = null;
-            load_valid_students();
+            
             comboStudentList.DataSource = valid_students;
             comboStudentList.DisplayMember = "fullName";
             comboStudentList.ValueMember = "userID";
@@ -283,6 +317,7 @@ namespace MathDrillGame
         protected void load_valid_students()
         {
             valid_students = new List<Student>();
+            currentTeacher = Program.teachers[Program.currentTeacherIndex];
             for (int i = 0; i < currentTeacher.students.Count; i++)
             {
                 if (currentTeacher.students[i].invisible.Equals("n"))
@@ -292,28 +327,28 @@ namespace MathDrillGame
                     //Debug.WriteLine(currentTeacher.students[i].invisible);
                 }
             }
-            /*for(int i=0; i < Program.teachers[Program.currentTeacherIndex].students.Count;i++)
-            {
-                if (currentTeacher.students[i].invisible.Equals("n"))
-                {
-                    //valid_students.Add(currentTeacher.students[i]);
-                    Debug.WriteLine(currentTeacher.students[i].fullName);
-                    Debug.WriteLine(currentTeacher.students[i].invisible);
-                }
-            }*/
+            
         }
         private void comboStudentList_SelectedIndexChanged(object sender, EventArgs e)
         {
             //reports_currentTargetID = adminStudentList[comboStudentList.SelectedIndex].userID;
         }
 
-        //
-        //----------------------------------------Reports Page Section Ends
-        //
-        //
-        //----------------------------------------Set Problems page start
-        // 
-        //
+//
+//----------------------------------------Reports Page Section Ends
+//
+//
+//----------------------------------------Set Problems page start
+// 
+//
+
+        private void load_problemSetPage()
+        {
+            listOfStudents.DataSource = null;//data biding 
+            listOfStudents.DataSource = valid_students;//set data source
+            listOfStudents.DisplayMember = "fullName";
+            listOfStudents.ValueMember = "userID";
+        }
         
         //When you select someone from the list, save to a variable which member it is, and personalize a message.
         /* SELECTEDINDEXCHANGED event triggered when selecting a different student for whom to create problems
@@ -338,11 +373,11 @@ namespace MathDrillGame
             //Aurelio Arango
             //adding string for date and user
             //string admin_welcome = "Welcome " + currentUser.fullName + " "+getUserDate(currentUser.userID);
-            string admin_welcome = "Welcome " + currentTeacher.fullName + " " + currentTeacher.userID;
+            string admin_welcome = "Welcome " + currentTeacher.fullName + " " + currentTeacher.lastLogin;
 
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + setProblems_targetStudent.userID + ".xml";
 
-            labelGenProblemsFor.Text = admin_welcome + "\nGenerating problems for " + setProblems_targetStudent.fullName;
+            labelGenProblemsFor.Text = admin_welcome;// +"\nCreating problems for " + setProblems_targetStudent.fullName;
             labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
         }
         /* GENERATION CLICK event, when the administrator clicks the "Generate!" button to make problems for a student
@@ -373,7 +408,7 @@ namespace MathDrillGame
                     radio ="C";
                 }
 
-                if (MessageBox.Show("Do you want to generate set for group " + radio + "?", "MathDrillGame", MessageBoxButtons.YesNo, MessageBoxIcon.Question) 
+                if (MessageBox.Show("Do you want to create set for group " + radio + "?", "MathDrillGame", MessageBoxButtons.YesNo, MessageBoxIcon.Question) 
                     == DialogResult.Yes)
                 {
                     min = Convert.ToInt32(inputMin.Text);   //Turn the string input into ints
@@ -473,10 +508,7 @@ namespace MathDrillGame
             return true;
         }//end function generate problem set
 
-        public void generate_individualProblems()
-        {
 
-        }
         //Ensures that the admin entered valid arguments for problem generation.
         /* VALIDATEINPUT makes sure that the attributes the teacher input for problem sets is valid.
          * Min, Max, and Quantity all have to have some value in them.
@@ -531,17 +563,21 @@ namespace MathDrillGame
             GroupA = new List<Student>();
             GroupB = new List<Student>();
             GroupC = new List<Student>();
-            for (int i = 0; i < currentTeacher.students.Count; i++)
+            Student targetUserUnassigned = new Student();
+            Student targetUserGroup = new Student();
+
+            for (int i = 0; i < valid_students.Count; i++)
             {
-                switch (currentTeacher.students[i].group)
+                switch (valid_students[i].group)
                 {
-                    case "U": Unassigned.Add(currentTeacher.students[i]); break;
-                    case "A": GroupA.Add(currentTeacher.students[i]); break;
-                    case "B": GroupB.Add(currentTeacher.students[i]); break;
-                    case "C": GroupC.Add(currentTeacher.students[i]); break;
+                    case "U": Unassigned.Add(valid_students[i]); break;
+                    case "A": GroupA.Add(valid_students[i]); break;
+                    case "B": GroupB.Add(valid_students[i]); break;
+                    case "C": GroupC.Add(valid_students[i]); break;
                 }//end switch
             }//end for
             refresh_ManageStudentListBoxes();
+            clearListBoxes();
         }
         /*  COMPONENT: Called in ManageStudentList(), Add/Remove button functions.
             PURPOSE: Refreshes the ListBoxes in the Manage Page of the Admin Form.
@@ -578,19 +614,78 @@ namespace MathDrillGame
          *       Oddly the program will minorly spam the messages from here on AdminForm Load*/
         private void groupRosterA_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.targetUser = Convert.ToInt32(groupRosterA.SelectedIndex);
+            
+            int size= groupRosterA.Items.Count;
+
+            //Debug.WriteLine(size);
+            if (size > 0 && manageGroupTabControl.SelectedTab.Name.Equals("GroupPageA"))
+            {
+                Debug.WriteLine(manageGroupTabControl.SelectedTab.Name);
+                userChangeGroupIndex  = Convert.ToInt32(groupRosterA.SelectedIndex);
+                if (userChangeGroupIndex >= 0 && GroupA.Count != 0)
+                {
+                    //Debug.WriteLine(size);
+                    //Debug.WriteLine(groupRosterA.Text);
+                    targetUserGroup = GroupA[userChangeGroupIndex];
+                }
+            }
+            
            // Debug.WriteLine("from groupRosterA", targetUser.fullName);
         }//end function
         private void groupRosterB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.targetUser = Convert.ToInt32(groupRosterB.SelectedIndex);
+            //userChangeGroupIndex = Convert.ToInt32(groupRosterB.SelectedIndex);
+            int size = groupRosterB.Items.Count;
+            //Debug.WriteLine(size);
+            if (size > 0 && manageGroupTabControl.SelectedTab.Name.Equals("GroupPageB"))
+            {
+                Debug.WriteLine(manageGroupTabControl.SelectedTab.Name);
+                userChangeGroupIndex = Convert.ToInt32(groupRosterA.SelectedIndex);
+                if (userChangeGroupIndex >= 0 && GroupB.Count != 0)
+                {
+                    //Debug.WriteLine(groupRosterB.Text);
+                    //Debug.WriteLine(size);
+                    targetUserGroup =GroupB[userChangeGroupIndex];
+                }
+            }
             //Debug.WriteLine("from groupRosterB", targetUser.fullName);
         }//end function
         private void groupRosterC_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Program.targetUser = Convert.ToInt32(groupRosterC.SelectedIndex);
+            //userChangeGroupIndex = Convert.ToInt32(groupRosterC.SelectedIndex);
+            int size = groupRosterC.Items.Count;
+            //Debug.WriteLine(size);
+            if (size > 0 && manageGroupTabControl.SelectedTab.Name.Equals("GroupPageC"))
+            {
+                Debug.WriteLine(manageGroupTabControl.SelectedTab.Name);
+                userChangeGroupIndex = Convert.ToInt32(groupRosterA.SelectedIndex);
+                if(userChangeGroupIndex >=0 && GroupC.Count != 0)
+                {
+                    //Debug.WriteLine(groupRosterC.Text);
+                    //Debug.WriteLine(size);
+                     targetUserGroup = GroupC[userChangeGroupIndex];
+                }
+            }
             //Debug.WriteLine("from groupRosterC", targetUser.fullName);
         }//end function
+        //Aurelio Arango
+        //4-7-14
+        private void manageStudentList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int size = manageStudentList.Items.Count;
+            
+            if (size > 0 )
+            {
+                manageStudentIndex = Convert.ToInt32(manageStudentList.SelectedIndex);
+                if (manageStudentIndex >= 0 )
+                {
+                    //Debug.WriteLine(manageStudentList.Text);
+                    //Debug.WriteLine(size);
+                    targetUserUnassigned = Unassigned[manageStudentIndex];//
+                }
+            }
+
+        }
         /*  NOTE: Below are this way because of the GUI design.
          *  CONTEXT: A user has already been selected from the list of unassigned students.
             PURPOSE: Appends user to a group (in memory only- no XML writing)
@@ -598,44 +693,113 @@ namespace MathDrillGame
         private void addUserToGroupBtn_Click(object sender, EventArgs e)
         {
             //Add to the list of the affiliated group (given by active Tab page)
-            Unassigned.Remove(targetUser);
-            switch (manageGroupTabControl.SelectedTab.Name)
+            
+            if (targetUserUnassigned != null)
             {
-                case "GroupPageA":
-                    GroupA.Add(targetUser);
-                    break;
-                case "GroupPageB":
-                    GroupB.Add(targetUser);
-                    break;
-                case "GroupPageC":
-                    GroupC.Add(targetUser);
-                    break;
+                Unassigned.Remove(targetUserUnassigned);
+                switch (manageGroupTabControl.SelectedTab.Name)
+                {
+                    case "GroupPageA":
+                        if (!checkStudentIsInList(GroupA, targetUserUnassigned.userID))
+                        {
+                            GroupA.Add(targetUserUnassigned);
+                            changeStudentGroup(targetUserUnassigned.userID, "A");
+                        }
+                        break;
+                    case "GroupPageB":
+                        if (!checkStudentIsInList(GroupB, targetUserUnassigned.userID))
+                        {
+                            GroupB.Add(targetUserUnassigned);
+                            changeStudentGroup(targetUserUnassigned.userID, "B");
+                        }
+                        break;
+                    case "GroupPageC":
+                        if (!checkStudentIsInList(GroupC, targetUserUnassigned.userID))
+                        {
+                            GroupC.Add(targetUserUnassigned);
+                            changeStudentGroup(targetUserUnassigned.userID, "C");
+                        }
+                        break;
+                }
+                //Update the listBox.
             }
-            //Update the listBox.
-            refresh_ManageStudentListBoxes();
+            load_valid_students();
+            load_ManageStudentList();
+            
+            //refresh_ManageStudentListBoxes();
         }//end function
+        private void clearListBoxes()
+        {
+            groupRosterA.ClearSelected();
+            groupRosterB.ClearSelected();
+            groupRosterA.ClearSelected();
+            manageStudentList.ClearSelected();
+        }
         /* CONTEXT: A user has already been selected from the list of assigned students. 
          * PURPOSE: Deletes a user from the group (in memory only- no XML writing).*/
         private void delUserFromGroupBtn_Click(object sender, EventArgs e)
         {
             //Remove from the list of the affiliated group (given by active Tab Page)
-            switch (manageGroupTabControl.SelectedTab.Name)
+            string group="U";
+            if (targetUserGroup != null)
             {
-                case "GroupPageA":
-                    GroupA.Remove(targetUser);
-                    break;
-                case "GroupPageB":
-                    GroupB.Remove(targetUser);
-                    break;
-                case "GroupPageC":
-                    GroupC.Remove(targetUser);
-                    break;
+                switch (manageGroupTabControl.SelectedTab.Name)
+                {
+                    case "GroupPageA":
+                        GroupA.Remove(targetUserGroup);
+                        //group="A";
+                        break;
+                    case "GroupPageB":
+                        GroupB.Remove(targetUserGroup);
+                        //group="B";
+                        break;
+                    case "GroupPageC":
+                        GroupC.Remove(targetUserGroup);
+                        //group="C";
+                        break;
+                }
+            //check if user is in the list, if it is dont add it
+            //Aurelio Arango
+            
+                if (!checkStudentIsInList(Unassigned, targetUserGroup.userID))
+                {
+                    Unassigned.Add(targetUserGroup);
+                    changeStudentGroup(targetUserGroup.userID, group);
+                    //Update the listBox
+                    load_valid_students();
+                    load_ManageStudentList();
+                    //refresh_ManageStudentListBoxes();
+                }
             }
-            Unassigned.Add(targetUser);
-            //Update the listBox
-            refresh_ManageStudentListBoxes();
         }//end function
+        //Aurelio Arango 
+        //4-7-14
+        private bool checkStudentIsInList(List<Student> listOfStudents, int id)
+        {
+            bool found = false;
 
+            for (int i = 0; i < listOfStudents.Count; i++)
+            {
+                if(listOfStudents[i].userID == id)
+                {
+                    found =true;
+                }
+            }
+
+            return found;
+        }
+        //Aurelio Arango
+        //4-6-14
+        private void changeStudentGroup(int userID,string group )
+        {
+            for (int i = 0; i < Program.teachers[Program.currentTeacherIndex].students.Count; i++)
+            {
+                if (Program.teachers[Program.currentTeacherIndex].students[i].userID == userID)
+                {
+                    Program.teachers[Program.currentTeacherIndex].students[i].group = group;
+                }
+            }
+        }
 //
 //------------------------------------------------Manage Users page end
 //
@@ -666,8 +830,30 @@ namespace MathDrillGame
         }
         private void delete_student_button_Click(object sender, EventArgs e)
         {
+            int selectedIndex = add_delete_student_list.SelectedIndex;
+            if (selectedIndex <= 0)
+            {
+                selectedIndex = 0;
+            }
+            if (MessageBox.Show("Do you want to delete " + valid_students[selectedIndex].fullName + "?", "MathDrillGame", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                    == DialogResult.Yes)
+            {
+                deleteStudent(valid_students[selectedIndex].userID);
+                loadAll();//update all screens
+            }
+
             
             
+        }
+        private void deleteStudent(int id)
+        {
+            for (int i = 0; i < Program.teachers[Program.currentTeacherIndex].students.Count; i++)
+            {
+                if (Program.teachers[Program.currentTeacherIndex].students[i].userID == id)
+                {
+                    Program.teachers[Program.currentTeacherIndex].students[i].invisible = "y";
+                }
+            }
         }
         private void add_student_button_Click(object sender, EventArgs e)
         {
@@ -712,14 +898,7 @@ namespace MathDrillGame
             }
             return sb.ToString();
         }
-        private void addStudent(string name)
-        {
 
-        }
-        private void addTeacher()
-        {
-
-        }
 
 //
 //------------------------------------------------Add User page end
@@ -774,10 +953,7 @@ namespace MathDrillGame
             {
                 securityStudent = 0;
             }
-
-
            studentSecurityNameLabel.Text = securityVisibleStudents[securityStudent].fullName;
-
 
         }
         //4-3-14
@@ -800,7 +976,7 @@ namespace MathDrillGame
             string password = "";
             password = comboBoxSecurityPass.Text;
             int userId = securityVisibleStudents[securityStudent].userID;
-            Debug.Write(password + " " + userId);
+            //Debug.Write(password + " " + userId);
 
             
             
@@ -832,7 +1008,19 @@ namespace MathDrillGame
 //
 //----------------------------------------About page start
 //
- 
+        public void load_aboutPage()
+        {
+            aboutTextBox.Text = "Application name: Math Treasure\n"+
+                                "CS441\n" +
+                                "Prof. Rikki Fletcher"+
+                                "Team: 2\n"+
+                                "Team name: Mutually Exclusive"+
+                                "Members:"+
+                                "Jorge Torres "+
+                                "Kevin Novak" +
+                                "Stephanie Yao"+
+                                "Aurelio Arango";
+        }
 //
 //------------------------------------------------About page end
 //
@@ -879,6 +1067,8 @@ namespace MathDrillGame
         {
 
         }
+
+       
 
         
 
