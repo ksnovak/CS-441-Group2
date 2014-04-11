@@ -23,6 +23,7 @@ namespace MathDrillGame
             InitializeComponent();
         }
         //3-25-14
+        //Aurelio Arango, this method checks if the password is the same as the one saved
         private void triangle_button_Click(object sender, EventArgs e)
         {
             if (authenticateUser(1))
@@ -36,6 +37,7 @@ namespace MathDrillGame
             }
         }
         //3-25-14
+        //Aurelio arango this method checks if the password is the same as the one saved
         private void pentagon_button_Click(object sender, EventArgs e)
         {
             if (authenticateUser(2))
@@ -48,7 +50,8 @@ namespace MathDrillGame
                 goBack();
             }
         }
-        //3-25-14
+        //Aurelio arango
+        //3-25-14 this method checks if the password is the same as the one saved
         private void button3_Click(object sender, EventArgs e)
         {
             if (authenticateUser(3))

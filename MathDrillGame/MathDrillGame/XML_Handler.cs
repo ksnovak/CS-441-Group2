@@ -148,6 +148,8 @@ namespace MathDrillGame
             listofTeachers.Add(new Teacher("Admin",100,students_1,"admin"));
             listofTeachers.Add(new Teacher("Ginger Bridges",200,students_2,"admin1"));
         }
+        //Aurelio arango
+        //3-31-14
         //This method will save all the current data from the teachers object into xml
         //It includes the students data
         //it will be called by the Program class.
@@ -221,7 +223,9 @@ namespace MathDrillGame
             }//end of teachers loop
 
         }//end of save function
-
+        //Aurelio Arango
+        //3-31-14
+        //This method loads the current user from the xml
         public void load_users()
         {
             Program.teachers.Clear();
@@ -250,6 +254,9 @@ namespace MathDrillGame
                 }
             }*/
         }//end of load_users
+        //Aurelio Arango
+        //3-31-14
+        //This method gets the student from the xml and returns a list of all the students that belong to that teacher
         private List<Student> getStudentList(XElement userList)
         {
             List<Student> student_list = new List<Student>();
@@ -283,6 +290,7 @@ namespace MathDrillGame
         }//end of getStudentsList
         //Aurelio Arango
         //4-6-14
+        //This method generates the problems sets into xml
         public void generate_StudentXMLProblemSet( ProblemSet set)
         {
             XmlDocument doc;
@@ -324,7 +332,7 @@ namespace MathDrillGame
             xml.Save(@"c:\users\public\MathDrills\ProblemSets\setGroup" + set.group + ".xml");
 
         }
-
+        //Aurelio Arango and Stephanie Yao, 4-8-14
         /*  NOTE: Heavy code reference from load_users(...)         */
         public List<ProblemSet> load_ProblemSet(string group)
         {
@@ -354,7 +362,7 @@ namespace MathDrillGame
             }
             return problemSets;
         }
-
+        //Aurelio Arango and Stephanie Yao, 4-8-14
         /*  NOTE: Function component of load_ProblemSet(...)*/
         public List<Problem> load_Problem(XElement setList)
         {

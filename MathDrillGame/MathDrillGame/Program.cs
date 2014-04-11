@@ -183,20 +183,25 @@ namespace MathDrillGame
         {
             xml.save_data();
         }
+        //4-4-14
+        //aurelio arango load all the data from xml, teachers and students
         public static void loadData()
         {
             xml.load_users();
         }
+        //Aurelio Arango
+        //Save all the problems into xml
         public static void saveProblemSet(ProblemSet set)
         {
             xml.generate_StudentXMLProblemSet(set);
         }
-
+        //Aurelio Arango and Stephanie Yao
+        //open the xml and read the all the problems
         public static List<ProblemSet> loadProblems(string group)
         {
            List<ProblemSet> problemsets = xml.load_ProblemSet(group);
-           Debug.Write("Program.Operand 1 " + problemsets[0].problems[0].operand1);
-           Debug.Write("Program.Operand 2 " + problemsets[0].problems[0].operand2);
+           //Debug.Write("Program.Operand 1 " + problemsets[0].problems[0].operand1);
+           //Debug.Write("Program.Operand 2 " + problemsets[0].problems[0].operand2);
            return problemsets;
         }
     }

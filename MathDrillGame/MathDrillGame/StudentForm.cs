@@ -102,7 +102,8 @@ namespace MathDrillGame
                 displayProblem();
         }
         //Aurelio Arango
-        //
+        //4-8-14
+        //This method, loads the current time and stores it in a termporary variable
         public void loadTime()
         {
             //DateTime MINDATE = new DateTime();
@@ -112,14 +113,15 @@ namespace MathDrillGame
             loginTime = DateTime.Now;
             //Program.teachers[Program.currentTeacherIndex].lastLogin = DateTime.Now;
         }
-
+        //Aurelio Arango  & Stepahnie Yao
+        //this method gets the the current problem from the Problem Set,
         public Problem getProblem()
         {
             Problem newproblem = new Problem();
             // MARKER: WIP!!!
             if (solved != setlist[0].problems.Count)
             {
-                Debug.Write(setlist[0].problems[problemIndex]);
+                //Debug.Write(setlist[0].problems[problemIndex]);
                 newproblem = setlist[0].problems[problemIndex];
                 //problemIndex++;
                 return newproblem;

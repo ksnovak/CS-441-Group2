@@ -50,7 +50,9 @@ namespace MathDrillGame
         {
             return (problemSetID + "\t" + operation + "\t" + totalQuantity + "\t" + solvedQuantity + "\t" + score + "\t" + lastAttempt +"\t"+group + "\r\n");
         }
-
+        //Aurelio Arango
+        //4-3-14
+        //generate the problems based on the data given by the user
         public List<int> generateProblemSet(int min,int max)
         {
             

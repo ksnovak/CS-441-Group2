@@ -283,6 +283,8 @@ namespace MathDrillGame
 //
 //----------------------------------------Dashboard page start
 //
+        //Aurelio arango
+        //this method just sets the name of the teacher/administrator and the last login date
         protected void load_dashboard()
         {
             dashboardTeacherLabel.Text = currentTeacher.fullName + " " + currentTeacher.lastLogin;
@@ -304,7 +306,8 @@ namespace MathDrillGame
             ReportsForm reports = new ReportsForm();
             reports.Show();
         }//end funtion*/
-
+        //Aurelio arango
+        //This method loads data into the dropdown list
         protected void load_reportsPage()
         {
             comboStudentList.DataSource = null;
@@ -314,6 +317,7 @@ namespace MathDrillGame
             comboStudentList.ValueMember = "userID";
 
         }
+        //This method loads all the students that are visible
         protected void load_valid_students()
         {
             valid_students = new List<Student>();
@@ -329,6 +333,7 @@ namespace MathDrillGame
             }
             
         }
+        
         private void comboStudentList_SelectedIndexChanged(object sender, EventArgs e)
         {
             //reports_currentTargetID = adminStudentList[comboStudentList.SelectedIndex].userID;
@@ -341,7 +346,8 @@ namespace MathDrillGame
 //----------------------------------------Set Problems page start
 // 
 //
-
+        //Aurelio arango
+        //This emthod loads all the students on the list and displays the current students
         private void load_problemSetPage()
         {
             listOfStudents.DataSource = null;//data biding 
@@ -425,6 +431,8 @@ namespace MathDrillGame
                 }
             }//end else
         }//end function
+        //Aurelio Arango
+        //This method calls Program function that saves the data into xml
         private bool generateProblemSet(string group, int min, int max, int quantity)
         {
             string lastAccessed = Program.MINDATE.ToString("g");
@@ -556,6 +564,8 @@ namespace MathDrillGame
 //
 //----------------------------------------Manage Users page start
 // 
+         //Aurelio Arango and Stephanie Yao
+        //Laod all the lists based on the user info
         /*  COMPONENT: Called in AdminForm_Load(..., ...).*/
         private void load_ManageStudentList()
         {
@@ -579,6 +589,7 @@ namespace MathDrillGame
             refresh_ManageStudentListBoxes();
             clearListBoxes();
         }
+        //Sthepanie Yao
         /*  COMPONENT: Called in ManageStudentList(), Add/Remove button functions.
             PURPOSE: Refreshes the ListBoxes in the Manage Page of the Admin Form.
                      Needed to reflect changes to ListBox.DataSource...
@@ -605,7 +616,7 @@ namespace MathDrillGame
             groupRosterC.DisplayMember = "fullName";
             groupRosterC.ValueMember = "userID";
         }
-
+        //Stephanie Yao
         /*  PURPOSE: Alters the user that may be moved between groups, etc.
             NOTE: This means targetUser will refer to a student that will be unassigned. This can be adjusted.
             SUGGESTION: Right-click context menu for list items in ListBox
@@ -632,6 +643,7 @@ namespace MathDrillGame
             
            // Debug.WriteLine("from groupRosterA", targetUser.fullName);
         }//end function
+        //Aurelio Arango and Stephanie Yao
         private void groupRosterB_SelectedIndexChanged(object sender, EventArgs e)
         {
             //userChangeGroupIndex = Convert.ToInt32(groupRosterB.SelectedIndex);
@@ -650,6 +662,7 @@ namespace MathDrillGame
             }
             //Debug.WriteLine("from groupRosterB", targetUser.fullName);
         }//end function
+        //Stephanie Yao
         private void groupRosterC_SelectedIndexChanged(object sender, EventArgs e)
         {
             //userChangeGroupIndex = Convert.ToInt32(groupRosterC.SelectedIndex);
@@ -686,6 +699,7 @@ namespace MathDrillGame
             }
 
         }
+        //Stephanie Yao
         /*  NOTE: Below are this way because of the GUI design.
          *  CONTEXT: A user has already been selected from the list of unassigned students.
             PURPOSE: Appends user to a group (in memory only- no XML writing)
@@ -728,6 +742,8 @@ namespace MathDrillGame
             
             //refresh_ManageStudentListBoxes();
         }//end function
+        //Aurelio Arango
+        //this method unselects the lists and user has to click the lists again
         private void clearListBoxes()
         {
             groupRosterA.ClearSelected();
@@ -735,6 +751,7 @@ namespace MathDrillGame
             groupRosterA.ClearSelected();
             manageStudentList.ClearSelected();
         }
+        //Stephanie Yao
         /* CONTEXT: A user has already been selected from the list of assigned students. 
          * PURPOSE: Deletes a user from the group (in memory only- no XML writing).*/
         private void delUserFromGroupBtn_Click(object sender, EventArgs e)
@@ -820,7 +837,8 @@ namespace MathDrillGame
             newUserForm.Show();
             Close();
         }*/
-
+        //Aurelio Arango
+        //This method fills the student list to add or delete, members
         private void load_AddDeleteUserPage()
         {
             add_delete_student_list.DataSource = null;
@@ -828,6 +846,8 @@ namespace MathDrillGame
             add_delete_student_list.DisplayMember = "fullName";
             add_delete_student_list.ValueMember = "userID";
         }
+        //Aurelio Arango
+        //When this method is clicked, it displays a warning sign, that they are about to delete a student
         private void delete_student_button_Click(object sender, EventArgs e)
         {
             int selectedIndex = add_delete_student_list.SelectedIndex;
@@ -840,11 +860,10 @@ namespace MathDrillGame
             {
                 deleteStudent(valid_students[selectedIndex].userID);
                 loadAll();//update all screens
-            }
-
-            
-            
+            } 
         }
+        //Aurelio Arango
+        //This method sets the student to invisible, it looks the student by ID
         private void deleteStudent(int id)
         {
             for (int i = 0; i < Program.teachers[Program.currentTeacherIndex].students.Count; i++)
@@ -855,6 +874,10 @@ namespace MathDrillGame
                 }
             }
         }
+
+        //Aurelio ARango
+        //This method was taken from Kevin's and Uriahs, and uses objects rather than accessing the xml
+        //This method adds a new student or teacher to the xml
         private void add_student_button_Click(object sender, EventArgs e)
         {
             string userFullName = "";
@@ -886,6 +909,7 @@ namespace MathDrillGame
             }
 
         }
+        //This method removes special characters from the input, and returns a cleaner version of the string
         private string removeSpecialChars(string str)
         {
             StringBuilder sb = new StringBuilder();
@@ -1008,6 +1032,7 @@ namespace MathDrillGame
 //
 //----------------------------------------About page start
 //
+        //This has to be changed to Copywrite Material and add Team name and version
         public void load_aboutPage()
         {
             aboutTextBox.Text = "Application name: Math Treasure\n"+
@@ -1057,9 +1082,6 @@ namespace MathDrillGame
 //
 //----------------------------------------------------------------------On Closing Form End
 //        
-        
-        
-        
 
         /*  PURPOSE: Saves changes to an XML- if non-existant creates it.
                      The Add/Remove button only makes changes in memory and does not finalize the changes in XML*/
@@ -1067,26 +1089,6 @@ namespace MathDrillGame
         {
 
         }
-
-       
-
-        
-
-        
-
-       
-
-        
-
-        
-
-       
-       
-
-
-       
-
-
 //---------------------------------------------------------------------------------------
 
     } //end AdminForm class

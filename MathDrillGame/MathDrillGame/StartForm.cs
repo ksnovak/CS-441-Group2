@@ -2,6 +2,7 @@
  * Aurelio Arango
  * CS 441
  * 
+ * This form starts displays the starting the
  * 
  */
 using System;
@@ -46,6 +47,7 @@ namespace MathDrillGame
         //Aurelio Arango
         //This method takes a boolean if user is admin or not
         //Depending on user, it creates a form for the user if it does not exist otherwise it shows the form for the user
+        //***************Modify, Call only one Form Student or Teacher**************
         private void start_form(bool user)
         {
             bool foundForm = false;
