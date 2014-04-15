@@ -57,20 +57,21 @@
             // 
             this.labelWelcome.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelWelcome.AutoSize = true;
-            this.labelWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.labelWelcome.Location = new System.Drawing.Point(201, 139);
+            this.labelWelcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.labelWelcome.Location = new System.Drawing.Point(201, 9);
             this.labelWelcome.Name = "labelWelcome";
-            this.labelWelcome.Size = new System.Drawing.Size(0, 20);
+            this.labelWelcome.Size = new System.Drawing.Size(308, 29);
             this.labelWelcome.TabIndex = 0;
+            this.labelWelcome.Text = "[Welcome, Soandso Jones]";
             this.labelWelcome.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // buttonLogout
             // 
             this.buttonLogout.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonLogout.Location = new System.Drawing.Point(387, 422);
+            this.buttonLogout.Location = new System.Drawing.Point(596, 457);
             this.buttonLogout.Name = "buttonLogout";
-            this.buttonLogout.Size = new System.Drawing.Size(90, 43);
+            this.buttonLogout.Size = new System.Drawing.Size(96, 29);
             this.buttonLogout.TabIndex = 3;
             this.buttonLogout.Text = "Log out";
             this.buttonLogout.UseVisualStyleBackColor = true;
@@ -80,26 +81,27 @@
             // 
             this.labelQuestion.AutoSize = true;
             this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.labelQuestion.Location = new System.Drawing.Point(12, 92);
+            this.labelQuestion.Location = new System.Drawing.Point(267, 110);
             this.labelQuestion.Name = "labelQuestion";
-            this.labelQuestion.Size = new System.Drawing.Size(0, 29);
+            this.labelQuestion.Size = new System.Drawing.Size(112, 29);
             this.labelQuestion.TabIndex = 4;
+            this.labelQuestion.Text = "[X + Y = ]";
             // 
             // inputAnswer
             // 
-            this.inputAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
-            this.inputAnswer.Location = new System.Drawing.Point(512, 129);
+            this.inputAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.inputAnswer.Location = new System.Drawing.Point(515, 135);
             this.inputAnswer.Name = "inputAnswer";
-            this.inputAnswer.Size = new System.Drawing.Size(68, 35);
+            this.inputAnswer.Size = new System.Drawing.Size(68, 29);
             this.inputAnswer.TabIndex = 1;
             this.inputAnswer.TextChanged += new System.EventHandler(this.inputAnswer_TextChanged);
             // 
             // buttonSubmit
             // 
             this.buttonSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonSubmit.Location = new System.Drawing.Point(606, 132);
+            this.buttonSubmit.Location = new System.Drawing.Point(596, 135);
             this.buttonSubmit.Name = "buttonSubmit";
-            this.buttonSubmit.Size = new System.Drawing.Size(86, 34);
+            this.buttonSubmit.Size = new System.Drawing.Size(96, 29);
             this.buttonSubmit.TabIndex = 2;
             this.buttonSubmit.Text = "Submit";
             this.buttonSubmit.UseVisualStyleBackColor = true;
@@ -112,8 +114,9 @@
             this.labelFeedback.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelFeedback.Location = new System.Drawing.Point(68, 159);
             this.labelFeedback.Name = "labelFeedback";
-            this.labelFeedback.Size = new System.Drawing.Size(0, 20);
+            this.labelFeedback.Size = new System.Drawing.Size(88, 20);
             this.labelFeedback.TabIndex = 7;
+            this.labelFeedback.Text = "[Feedback]";
             // 
             // pictureBox1
             // 
@@ -215,7 +218,7 @@
             this.MinimizeBox = false;
             this.Name = "StudentForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Math Drills - Student";
+            this.Text = "Math Treasure - Student";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

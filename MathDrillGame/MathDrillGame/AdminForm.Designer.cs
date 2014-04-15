@@ -109,9 +109,9 @@ namespace MathDrillGame
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.passwordCheckBox = new System.Windows.Forms.CheckBox();
             this.aboutPage = new System.Windows.Forms.TabPage();
+            this.aboutTextBox = new System.Windows.Forms.RichTextBox();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.exit_button = new System.Windows.Forms.Button();
-            this.aboutTextBox = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
             this.dashboardPage.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -691,7 +691,7 @@ namespace MathDrillGame
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(3, 3);
+            this.menuStrip1.Location = new System.Drawing.Point(3, 27);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(693, 24);
             this.menuStrip1.TabIndex = 5;
@@ -972,6 +972,15 @@ namespace MathDrillGame
             this.aboutPage.Text = "About";
             this.aboutPage.UseVisualStyleBackColor = true;
             // 
+            // aboutTextBox
+            // 
+            this.aboutTextBox.Enabled = false;
+            this.aboutTextBox.Location = new System.Drawing.Point(33, 47);
+            this.aboutTextBox.Name = "aboutTextBox";
+            this.aboutTextBox.Size = new System.Drawing.Size(614, 326);
+            this.aboutTextBox.TabIndex = 0;
+            this.aboutTextBox.Text = "";
+            // 
             // buttonLogout
             // 
             this.buttonLogout.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -996,15 +1005,6 @@ namespace MathDrillGame
             this.exit_button.UseVisualStyleBackColor = true;
             this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
             // 
-            // aboutTextBox
-            // 
-            this.aboutTextBox.Enabled = false;
-            this.aboutTextBox.Location = new System.Drawing.Point(33, 47);
-            this.aboutTextBox.Name = "aboutTextBox";
-            this.aboutTextBox.Size = new System.Drawing.Size(614, 326);
-            this.aboutTextBox.TabIndex = 0;
-            this.aboutTextBox.Text = "";
-            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1019,7 +1019,7 @@ namespace MathDrillGame
             this.MinimizeBox = false;
             this.Name = "AdminForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Math Drills - Administrator";
+            this.Text = "Math Treasure - Teacher";
             this.Load += new System.EventHandler(this.AdminForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.dashboardPage.ResumeLayout(false);

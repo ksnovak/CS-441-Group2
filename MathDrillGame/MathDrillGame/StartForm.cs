@@ -37,6 +37,13 @@ namespace MathDrillGame
             bool admin = false;
             start_form(admin);
         }
+
+        private void student_label_Click(object sender, EventArgs e)
+        {
+            bool admin = false;
+            start_form(admin);
+        }
+
         //Aurelio Arango
         //calls start_form when admin button is click, sets admin to true
         private void admin_button_Click(object sender, EventArgs e)
@@ -44,6 +51,13 @@ namespace MathDrillGame
             bool admin = true;
             start_form(admin);
         }
+
+        private void admin_label_Click(object sender, EventArgs e)
+        {
+            bool admin = true;
+            start_form(admin);
+        }
+
         //Aurelio Arango
         //This method takes a boolean if user is admin or not
         //Depending on user, it creates a form for the user if it does not exist otherwise it shows the form for the user
@@ -85,5 +99,6 @@ namespace MathDrillGame
                 }
             }
         }
+
     }
 }
