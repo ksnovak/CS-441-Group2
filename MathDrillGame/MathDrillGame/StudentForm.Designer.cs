@@ -90,7 +90,7 @@
             // inputAnswer
             // 
             this.inputAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.inputAnswer.Location = new System.Drawing.Point(515, 135);
+            this.inputAnswer.Location = new System.Drawing.Point(403, 111);
             this.inputAnswer.Name = "inputAnswer";
             this.inputAnswer.Size = new System.Drawing.Size(68, 29);
             this.inputAnswer.TabIndex = 1;
@@ -99,7 +99,7 @@
             // buttonSubmit
             // 
             this.buttonSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonSubmit.Location = new System.Drawing.Point(596, 135);
+            this.buttonSubmit.Location = new System.Drawing.Point(494, 110);
             this.buttonSubmit.Name = "buttonSubmit";
             this.buttonSubmit.Size = new System.Drawing.Size(96, 29);
             this.buttonSubmit.TabIndex = 2;
@@ -112,7 +112,7 @@
             this.labelFeedback.AutoSize = true;
             this.labelFeedback.Enabled = false;
             this.labelFeedback.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.labelFeedback.Location = new System.Drawing.Point(68, 159);
+            this.labelFeedback.Location = new System.Drawing.Point(399, 172);
             this.labelFeedback.Name = "labelFeedback";
             this.labelFeedback.Size = new System.Drawing.Size(88, 20);
             this.labelFeedback.TabIndex = 7;

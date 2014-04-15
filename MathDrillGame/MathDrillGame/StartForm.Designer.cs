@@ -41,7 +41,6 @@
             // 
             this.Student_Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Student_Button.BackgroundImage")));
             this.Student_Button.Image = ((System.Drawing.Image)(resources.GetObject("Student_Button.Image")));
-            this.Student_Button.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.Student_Button.Location = new System.Drawing.Point(12, 64);
             this.Student_Button.Name = "Student_Button";
             this.Student_Button.Size = new System.Drawing.Size(175, 175);
@@ -62,6 +61,7 @@
             // 
             // exit_button
             // 
+            this.exit_button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.exit_button.Image = ((System.Drawing.Image)(resources.GetObject("exit_button.Image")));
             this.exit_button.Location = new System.Drawing.Point(356, 295);
             this.exit_button.Name = "exit_button";
@@ -112,6 +112,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CancelButton = this.exit_button;
             this.ClientSize = new System.Drawing.Size(419, 361);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

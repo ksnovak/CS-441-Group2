@@ -37,16 +37,12 @@ namespace MathDrillGame
             this.groupBPage = new System.Windows.Forms.TabPage();
             this.groupCPage = new System.Windows.Forms.TabPage();
             this.reportsPage = new System.Windows.Forms.TabPage();
-            this.checkBoxUnattempted = new System.Windows.Forms.CheckBox();
-            this.labelSelectDate = new System.Windows.Forms.Label();
             this.labelMaxDate = new System.Windows.Forms.Label();
             this.labelMinDate = new System.Windows.Forms.Label();
             this.dateTimePickerMax = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerMin = new System.Windows.Forms.DateTimePicker();
             this.textBoxReport = new System.Windows.Forms.TextBox();
             this.dataGridProblemSets = new System.Windows.Forms.DataGridView();
-            this.labelSelectStudent = new System.Windows.Forms.Label();
-            this.comboStudentList = new System.Windows.Forms.ComboBox();
             this.genPage = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.radioC = new System.Windows.Forms.RadioButton();
@@ -67,7 +63,6 @@ namespace MathDrillGame
             this.labelMax = new System.Windows.Forms.Label();
             this.labelMin = new System.Windows.Forms.Label();
             this.labelGenProblemsFor = new System.Windows.Forms.Label();
-            this.listOfStudents = new System.Windows.Forms.ListBox();
             this.manPage = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.addUserToGroupBtn = new System.Windows.Forms.Button();
@@ -111,7 +106,17 @@ namespace MathDrillGame
             this.aboutPage = new System.Windows.Forms.TabPage();
             this.aboutTextBox = new System.Windows.Forms.RichTextBox();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.exit_button = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.radioButtonClass = new System.Windows.Forms.RadioButton();
+            this.groupboxReportType = new System.Windows.Forms.GroupBox();
+            this.radioButtonGroup = new System.Windows.Forms.RadioButton();
+            this.radioButtonIndividual = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.labelSelectDate = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.listOfStudents = new System.Windows.Forms.ListBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.tabControl1.SuspendLayout();
             this.dashboardPage.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -137,6 +142,9 @@ namespace MathDrillGame
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.aboutPage.SuspendLayout();
+            this.groupboxReportType.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -148,6 +156,7 @@ namespace MathDrillGame
             this.tabControl1.Controls.Add(this.addPage);
             this.tabControl1.Controls.Add(this.securityPage);
             this.tabControl1.Controls.Add(this.aboutPage);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.tabControl1.Location = new System.Drawing.Point(-5, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -156,11 +165,12 @@ namespace MathDrillGame
             // 
             // dashboardPage
             // 
+            this.dashboardPage.Controls.Add(this.label3);
             this.dashboardPage.Controls.Add(this.dashboardTeacherLabel);
             this.dashboardPage.Controls.Add(this.tabControl2);
-            this.dashboardPage.Location = new System.Drawing.Point(4, 22);
+            this.dashboardPage.Location = new System.Drawing.Point(4, 25);
             this.dashboardPage.Name = "dashboardPage";
-            this.dashboardPage.Size = new System.Drawing.Size(699, 425);
+            this.dashboardPage.Size = new System.Drawing.Size(699, 422);
             this.dashboardPage.TabIndex = 6;
             this.dashboardPage.Text = "Dashboard";
             this.dashboardPage.UseVisualStyleBackColor = true;
@@ -168,10 +178,11 @@ namespace MathDrillGame
             // dashboardTeacherLabel
             // 
             this.dashboardTeacherLabel.AutoSize = true;
+            this.dashboardTeacherLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.dashboardTeacherLabel.ForeColor = System.Drawing.Color.Red;
             this.dashboardTeacherLabel.Location = new System.Drawing.Point(13, 15);
             this.dashboardTeacherLabel.Name = "dashboardTeacherLabel";
-            this.dashboardTeacherLabel.Size = new System.Drawing.Size(78, 13);
+            this.dashboardTeacherLabel.Size = new System.Drawing.Size(113, 20);
             this.dashboardTeacherLabel.TabIndex = 1;
             this.dashboardTeacherLabel.Text = "Teacher Name";
             // 
@@ -180,18 +191,19 @@ namespace MathDrillGame
             this.tabControl2.Controls.Add(this.groupAPage);
             this.tabControl2.Controls.Add(this.groupBPage);
             this.tabControl2.Controls.Add(this.groupCPage);
-            this.tabControl2.Location = new System.Drawing.Point(0, 40);
+            this.tabControl2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.tabControl2.Location = new System.Drawing.Point(0, 73);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(699, 382);
+            this.tabControl2.Size = new System.Drawing.Size(699, 349);
             this.tabControl2.TabIndex = 0;
             // 
             // groupAPage
             // 
-            this.groupAPage.Location = new System.Drawing.Point(4, 22);
+            this.groupAPage.Location = new System.Drawing.Point(4, 25);
             this.groupAPage.Name = "groupAPage";
             this.groupAPage.Padding = new System.Windows.Forms.Padding(3);
-            this.groupAPage.Size = new System.Drawing.Size(691, 356);
+            this.groupAPage.Size = new System.Drawing.Size(691, 320);
             this.groupAPage.TabIndex = 0;
             this.groupAPage.Text = "Group A";
             this.groupAPage.UseVisualStyleBackColor = true;
@@ -217,7 +229,9 @@ namespace MathDrillGame
             // 
             // reportsPage
             // 
-            this.reportsPage.Controls.Add(this.checkBoxUnattempted);
+            this.reportsPage.Controls.Add(this.label5);
+            this.reportsPage.Controls.Add(this.label4);
+            this.reportsPage.Controls.Add(this.groupboxReportType);
             this.reportsPage.Controls.Add(this.labelSelectDate);
             this.reportsPage.Controls.Add(this.labelMaxDate);
             this.reportsPage.Controls.Add(this.labelMinDate);
@@ -225,69 +239,49 @@ namespace MathDrillGame
             this.reportsPage.Controls.Add(this.dateTimePickerMin);
             this.reportsPage.Controls.Add(this.textBoxReport);
             this.reportsPage.Controls.Add(this.dataGridProblemSets);
-            this.reportsPage.Controls.Add(this.labelSelectStudent);
-            this.reportsPage.Controls.Add(this.comboStudentList);
-            this.reportsPage.Location = new System.Drawing.Point(4, 22);
+            this.reportsPage.Location = new System.Drawing.Point(4, 25);
             this.reportsPage.Name = "reportsPage";
             this.reportsPage.Padding = new System.Windows.Forms.Padding(3);
-            this.reportsPage.Size = new System.Drawing.Size(699, 425);
+            this.reportsPage.Size = new System.Drawing.Size(699, 422);
             this.reportsPage.TabIndex = 0;
             this.reportsPage.Text = "Reports";
             this.reportsPage.UseVisualStyleBackColor = true;
             // 
-            // checkBoxUnattempted
-            // 
-            this.checkBoxUnattempted.AutoSize = true;
-            this.checkBoxUnattempted.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.checkBoxUnattempted.Location = new System.Drawing.Point(-12, 153);
-            this.checkBoxUnattempted.Name = "checkBoxUnattempted";
-            this.checkBoxUnattempted.Size = new System.Drawing.Size(327, 17);
-            this.checkBoxUnattempted.TabIndex = 17;
-            this.checkBoxUnattempted.Text = "Check this box to include sets that have not yet been attempted";
-            this.checkBoxUnattempted.UseVisualStyleBackColor = true;
-            // 
-            // labelSelectDate
-            // 
-            this.labelSelectDate.AutoSize = true;
-            this.labelSelectDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.labelSelectDate.Location = new System.Drawing.Point(6, 68);
-            this.labelSelectDate.Name = "labelSelectDate";
-            this.labelSelectDate.Size = new System.Drawing.Size(248, 17);
-            this.labelSelectDate.TabIndex = 22;
-            this.labelSelectDate.Text = "Select a timespan to see reports from:";
-            // 
             // labelMaxDate
             // 
             this.labelMaxDate.AutoSize = true;
-            this.labelMaxDate.Location = new System.Drawing.Point(167, 102);
+            this.labelMaxDate.Location = new System.Drawing.Point(167, 172);
             this.labelMaxDate.Name = "labelMaxDate";
-            this.labelMaxDate.Size = new System.Drawing.Size(67, 13);
+            this.labelMaxDate.Size = new System.Drawing.Size(88, 17);
             this.labelMaxDate.TabIndex = 21;
             this.labelMaxDate.Text = "Ending date:";
             // 
             // labelMinDate
             // 
             this.labelMinDate.AutoSize = true;
-            this.labelMinDate.Location = new System.Drawing.Point(6, 102);
+            this.labelMinDate.Location = new System.Drawing.Point(10, 172);
             this.labelMinDate.Name = "labelMinDate";
-            this.labelMinDate.Size = new System.Drawing.Size(70, 13);
+            this.labelMinDate.Size = new System.Drawing.Size(93, 17);
             this.labelMinDate.TabIndex = 20;
             this.labelMinDate.Text = "Starting date:";
             // 
             // dateTimePickerMax
             // 
-            this.dateTimePickerMax.Location = new System.Drawing.Point(170, 118);
+            this.dateTimePickerMax.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerMax.Location = new System.Drawing.Point(170, 192);
+            this.dateTimePickerMax.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerMax.Name = "dateTimePickerMax";
-            this.dateTimePickerMax.Size = new System.Drawing.Size(155, 20);
+            this.dateTimePickerMax.Size = new System.Drawing.Size(115, 23);
             this.dateTimePickerMax.TabIndex = 16;
             this.dateTimePickerMax.Value = new System.DateTime(2018, 7, 7, 4, 17, 0, 0);
             // 
             // dateTimePickerMin
             // 
-            this.dateTimePickerMin.Location = new System.Drawing.Point(9, 118);
+            this.dateTimePickerMin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerMin.Location = new System.Drawing.Point(9, 192);
             this.dateTimePickerMin.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerMin.Name = "dateTimePickerMin";
-            this.dateTimePickerMin.Size = new System.Drawing.Size(151, 20);
+            this.dateTimePickerMin.Size = new System.Drawing.Size(120, 23);
             this.dateTimePickerMin.TabIndex = 14;
             // 
             // textBoxReport
@@ -307,52 +301,27 @@ namespace MathDrillGame
             this.dataGridProblemSets.AllowUserToResizeRows = false;
             this.dataGridProblemSets.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridProblemSets.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridProblemSets.Location = new System.Drawing.Point(6, 176);
+            this.dataGridProblemSets.Location = new System.Drawing.Point(6, 260);
             this.dataGridProblemSets.Name = "dataGridProblemSets";
             this.dataGridProblemSets.ReadOnly = true;
             this.dataGridProblemSets.RowHeadersVisible = false;
             this.dataGridProblemSets.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridProblemSets.Size = new System.Drawing.Size(304, 239);
+            this.dataGridProblemSets.Size = new System.Drawing.Size(341, 155);
             this.dataGridProblemSets.TabIndex = 18;
-            // 
-            // labelSelectStudent
-            // 
-            this.labelSelectStudent.AutoSize = true;
-            this.labelSelectStudent.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.labelSelectStudent.Location = new System.Drawing.Point(4, 10);
-            this.labelSelectStudent.Name = "labelSelectStudent";
-            this.labelSelectStudent.Size = new System.Drawing.Size(261, 17);
-            this.labelSelectStudent.TabIndex = 15;
-            this.labelSelectStudent.Text = "Select a student to generate reports for:";
-            // 
-            // comboStudentList
-            // 
-            this.comboStudentList.FormattingEnabled = true;
-            this.comboStudentList.Location = new System.Drawing.Point(7, 30);
-            this.comboStudentList.Name = "comboStudentList";
-            this.comboStudentList.Size = new System.Drawing.Size(220, 21);
-            this.comboStudentList.TabIndex = 13;
-            this.comboStudentList.SelectedIndexChanged += new System.EventHandler(this.comboStudentList_SelectedIndexChanged);
             // 
             // genPage
             // 
+            this.genPage.Controls.Add(this.groupBox10);
             this.genPage.Controls.Add(this.groupBox8);
             this.genPage.Controls.Add(this.labelProbsGenned);
-            this.genPage.Controls.Add(this.Operation);
             this.genPage.Controls.Add(this.listOfProblems);
-            this.genPage.Controls.Add(this.buttonGenerate);
-            this.genPage.Controls.Add(this.inputQuantity);
-            this.genPage.Controls.Add(this.inputMax);
-            this.genPage.Controls.Add(this.inputMin);
-            this.genPage.Controls.Add(this.labelQuantity);
-            this.genPage.Controls.Add(this.labelMax);
-            this.genPage.Controls.Add(this.labelMin);
-            this.genPage.Controls.Add(this.labelGenProblemsFor);
             this.genPage.Controls.Add(this.listOfStudents);
-            this.genPage.Location = new System.Drawing.Point(4, 22);
+            this.genPage.Controls.Add(this.buttonGenerate);
+            this.genPage.Controls.Add(this.labelGenProblemsFor);
+            this.genPage.Location = new System.Drawing.Point(4, 25);
             this.genPage.Name = "genPage";
             this.genPage.Padding = new System.Windows.Forms.Padding(3);
-            this.genPage.Size = new System.Drawing.Size(699, 425);
+            this.genPage.Size = new System.Drawing.Size(699, 422);
             this.genPage.TabIndex = 1;
             this.genPage.Text = "Set Problems";
             this.genPage.UseVisualStyleBackColor = true;
@@ -362,7 +331,7 @@ namespace MathDrillGame
             this.groupBox8.Controls.Add(this.radioC);
             this.groupBox8.Controls.Add(this.radioB);
             this.groupBox8.Controls.Add(this.radioA);
-            this.groupBox8.Location = new System.Drawing.Point(598, 142);
+            this.groupBox8.Location = new System.Drawing.Point(86, 95);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(86, 100);
             this.groupBox8.TabIndex = 106;
@@ -374,7 +343,7 @@ namespace MathDrillGame
             this.radioC.AutoSize = true;
             this.radioC.Location = new System.Drawing.Point(26, 69);
             this.radioC.Name = "radioC";
-            this.radioC.Size = new System.Drawing.Size(32, 17);
+            this.radioC.Size = new System.Drawing.Size(35, 21);
             this.radioC.TabIndex = 109;
             this.radioC.Text = "C";
             this.radioC.UseVisualStyleBackColor = true;
@@ -384,7 +353,7 @@ namespace MathDrillGame
             this.radioB.AutoSize = true;
             this.radioB.Location = new System.Drawing.Point(26, 46);
             this.radioB.Name = "radioB";
-            this.radioB.Size = new System.Drawing.Size(32, 17);
+            this.radioB.Size = new System.Drawing.Size(35, 21);
             this.radioB.TabIndex = 108;
             this.radioB.Text = "B";
             this.radioB.UseVisualStyleBackColor = true;
@@ -395,7 +364,7 @@ namespace MathDrillGame
             this.radioA.Checked = true;
             this.radioA.Location = new System.Drawing.Point(26, 23);
             this.radioA.Name = "radioA";
-            this.radioA.Size = new System.Drawing.Size(32, 17);
+            this.radioA.Size = new System.Drawing.Size(35, 21);
             this.radioA.TabIndex = 107;
             this.radioA.TabStop = true;
             this.radioA.Text = "A";
@@ -406,11 +375,11 @@ namespace MathDrillGame
             this.labelProbsGenned.AutoSize = true;
             this.labelProbsGenned.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.labelProbsGenned.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelProbsGenned.Location = new System.Drawing.Point(206, 142);
+            this.labelProbsGenned.Location = new System.Drawing.Point(535, 80);
             this.labelProbsGenned.Name = "labelProbsGenned";
-            this.labelProbsGenned.Size = new System.Drawing.Size(156, 20);
+            this.labelProbsGenned.Size = new System.Drawing.Size(137, 20);
             this.labelProbsGenned.TabIndex = 107;
-            this.labelProbsGenned.Text = "Problems generated:";
+            this.labelProbsGenned.Text = "Problems created:";
             // 
             // Operation
             // 
@@ -418,19 +387,19 @@ namespace MathDrillGame
             this.Operation.Controls.Add(this.radioMultiplication);
             this.Operation.Controls.Add(this.radioAddition);
             this.Operation.Controls.Add(this.radioSubtraction);
-            this.Operation.Location = new System.Drawing.Point(456, 81);
+            this.Operation.Location = new System.Drawing.Point(6, 22);
             this.Operation.Name = "Operation";
             this.Operation.Size = new System.Drawing.Size(110, 149);
             this.Operation.TabIndex = 103;
             this.Operation.TabStop = false;
-            this.Operation.Text = "Operation:";
+            this.Operation.Text = "Operation";
             // 
             // radioDivision
             // 
             this.radioDivision.AutoSize = true;
             this.radioDivision.Location = new System.Drawing.Point(7, 117);
             this.radioDivision.Name = "radioDivision";
-            this.radioDivision.Size = new System.Drawing.Size(62, 17);
+            this.radioDivision.Size = new System.Drawing.Size(75, 21);
             this.radioDivision.TabIndex = 15;
             this.radioDivision.TabStop = true;
             this.radioDivision.Text = "Division";
@@ -441,7 +410,7 @@ namespace MathDrillGame
             this.radioMultiplication.AutoSize = true;
             this.radioMultiplication.Location = new System.Drawing.Point(6, 84);
             this.radioMultiplication.Name = "radioMultiplication";
-            this.radioMultiplication.Size = new System.Drawing.Size(86, 17);
+            this.radioMultiplication.Size = new System.Drawing.Size(107, 21);
             this.radioMultiplication.TabIndex = 14;
             this.radioMultiplication.TabStop = true;
             this.radioMultiplication.Text = "Multiplication";
@@ -453,7 +422,7 @@ namespace MathDrillGame
             this.radioAddition.Checked = true;
             this.radioAddition.Location = new System.Drawing.Point(6, 19);
             this.radioAddition.Name = "radioAddition";
-            this.radioAddition.Size = new System.Drawing.Size(63, 17);
+            this.radioAddition.Size = new System.Drawing.Size(77, 21);
             this.radioAddition.TabIndex = 12;
             this.radioAddition.TabStop = true;
             this.radioAddition.Text = "Addition";
@@ -464,7 +433,7 @@ namespace MathDrillGame
             this.radioSubtraction.AutoSize = true;
             this.radioSubtraction.Location = new System.Drawing.Point(6, 51);
             this.radioSubtraction.Name = "radioSubtraction";
-            this.radioSubtraction.Size = new System.Drawing.Size(79, 17);
+            this.radioSubtraction.Size = new System.Drawing.Size(98, 21);
             this.radioSubtraction.TabIndex = 13;
             this.radioSubtraction.TabStop = true;
             this.radioSubtraction.Text = "Subtraction";
@@ -472,94 +441,83 @@ namespace MathDrillGame
             // 
             // listOfProblems
             // 
-            this.listOfProblems.Location = new System.Drawing.Point(210, 178);
+            this.listOfProblems.Location = new System.Drawing.Point(539, 103);
             this.listOfProblems.Multiline = true;
             this.listOfProblems.Name = "listOfProblems";
             this.listOfProblems.ReadOnly = true;
             this.listOfProblems.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.listOfProblems.Size = new System.Drawing.Size(224, 198);
+            this.listOfProblems.Size = new System.Drawing.Size(152, 292);
             this.listOfProblems.TabIndex = 106;
             this.listOfProblems.TabStop = false;
             // 
             // buttonGenerate
             // 
             this.buttonGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonGenerate.Location = new System.Drawing.Point(503, 323);
+            this.buttonGenerate.Location = new System.Drawing.Point(389, 352);
             this.buttonGenerate.Name = "buttonGenerate";
-            this.buttonGenerate.Size = new System.Drawing.Size(116, 39);
+            this.buttonGenerate.Size = new System.Drawing.Size(144, 43);
             this.buttonGenerate.TabIndex = 120;
-            this.buttonGenerate.Text = "Set Problems!";
+            this.buttonGenerate.Text = "Create Problems!";
             this.buttonGenerate.UseVisualStyleBackColor = true;
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
             // 
             // inputQuantity
             // 
-            this.inputQuantity.Location = new System.Drawing.Point(598, 97);
+            this.inputQuantity.Location = new System.Drawing.Point(127, 143);
             this.inputQuantity.Name = "inputQuantity";
-            this.inputQuantity.Size = new System.Drawing.Size(86, 20);
+            this.inputQuantity.Size = new System.Drawing.Size(86, 23);
             this.inputQuantity.TabIndex = 104;
             // 
             // inputMax
             // 
-            this.inputMax.Location = new System.Drawing.Point(331, 101);
+            this.inputMax.Location = new System.Drawing.Point(117, 43);
             this.inputMax.Name = "inputMax";
-            this.inputMax.Size = new System.Drawing.Size(86, 20);
+            this.inputMax.Size = new System.Drawing.Size(86, 23);
             this.inputMax.TabIndex = 102;
             // 
             // inputMin
             // 
-            this.inputMin.Location = new System.Drawing.Point(210, 104);
+            this.inputMin.Location = new System.Drawing.Point(9, 43);
             this.inputMin.Name = "inputMin";
-            this.inputMin.Size = new System.Drawing.Size(86, 20);
+            this.inputMin.Size = new System.Drawing.Size(86, 23);
             this.inputMin.TabIndex = 101;
             // 
             // labelQuantity
             // 
             this.labelQuantity.AutoSize = true;
-            this.labelQuantity.Location = new System.Drawing.Point(595, 81);
+            this.labelQuantity.Location = new System.Drawing.Point(124, 123);
             this.labelQuantity.Name = "labelQuantity";
-            this.labelQuantity.Size = new System.Drawing.Size(49, 13);
+            this.labelQuantity.Size = new System.Drawing.Size(139, 17);
             this.labelQuantity.TabIndex = 108;
-            this.labelQuantity.Text = "Quantity:";
+            this.labelQuantity.Text = "Quantity of problems";
             // 
             // labelMax
             // 
             this.labelMax.AutoSize = true;
-            this.labelMax.Location = new System.Drawing.Point(328, 81);
+            this.labelMax.Location = new System.Drawing.Point(114, 23);
             this.labelMax.Name = "labelMax";
-            this.labelMax.Size = new System.Drawing.Size(92, 13);
+            this.labelMax.Size = new System.Drawing.Size(66, 17);
             this.labelMax.TabIndex = 109;
-            this.labelMax.Text = "Maximum number:";
+            this.labelMax.Text = "Maximum";
             // 
             // labelMin
             // 
             this.labelMin.AutoSize = true;
-            this.labelMin.Location = new System.Drawing.Point(207, 81);
+            this.labelMin.Location = new System.Drawing.Point(6, 23);
             this.labelMin.Name = "labelMin";
-            this.labelMin.Size = new System.Drawing.Size(89, 13);
+            this.labelMin.Size = new System.Drawing.Size(63, 17);
             this.labelMin.TabIndex = 110;
-            this.labelMin.Text = "Minimum number:";
+            this.labelMin.Text = "Minimum";
             // 
             // labelGenProblemsFor
             // 
             this.labelGenProblemsFor.AutoSize = true;
             this.labelGenProblemsFor.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.labelGenProblemsFor.Location = new System.Drawing.Point(259, 20);
+            this.labelGenProblemsFor.Location = new System.Drawing.Point(196, 23);
             this.labelGenProblemsFor.Name = "labelGenProblemsFor";
-            this.labelGenProblemsFor.Size = new System.Drawing.Size(360, 25);
+            this.labelGenProblemsFor.Size = new System.Drawing.Size(307, 25);
             this.labelGenProblemsFor.TabIndex = 111;
-            this.labelGenProblemsFor.Text = "Generating problems for Aaaa B. Ccccc.";
-            // 
-            // listOfStudents
-            // 
-            this.listOfStudents.Enabled = false;
-            this.listOfStudents.FormattingEnabled = true;
-            this.listOfStudents.Location = new System.Drawing.Point(3, 49);
-            this.listOfStudents.Name = "listOfStudents";
-            this.listOfStudents.Size = new System.Drawing.Size(178, 329);
-            this.listOfStudents.TabIndex = 100;
-            this.listOfStudents.SelectedIndexChanged += new System.EventHandler(this.listOfStudents_SelectedIndexChanged);
-            this.listOfStudents.ValueMemberChanged += new System.EventHandler(this.listOfStudents_SelectedIndexChanged);
+            this.labelGenProblemsFor.Text = "Creating problem sets for Group A";
             // 
             // manPage
             // 
@@ -568,10 +526,10 @@ namespace MathDrillGame
             this.manPage.Controls.Add(this.manageStudentList);
             this.manPage.Controls.Add(this.menuStrip1);
             this.manPage.Controls.Add(this.menuStrip2);
-            this.manPage.Location = new System.Drawing.Point(4, 22);
+            this.manPage.Location = new System.Drawing.Point(4, 25);
             this.manPage.Name = "manPage";
             this.manPage.Padding = new System.Windows.Forms.Padding(3);
-            this.manPage.Size = new System.Drawing.Size(699, 425);
+            this.manPage.Size = new System.Drawing.Size(699, 422);
             this.manPage.TabIndex = 2;
             this.manPage.Text = "Manage Users";
             this.manPage.UseVisualStyleBackColor = true;
@@ -621,10 +579,10 @@ namespace MathDrillGame
             // GroupPageA
             // 
             this.GroupPageA.Controls.Add(this.groupRosterA);
-            this.GroupPageA.Location = new System.Drawing.Point(4, 22);
+            this.GroupPageA.Location = new System.Drawing.Point(4, 25);
             this.GroupPageA.Name = "GroupPageA";
             this.GroupPageA.Padding = new System.Windows.Forms.Padding(3);
-            this.GroupPageA.Size = new System.Drawing.Size(228, 303);
+            this.GroupPageA.Size = new System.Drawing.Size(228, 300);
             this.GroupPageA.TabIndex = 0;
             this.GroupPageA.Text = "Group A";
             this.GroupPageA.UseVisualStyleBackColor = true;
@@ -632,9 +590,10 @@ namespace MathDrillGame
             // groupRosterA
             // 
             this.groupRosterA.FormattingEnabled = true;
+            this.groupRosterA.ItemHeight = 16;
             this.groupRosterA.Location = new System.Drawing.Point(0, 0);
             this.groupRosterA.Name = "groupRosterA";
-            this.groupRosterA.Size = new System.Drawing.Size(226, 329);
+            this.groupRosterA.Size = new System.Drawing.Size(226, 324);
             this.groupRosterA.TabIndex = 1;
             this.groupRosterA.SelectedIndexChanged += new System.EventHandler(this.groupRosterA_SelectedIndexChanged);
             // 
@@ -652,6 +611,7 @@ namespace MathDrillGame
             // groupRosterB
             // 
             this.groupRosterB.FormattingEnabled = true;
+            this.groupRosterB.ItemHeight = 16;
             this.groupRosterB.Location = new System.Drawing.Point(0, 0);
             this.groupRosterB.Name = "groupRosterB";
             this.groupRosterB.Size = new System.Drawing.Size(226, 420);
@@ -672,6 +632,7 @@ namespace MathDrillGame
             // groupRosterC
             // 
             this.groupRosterC.FormattingEnabled = true;
+            this.groupRosterC.ItemHeight = 16;
             this.groupRosterC.Location = new System.Drawing.Point(0, 0);
             this.groupRosterC.Name = "groupRosterC";
             this.groupRosterC.Size = new System.Drawing.Size(226, 420);
@@ -681,9 +642,10 @@ namespace MathDrillGame
             // manageStudentList
             // 
             this.manageStudentList.FormattingEnabled = true;
+            this.manageStudentList.ItemHeight = 16;
             this.manageStudentList.Location = new System.Drawing.Point(13, 67);
             this.manageStudentList.Name = "manageStudentList";
-            this.manageStudentList.Size = new System.Drawing.Size(226, 329);
+            this.manageStudentList.Size = new System.Drawing.Size(226, 324);
             this.manageStudentList.TabIndex = 0;
             this.manageStudentList.SelectedIndexChanged += new System.EventHandler(this.manageStudentList_SelectedIndexChanged);
             // 
@@ -777,9 +739,10 @@ namespace MathDrillGame
             // add_delete_student_list
             // 
             this.add_delete_student_list.FormattingEnabled = true;
+            this.add_delete_student_list.ItemHeight = 16;
             this.add_delete_student_list.Location = new System.Drawing.Point(28, 19);
             this.add_delete_student_list.Name = "add_delete_student_list";
-            this.add_delete_student_list.Size = new System.Drawing.Size(202, 82);
+            this.add_delete_student_list.Size = new System.Drawing.Size(202, 68);
             this.add_delete_student_list.TabIndex = 0;
             // 
             // groupBox2
@@ -797,6 +760,7 @@ namespace MathDrillGame
             // 
             // add_student_button
             // 
+            this.add_student_button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.add_student_button.Location = new System.Drawing.Point(96, 230);
             this.add_student_button.Name = "add_student_button";
             this.add_student_button.Size = new System.Drawing.Size(75, 23);
@@ -810,7 +774,7 @@ namespace MathDrillGame
             this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(15, 46);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(141, 13);
+            this.labelName.Size = new System.Drawing.Size(187, 17);
             this.labelName.TabIndex = 7;
             this.labelName.Text = "What is the student\'s name?";
             // 
@@ -830,7 +794,7 @@ namespace MathDrillGame
             this.add_delete_Student_radioButton.AutoSize = true;
             this.add_delete_Student_radioButton.Location = new System.Drawing.Point(61, 19);
             this.add_delete_Student_radioButton.Name = "add_delete_Student_radioButton";
-            this.add_delete_Student_radioButton.Size = new System.Drawing.Size(62, 17);
+            this.add_delete_Student_radioButton.Size = new System.Drawing.Size(75, 21);
             this.add_delete_Student_radioButton.TabIndex = 11;
             this.add_delete_Student_radioButton.TabStop = true;
             this.add_delete_Student_radioButton.Text = "Student";
@@ -841,7 +805,7 @@ namespace MathDrillGame
             this.add_delete_teacher_radioButton.AutoSize = true;
             this.add_delete_teacher_radioButton.Location = new System.Drawing.Point(61, 58);
             this.add_delete_teacher_radioButton.Name = "add_delete_teacher_radioButton";
-            this.add_delete_teacher_radioButton.Size = new System.Drawing.Size(65, 17);
+            this.add_delete_teacher_radioButton.Size = new System.Drawing.Size(79, 21);
             this.add_delete_teacher_radioButton.TabIndex = 12;
             this.add_delete_teacher_radioButton.TabStop = true;
             this.add_delete_teacher_radioButton.Text = "Teacher";
@@ -851,7 +815,7 @@ namespace MathDrillGame
             // 
             this.inputFullName.Location = new System.Drawing.Point(160, 46);
             this.inputFullName.Name = "inputFullName";
-            this.inputFullName.Size = new System.Drawing.Size(100, 20);
+            this.inputFullName.Size = new System.Drawing.Size(100, 23);
             this.inputFullName.TabIndex = 5;
             // 
             // securityPage
@@ -859,10 +823,10 @@ namespace MathDrillGame
             this.securityPage.Controls.Add(this.groupBox6);
             this.securityPage.Controls.Add(this.groupBox5);
             this.securityPage.Controls.Add(this.groupBox4);
-            this.securityPage.Location = new System.Drawing.Point(4, 22);
+            this.securityPage.Location = new System.Drawing.Point(4, 25);
             this.securityPage.Name = "securityPage";
             this.securityPage.Padding = new System.Windows.Forms.Padding(3);
-            this.securityPage.Size = new System.Drawing.Size(699, 425);
+            this.securityPage.Size = new System.Drawing.Size(699, 422);
             this.securityPage.TabIndex = 3;
             this.securityPage.Text = "Security";
             this.securityPage.UseVisualStyleBackColor = true;
@@ -885,7 +849,7 @@ namespace MathDrillGame
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(21, 73);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 13);
+            this.label2.Size = new System.Drawing.Size(94, 17);
             this.label2.TabIndex = 3;
             this.label2.Text = "Set Password";
             // 
@@ -895,7 +859,7 @@ namespace MathDrillGame
             this.studentSecurityNameLabel.ForeColor = System.Drawing.Color.Red;
             this.studentSecurityNameLabel.Location = new System.Drawing.Point(106, 35);
             this.studentSecurityNameLabel.Name = "studentSecurityNameLabel";
-            this.studentSecurityNameLabel.Size = new System.Drawing.Size(44, 13);
+            this.studentSecurityNameLabel.Size = new System.Drawing.Size(57, 17);
             this.studentSecurityNameLabel.TabIndex = 2;
             this.studentSecurityNameLabel.Text = "Student";
             // 
@@ -904,7 +868,7 @@ namespace MathDrillGame
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(21, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.Size = new System.Drawing.Size(102, 17);
             this.label1.TabIndex = 1;
             this.label1.Text = "Student Name:";
             // 
@@ -918,7 +882,7 @@ namespace MathDrillGame
             "Circle"});
             this.comboBoxSecurityPass.Location = new System.Drawing.Point(101, 70);
             this.comboBoxSecurityPass.Name = "comboBoxSecurityPass";
-            this.comboBoxSecurityPass.Size = new System.Drawing.Size(93, 21);
+            this.comboBoxSecurityPass.Size = new System.Drawing.Size(93, 24);
             this.comboBoxSecurityPass.TabIndex = 0;
             this.comboBoxSecurityPass.SelectedIndexChanged += new System.EventHandler(this.comboBoxSecurityPass_SelectedIndexChanged);
             // 
@@ -935,9 +899,10 @@ namespace MathDrillGame
             // studentsSecurityListBox
             // 
             this.studentsSecurityListBox.FormattingEnabled = true;
+            this.studentsSecurityListBox.ItemHeight = 16;
             this.studentsSecurityListBox.Location = new System.Drawing.Point(29, 43);
             this.studentsSecurityListBox.Name = "studentsSecurityListBox";
-            this.studentsSecurityListBox.Size = new System.Drawing.Size(134, 238);
+            this.studentsSecurityListBox.Size = new System.Drawing.Size(134, 228);
             this.studentsSecurityListBox.TabIndex = 0;
             this.studentsSecurityListBox.SelectedIndexChanged += new System.EventHandler(this.studentsSecurityListBox_SelectedIndexChanged);
             // 
@@ -956,7 +921,7 @@ namespace MathDrillGame
             this.passwordCheckBox.AutoSize = true;
             this.passwordCheckBox.Location = new System.Drawing.Point(57, 43);
             this.passwordCheckBox.Name = "passwordCheckBox";
-            this.passwordCheckBox.Size = new System.Drawing.Size(108, 17);
+            this.passwordCheckBox.Size = new System.Drawing.Size(136, 21);
             this.passwordCheckBox.TabIndex = 0;
             this.passwordCheckBox.Text = "Enable Password";
             this.passwordCheckBox.UseVisualStyleBackColor = true;
@@ -965,9 +930,9 @@ namespace MathDrillGame
             // aboutPage
             // 
             this.aboutPage.Controls.Add(this.aboutTextBox);
-            this.aboutPage.Location = new System.Drawing.Point(4, 22);
+            this.aboutPage.Location = new System.Drawing.Point(4, 25);
             this.aboutPage.Name = "aboutPage";
-            this.aboutPage.Size = new System.Drawing.Size(699, 425);
+            this.aboutPage.Size = new System.Drawing.Size(699, 422);
             this.aboutPage.TabIndex = 4;
             this.aboutPage.Text = "About";
             this.aboutPage.UseVisualStyleBackColor = true;
@@ -985,7 +950,7 @@ namespace MathDrillGame
             // 
             this.buttonLogout.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonLogout.Location = new System.Drawing.Point(455, 454);
+            this.buttonLogout.Location = new System.Drawing.Point(602, 458);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(90, 43);
             this.buttonLogout.TabIndex = 112;
@@ -993,24 +958,135 @@ namespace MathDrillGame
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click_1);
             // 
-            // exit_button
+            // label3
             // 
-            this.exit_button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.exit_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.exit_button.Location = new System.Drawing.Point(582, 454);
-            this.exit_button.Name = "exit_button";
-            this.exit_button.Size = new System.Drawing.Size(90, 43);
-            this.exit_button.TabIndex = 113;
-            this.exit_button.Text = "Exit";
-            this.exit_button.UseVisualStyleBackColor = true;
-            this.exit_button.Click += new System.EventHandler(this.exit_button_Click);
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label3.Location = new System.Drawing.Point(13, 46);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(524, 20);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Click on a group to see a glimpse of how the students in it are performing:";
+            // 
+            // radioButtonClass
+            // 
+            this.radioButtonClass.AutoSize = true;
+            this.radioButtonClass.Location = new System.Drawing.Point(6, 22);
+            this.radioButtonClass.Name = "radioButtonClass";
+            this.radioButtonClass.Size = new System.Drawing.Size(60, 21);
+            this.radioButtonClass.TabIndex = 23;
+            this.radioButtonClass.TabStop = true;
+            this.radioButtonClass.Text = "Class";
+            this.radioButtonClass.UseVisualStyleBackColor = true;
+            // 
+            // groupboxReportType
+            // 
+            this.groupboxReportType.Controls.Add(this.radioButtonIndividual);
+            this.groupboxReportType.Controls.Add(this.radioButtonGroup);
+            this.groupboxReportType.Controls.Add(this.radioButtonClass);
+            this.groupboxReportType.Location = new System.Drawing.Point(13, 31);
+            this.groupboxReportType.Name = "groupboxReportType";
+            this.groupboxReportType.Size = new System.Drawing.Size(200, 111);
+            this.groupboxReportType.TabIndex = 24;
+            this.groupboxReportType.TabStop = false;
+            this.groupboxReportType.Text = "Report groupings";
+            // 
+            // radioButtonGroup
+            // 
+            this.radioButtonGroup.AutoSize = true;
+            this.radioButtonGroup.Location = new System.Drawing.Point(6, 50);
+            this.radioButtonGroup.Name = "radioButtonGroup";
+            this.radioButtonGroup.Size = new System.Drawing.Size(66, 21);
+            this.radioButtonGroup.TabIndex = 24;
+            this.radioButtonGroup.TabStop = true;
+            this.radioButtonGroup.Text = "Group";
+            this.radioButtonGroup.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonIndividual
+            // 
+            this.radioButtonIndividual.AutoSize = true;
+            this.radioButtonIndividual.Location = new System.Drawing.Point(7, 82);
+            this.radioButtonIndividual.Name = "radioButtonIndividual";
+            this.radioButtonIndividual.Size = new System.Drawing.Size(85, 21);
+            this.radioButtonIndividual.TabIndex = 25;
+            this.radioButtonIndividual.TabStop = true;
+            this.radioButtonIndividual.Text = "Individual";
+            this.radioButtonIndividual.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(14, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(271, 17);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "Pick which kind of report you\'d like to view";
+            // 
+            // labelSelectDate
+            // 
+            this.labelSelectDate.AutoSize = true;
+            this.labelSelectDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.labelSelectDate.Location = new System.Drawing.Point(6, 145);
+            this.labelSelectDate.Name = "labelSelectDate";
+            this.labelSelectDate.Size = new System.Drawing.Size(248, 17);
+            this.labelSelectDate.TabIndex = 22;
+            this.labelSelectDate.Text = "Select a timespan to see reports from:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label5.Location = new System.Drawing.Point(6, 240);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(248, 17);
+            this.label5.TabIndex = 26;
+            this.label5.Text = "Click on an item to see the report for it";
+            // 
+            // listOfStudents
+            // 
+            this.listOfStudents.Enabled = false;
+            this.listOfStudents.FormattingEnabled = true;
+            this.listOfStudents.ItemHeight = 16;
+            this.listOfStudents.Location = new System.Drawing.Point(13, 370);
+            this.listOfStudents.Name = "listOfStudents";
+            this.listOfStudents.Size = new System.Drawing.Size(98, 36);
+            this.listOfStudents.TabIndex = 100;
+            this.listOfStudents.Visible = false;
+            this.listOfStudents.SelectedIndexChanged += new System.EventHandler(this.listOfStudents_SelectedIndexChanged);
+            this.listOfStudents.ValueMemberChanged += new System.EventHandler(this.listOfStudents_SelectedIndexChanged);
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.inputMin);
+            this.groupBox9.Controls.Add(this.labelMin);
+            this.groupBox9.Controls.Add(this.labelMax);
+            this.groupBox9.Controls.Add(this.inputMax);
+            this.groupBox9.Location = new System.Drawing.Point(127, 22);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(209, 85);
+            this.groupBox9.TabIndex = 121;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Number range";
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.Operation);
+            this.groupBox10.Controls.Add(this.groupBox9);
+            this.groupBox10.Controls.Add(this.labelQuantity);
+            this.groupBox10.Controls.Add(this.inputQuantity);
+            this.groupBox10.Location = new System.Drawing.Point(178, 95);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(351, 191);
+            this.groupBox10.TabIndex = 122;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Problem Settings";
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonLogout;
             this.ClientSize = new System.Drawing.Size(704, 512);
-            this.Controls.Add(this.exit_button);
             this.Controls.Add(this.buttonLogout);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -1058,6 +1134,12 @@ namespace MathDrillGame
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.aboutPage.ResumeLayout(false);
+            this.groupboxReportType.ResumeLayout(false);
+            this.groupboxReportType.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1082,7 +1164,6 @@ namespace MathDrillGame
         private System.Windows.Forms.Label labelMax;
         private System.Windows.Forms.Label labelMin;
         private System.Windows.Forms.Label labelGenProblemsFor;
-        private System.Windows.Forms.ListBox listOfStudents;
         private System.Windows.Forms.TabControl manageGroupTabControl;        //sub tab control for manage
         private System.Windows.Forms.TabPage GroupPageA;              //group #
         private System.Windows.Forms.ListBox groupRosterA;              //roster for group
@@ -1110,20 +1191,15 @@ namespace MathDrillGame
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxSecurityPass;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button exit_button;
         private System.Windows.Forms.TabPage aboutPage;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TabPage addPage;
-        private System.Windows.Forms.CheckBox checkBoxUnattempted;
-        private System.Windows.Forms.Label labelSelectDate;
         private System.Windows.Forms.Label labelMaxDate;
         private System.Windows.Forms.Label labelMinDate;
         private System.Windows.Forms.DateTimePicker dateTimePickerMax;
         private System.Windows.Forms.DateTimePicker dateTimePickerMin;
         private System.Windows.Forms.TextBox textBoxReport;
         private System.Windows.Forms.DataGridView dataGridProblemSets;
-        private System.Windows.Forms.Label labelSelectStudent;
-        private System.Windows.Forms.ComboBox comboStudentList;
         private System.Windows.Forms.TextBox inputFullName;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.TabPage dashboardPage;
@@ -1147,5 +1223,16 @@ namespace MathDrillGame
         private System.Windows.Forms.RadioButton radioA;
         private System.Windows.Forms.Button add_student_button;
         private System.Windows.Forms.RichTextBox aboutTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupboxReportType;
+        private System.Windows.Forms.RadioButton radioButtonIndividual;
+        private System.Windows.Forms.RadioButton radioButtonGroup;
+        private System.Windows.Forms.RadioButton radioButtonClass;
+        private System.Windows.Forms.Label labelSelectDate;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ListBox listOfStudents;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.GroupBox groupBox9;
     }
 }

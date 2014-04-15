@@ -25,7 +25,6 @@ C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Re
 C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Release\MathDrillGame.StudentLoginForm.resources
 C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Release\MathDrillGame.LoginForm.resources
 C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Release\MathDrillGame.Properties.Resources.resources
-C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Release\MathDrillGame.ReportsForm.resources
 C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Release\MathDrillGame.StartForm.resources
 C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Release\MathDrillGame.StudentForm.resources
 C:\Users\Kevin\Documents\GitHub\CS-441-Group2\MathDrillGame\MathDrillGame\obj\Release\MathDrillGame.csproj.GenerateResource.Cache

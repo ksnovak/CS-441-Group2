@@ -287,7 +287,7 @@ namespace MathDrillGame
         //this method just sets the name of the teacher/administrator and the last login date
         protected void load_dashboard()
         {
-            dashboardTeacherLabel.Text = currentTeacher.fullName + " " + currentTeacher.lastLogin;
+            dashboardTeacherLabel.Text = "Hello " + currentTeacher.fullName + ", you last logged in " + currentTeacher.lastLogin;
         }
 
 //
@@ -308,13 +308,14 @@ namespace MathDrillGame
         }//end funtion*/
         //Aurelio arango
         //This method loads data into the dropdown list
+        
         protected void load_reportsPage()
         {
-            comboStudentList.DataSource = null;
+        /*    comboStudentList.DataSource = null;
             
             comboStudentList.DataSource = valid_students;
             comboStudentList.DisplayMember = "fullName";
-            comboStudentList.ValueMember = "userID";
+            comboStudentList.ValueMember = "userID";*/
 
         }
         //This method loads all the students that are visible
@@ -383,8 +384,8 @@ namespace MathDrillGame
 
             fileName = @"c:\users\public\MathDrills\ProblemSets\" + setProblems_targetStudent.userID + ".xml";
 
-            labelGenProblemsFor.Text = admin_welcome;// +"\nCreating problems for " + setProblems_targetStudent.fullName;
-            labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
+            //labelGenProblemsFor.Text = admin_welcome;// +"\nCreating problems for " + setProblems_targetStudent.fullName;
+            //labelGenProblemsFor.Left = (((this.ClientSize.Width - 179) - labelGenProblemsFor.Width) / 2) + 179; //Center the greeting. 179 accounts for the list of users on the side.
         }
         /* GENERATION CLICK event, when the administrator clicks the "Generate!" button to make problems for a student
          * Makes sure the input is valid, and if so, calls the function to generate problems

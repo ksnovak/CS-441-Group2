@@ -32,10 +32,10 @@
             this.passwordBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.login_button = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.back_button = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,6 +88,16 @@
             this.panel1.Size = new System.Drawing.Size(350, 283);
             this.panel1.TabIndex = 3;
             // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.label3.Location = new System.Drawing.Point(14, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(330, 60);
+            this.label3.TabIndex = 101;
+            this.label3.Text = "Welcome, select your name and then enter your password";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // login_button
             // 
             this.login_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -119,16 +129,6 @@
             this.back_button.Text = "Back";
             this.back_button.UseVisualStyleBackColor = true;
             this.back_button.Click += new System.EventHandler(this.back_button_Click);
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.label3.Location = new System.Drawing.Point(14, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(330, 60);
-            this.label3.TabIndex = 101;
-            this.label3.Text = "Welcome, select your name and enter your password";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // AdminLoginForm
             // 
