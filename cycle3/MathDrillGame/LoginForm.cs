@@ -293,6 +293,12 @@ namespace MathDrillGame
         {
 
         }
+
+        private void buttonViewRewards_Click(object sender, EventArgs e)
+        {
+            RewardsForm rewardsForm = new RewardsForm(Program.students[Program.currentStudentIndex].coins);
+            rewardsForm.Show();
+        }
         //Aurelio Arango
         //Debugging for update of list
         /*

@@ -37,6 +37,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.buttonViewRewards = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,6 +134,18 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "Then find your name:";
             // 
+            // buttonViewRewards
+            // 
+            this.buttonViewRewards.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonViewRewards.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.buttonViewRewards.Location = new System.Drawing.Point(97, 330);
+            this.buttonViewRewards.Name = "buttonViewRewards";
+            this.buttonViewRewards.Size = new System.Drawing.Size(96, 29);
+            this.buttonViewRewards.TabIndex = 9;
+            this.buttonViewRewards.Text = "Rewards";
+            this.buttonViewRewards.UseVisualStyleBackColor = true;
+            this.buttonViewRewards.Click += new System.EventHandler(this.buttonViewRewards_Click);
+            // 
             // LoginForm
             // 
             this.AcceptButton = this.buttonLogin;
@@ -141,6 +154,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.back_button;
             this.ClientSize = new System.Drawing.Size(429, 371);
+            this.Controls.Add(this.buttonViewRewards);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
@@ -171,6 +185,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonViewRewards;
     }
 }
 
