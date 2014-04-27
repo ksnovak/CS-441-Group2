@@ -66,6 +66,12 @@
     <Compile Include="AdminLoginForm.Designer.cs">
       <DependentUpon>AdminLoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="RewardsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RewardsForm.Designer.cs">
+      <DependentUpon>RewardsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PrintHandler.cs" />
     <Compile Include="XML_Handler.cs" />
     <Compile Include="StudentLoginForm.cs">
@@ -105,6 +111,9 @@
     <EmbeddedResource Include="AdminLoginForm.resx">
       <DependentUpon>AdminLoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RewardsForm.resx">
+      <DependentUpon>RewardsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StudentLoginForm.resx">
       <DependentUpon>StudentLoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,6 +132,7 @@
     </Compile>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StudentForm.resx">
       <DependentUpon>StudentForm.cs</DependentUpon>

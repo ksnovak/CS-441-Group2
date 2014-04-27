@@ -43,6 +43,7 @@
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.buttonViewRewards = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -192,6 +193,18 @@
             this.pictureBox8.TabIndex = 15;
             this.pictureBox8.TabStop = false;
             // 
+            // buttonViewRewards
+            // 
+            this.buttonViewRewards.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonViewRewards.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.buttonViewRewards.Location = new System.Drawing.Point(332, 457);
+            this.buttonViewRewards.Name = "buttonViewRewards";
+            this.buttonViewRewards.Size = new System.Drawing.Size(96, 29);
+            this.buttonViewRewards.TabIndex = 16;
+            this.buttonViewRewards.Text = "Rewards";
+            this.buttonViewRewards.UseVisualStyleBackColor = true;
+            this.buttonViewRewards.Click += new System.EventHandler(this.buttonViewRewards_Click);
+            // 
             // StudentForm
             // 
             this.AcceptButton = this.buttonSubmit;
@@ -199,6 +212,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonLogout;
             this.ClientSize = new System.Drawing.Size(704, 512);
+            this.Controls.Add(this.buttonViewRewards);
             this.Controls.Add(this.pictureBox8);
             this.Controls.Add(this.pictureBox7);
             this.Controls.Add(this.pictureBox6);
@@ -248,5 +262,6 @@
         private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.PictureBox pictureBox7;
         private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.Button buttonViewRewards;
     }
 }

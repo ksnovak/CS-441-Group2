@@ -371,6 +371,15 @@ namespace MathDrillGame
                 }
             }
         }
+
+        /*Kevin Novak, Cycle 3
+         * Opens up the form where students can see their rewards.
+         */
+        private void buttonViewRewards_Click(object sender, EventArgs e)
+        {
+            RewardsForm rewardsForm = new RewardsForm(Program.teachers[Program.currentTeacherIndex].students[Program.currentStudentIndex].coins);
+            rewardsForm.Show();
+        }
         /*Aurelio Arango
          * This method retrieves the last login date for a given user based user id.
          * Returns a string of the last date a student was logged. 

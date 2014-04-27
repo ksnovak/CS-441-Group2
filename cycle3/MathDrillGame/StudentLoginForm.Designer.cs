@@ -70,6 +70,7 @@
             // 
             // back_button
             // 
+            this.back_button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.back_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.back_button.Location = new System.Drawing.Point(306, 300);
             this.back_button.Name = "back_button";
@@ -93,6 +94,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.back_button;
             this.ClientSize = new System.Drawing.Size(419, 361);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.back_button);
