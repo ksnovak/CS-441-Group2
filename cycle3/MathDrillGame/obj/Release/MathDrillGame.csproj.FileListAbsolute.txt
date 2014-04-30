@@ -56,3 +56,17 @@ C:\Users\Toresky\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.Properti
 C:\Users\Toresky\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.StartForm.resources
 C:\Users\Toresky\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.StudentForm.resources
 C:\Users\Toresky\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.csproj.GenerateResource.Cache
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\bin\Release\MathDrillGame.exe.config
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.exe
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.pdb
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\bin\Release\MathDrillGame.exe
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\bin\Release\MathDrillGame.pdb
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.csprojResolveAssemblyReference.cache
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.AdminForm.resources
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.AdminLoginForm.resources
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.StudentLoginForm.resources
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.LoginForm.resources
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.Properties.Resources.resources
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.StartForm.resources
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.StudentForm.resources
+C:\Users\Jorge\Desktop\cycle3\MathDrillGame\obj\Release\MathDrillGame.csproj.GenerateResource.Cache
