@@ -38,7 +38,7 @@ namespace MathDrillGame
     {
         int problemIndex = 0; //Keeps track of the current problem number number within a set
         int problemSetSize;   //How many problems are in the current set
-        int setIndex = 0;     //Keeps track of the current set being worked on.
+        //int setIndex = 0;     //Keeps track of the current set being worked on.
         Problem currentProblem; //The individual problem currently being worked on
         List<ProblemSet> setlist;
         int solved = 0;
@@ -47,7 +47,8 @@ namespace MathDrillGame
         //User currentUser = Program.users[Program.currentUserIndex]; //The user who is logged in.
         //4-1-14
         //
-        Student currentUser = Program.teachers[Program.currentTeacherIndex].students[Program.currentStudentIndex];//get current student
+        Student currentUser; //= Program.teachers[Program.currentTeacherIndex].students[Program.currentStudentIndex];//get current student
+
         
         XElement StudentXMLFile; //The student's XML file, in XElement form, opened during the LOAD event
         string fileName;      //The location of the student's XML file
@@ -56,6 +57,9 @@ namespace MathDrillGame
 
         public StudentForm()
         {
+
+            //Console.WriteLine(currentUser.fullName);
+            loadAll();
             InitializeComponent();
             Shown += StudentShown; //When the form is created, "StudentShown" is set as an event function which triggers on the form being shown (either on creation or when being unhidden)
         }
@@ -75,31 +79,44 @@ namespace MathDrillGame
 
             loadTime();
             //Obsolete code, replaced by following function call...
-            //fileName = @"c:\users\public\MathDrills\ProblemSets\" + currentUser.userID + ".xml";
-            //if (File.Exists(fileName))
-            //    StudentXMLFile = XElement.Load(fileName);
-
-            setlist = Program.loadProblems(currentUser.group);
-
-            //If they don't have any file, then they don't have any problems assigned. Say so, and disable inputs to avoid issues.
-            //else
-            if (setlist[0].group != currentUser.group )
+            /*
+             * Jorge & Aurelio & Kevin - Uncommenting code that was commented out in second cycle. Commenting this code is causing
+             * for an unhandled exception to be thrown because it is trying to read a function 
+             */
+            fileName = @"c:\users\public\MathDrills\ProblemSets\setGroup" + currentUser.group + ".xml";
+            if (!File.Exists(fileName))
             {
-                buttonSubmit.Enabled = inputAnswer.Enabled = false;
-                labelQuestion.Text = "You have no problems assigned.";
-                labelQuestion.Top -= 40;
-                labelQuestion.Font = new Font("Microsoft Sans Serif", 13);
-                CancelButton = buttonLogout;
-                return;
+                Console.WriteLine("Dialogue Box: No problem sets found for current user. CLick ok.");
+                goToLogin();
+
             }
-            //Find out how many problems in the current problem set they have.
-            //problemSetSize = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count();
-            problemSetSize = setlist[0].problems.Count();
-            max = problemSetSize * 2;
-            //Get the first problem and display it.
-            currentProblem = getProblem();
-            if (currentProblem != null )
-                displayProblem();
+            else
+            {
+                StudentXMLFile = XElement.Load(fileName);
+            
+
+                setlist = Program.loadProblems(currentUser.group);
+
+                //If they don't have any file, then they don't have any problems assigned. Say so, and disable inputs to avoid issues.
+                //else
+                if (setlist[0].group != currentUser.group )
+                {
+                    buttonSubmit.Enabled = inputAnswer.Enabled = false;
+                    labelQuestion.Text = "You have no problems assigned.";
+                    labelQuestion.Top -= 40;
+                    labelQuestion.Font = new Font("Microsoft Sans Serif", 13);
+                    CancelButton = buttonLogout;
+                    return;
+                }
+                //Find out how many problems in the current problem set they have.
+                //problemSetSize = StudentXMLFile.Descendants("ProblemSet").ElementAt(setIndex).Descendants("Problem").Count();
+                problemSetSize = setlist[0].problems.Count();
+                max = problemSetSize * 2;
+                //Get the first problem and display it.
+                currentProblem = getProblem();
+                if (currentProblem != null )
+                    displayProblem();
+            }
         }
         //Aurelio Arango
         //4-8-14
@@ -113,10 +130,13 @@ namespace MathDrillGame
             loginTime = DateTime.Now;
             //Program.teachers[Program.currentTeacherIndex].lastLogin = DateTime.Now;
         }
+        /*Jorge Torres 4/29/2014 - Reworking the way this fucntion obtains the problem to display.
+         * */
         //Aurelio Arango  & Stepahnie Yao
-        //this method gets the the current problem from the Problem Set,
+        /*this method gets the the current problem from the Problem Set,
         public Problem getProblem()
         {
+            
             Problem newproblem = new Problem();
             // MARKER: WIP!!!
             if (solved != setlist[0].problems.Count)
@@ -134,7 +154,56 @@ namespace MathDrillGame
                 return null;
             }
 
+        }*/
+        public Problem getProblem()
+        {
+
+            Problem newproblem = new Problem();
+            // MARKER: WIP!!!
+
+            //Jorge Torres - lets verify that the date is correct for the attempt on the problem set
+            DateTime now = DateTime.Now;
+            String dueDateForProblemSet = null;
+
+            Console.WriteLine(currentUser.getGroup);
+
+            switch(currentUser.getGroup)
+            {
+                case "A": dueDateForProblemSet = (setlist[0].dueDate);
+                    break;
+                case "B": dueDateForProblemSet = (setlist[1].dueDate);
+                    break;
+                case "C": dueDateForProblemSet = (setlist[2].dueDate);
+                    break;
+            }
+            DateTime finalDueDate = DateTime.Parse(dueDateForProblemSet);
+
+            if (now.Date <= finalDueDate.Date)
+            {
+                Console.WriteLine("we can still do this problem set!!!");
+            }
+            else
+            {
+                Console.WriteLine("you ran our of time poop:" + finalDueDate + "&&" + now);
+            }
+
+            if (solved != setlist[0].problems.Count )
+            {
+                //Debug.Write(setlist[0].problems[problemIndex]);
+                newproblem = setlist[0].problems[problemIndex];
+                //problemIndex++;
+                return newproblem;
+            }
+            else
+            {
+                labelFeedback.Text = "You've completed all problem sets assigned to you!";
+                buttonSubmit.Enabled = inputAnswer.Enabled = false;
+                CancelButton = buttonLogout;
+                return null;
+            }
+
         }
+        
 
         //  NOTE: Made obsolete from above code.
         /* GETPROBLEM returns the next unsolved problem, or null if there are none
@@ -195,8 +264,8 @@ namespace MathDrillGame
             buttonSubmit.Enabled = inputAnswer.Enabled = false;
             CancelButton = buttonLogout;
             return null;
-        }*/
-        
+        }
+        */
         /* DISPLAYPROBLEM displays the currently selected problem on screen
          * Kevin and Uriah
          */
@@ -394,5 +463,22 @@ namespace MathDrillGame
             return string_date;
         }*/
         
+        /*
+         *Jorge Torres & Aurelio Arango & Kevin Novak 24/29/2014 - Reload all the data when the form is reloaded
+         */
+        private void loadAll()
+        {
+            currentUser = new Student();
+            //currentUser = Program.Student[Program.currentStudentIndex];
+            
+            currentUser = Program.students[Program.currentStudentIndex]; //Program.teachers[Program.currentTeacherIndex].students[Program.currentStudentIndex];
+
+            Console.WriteLine(currentUser.fullName);
+        }
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            loadAll();
+        }
     }//end StudentForm class
 }//end namespace

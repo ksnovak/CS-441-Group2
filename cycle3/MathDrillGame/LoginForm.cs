@@ -148,10 +148,21 @@ namespace MathDrillGame
                 //*********Rewrite************//studentListXML.Save(Program.USERSFILE);
                // buildUserForm(Program.users[Program.currentUserIndex]);
             //}
-            buildStudentLoginForm();
+
+
+            //Jorge and Aurelio
+            //4-25-14
+            if (Program.teachers[Program.currentTeacherIndex].setpass.Equals("n"))
+            {
+                buildStudentLoginForm(false);
+            }
+            else
+            {
+                buildStudentLoginForm(true);
+            }
 
         }
-        //Aurelio Arango 3-25-14
+        /*Aurelio Arango 3-25-14
         //This funtion creates a new Form in which the selected student needs to authenticate itself
         private void buildStudentLoginForm()
         {
@@ -173,6 +184,49 @@ namespace MathDrillGame
                 loginForm.Show(this);
                 this.Hide();
                 
+            }
+        }*/
+
+        /*4-25-14
+         * Jorge Torres and Aurelio Arango
+         *Loading appropriate form based on student password enabled or disabled
+         */
+        private void buildStudentLoginForm(Boolean passWordEnabled)
+        {
+
+            bool foundForm = false;
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f.GetType() == typeof(StudentLoginForm) && passWordEnabled == true)
+                {
+                    f.Show();
+                    foundForm = true;
+                    this.Hide();
+                }
+                else if (f.GetType() == typeof(StudentForm) && passWordEnabled == false)
+                {
+                    f.Show();
+                    foundForm = true;
+                    this.Hide();
+                }
+            }
+
+            if (!foundForm)
+            {
+                if (passWordEnabled)
+                {
+                    StudentLoginForm loginForm = new StudentLoginForm();
+                    loginForm.Tag = this;
+                    loginForm.Show(this);
+                    this.Hide();
+                }
+                else
+                {
+                    StudentForm loginform = new StudentForm();
+                    loginform.Tag = this;
+                    loginform.Show(this);
+                    this.Hide();
+                }
             }
         }
 

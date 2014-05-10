@@ -48,6 +48,7 @@ namespace MathDrillGame
             this.groupBPage = new System.Windows.Forms.TabPage();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupCPage = new System.Windows.Forms.TabPage();
+            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.reportsPage = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -63,6 +64,8 @@ namespace MathDrillGame
             this.textBoxReport = new System.Windows.Forms.TextBox();
             this.dataGridProblemSets = new System.Windows.Forms.DataGridView();
             this.genPage = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.Operation = new System.Windows.Forms.GroupBox();
             this.radioDivision = new System.Windows.Forms.RadioButton();
@@ -128,7 +131,6 @@ namespace MathDrillGame
             this.aboutPage = new System.Windows.Forms.TabPage();
             this.aboutTextBox = new System.Windows.Forms.RichTextBox();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabControl1.SuspendLayout();
             this.dashboardPage.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -137,6 +139,7 @@ namespace MathDrillGame
             this.groupBPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.groupCPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             this.reportsPage.SuspendLayout();
             this.groupboxReportType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProblemSets)).BeginInit();
@@ -162,7 +165,6 @@ namespace MathDrillGame
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.aboutPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -291,6 +293,23 @@ namespace MathDrillGame
             this.groupCPage.TabIndex = 2;
             this.groupCPage.Text = "Group C";
             this.groupCPage.UseVisualStyleBackColor = true;
+            // 
+            // chart3
+            // 
+            chartArea3.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart3.Legends.Add(legend3);
+            this.chart3.Location = new System.Drawing.Point(-1, 0);
+            this.chart3.Name = "chart3";
+            series3.ChartArea = "ChartArea1";
+            series3.Color = System.Drawing.Color.Red;
+            series3.Legend = "Legend1";
+            series3.Name = "Score";
+            this.chart3.Series.Add(series3);
+            this.chart3.Size = new System.Drawing.Size(692, 320);
+            this.chart3.TabIndex = 2;
+            this.chart3.Text = "chart3";
             // 
             // reportsPage
             // 
@@ -450,6 +469,8 @@ namespace MathDrillGame
             // 
             // genPage
             // 
+            this.genPage.Controls.Add(this.label6);
+            this.genPage.Controls.Add(this.dateTimePicker1);
             this.genPage.Controls.Add(this.groupBox10);
             this.genPage.Controls.Add(this.groupBox8);
             this.genPage.Controls.Add(this.labelProbsGenned);
@@ -464,6 +485,23 @@ namespace MathDrillGame
             this.genPage.TabIndex = 1;
             this.genPage.Text = "Set Problems";
             this.genPage.UseVisualStyleBackColor = true;
+            this.genPage.Click += new System.EventHandler(this.genPage_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(255, 296);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(72, 17);
+            this.label6.TabIndex = 124;
+            this.label6.Text = "Due Date:";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(256, 316);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
+            this.dateTimePicker1.TabIndex = 123;
             // 
             // groupBox10
             // 
@@ -471,7 +509,7 @@ namespace MathDrillGame
             this.groupBox10.Controls.Add(this.groupBox9);
             this.groupBox10.Controls.Add(this.labelQuantity);
             this.groupBox10.Controls.Add(this.inputQuantity);
-            this.groupBox10.Location = new System.Drawing.Point(178, 95);
+            this.groupBox10.Location = new System.Drawing.Point(105, 80);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(351, 191);
             this.groupBox10.TabIndex = 122;
@@ -602,7 +640,7 @@ namespace MathDrillGame
             this.groupBox8.Controls.Add(this.radioC);
             this.groupBox8.Controls.Add(this.radioB);
             this.groupBox8.Controls.Add(this.radioA);
-            this.groupBox8.Location = new System.Drawing.Point(86, 95);
+            this.groupBox8.Location = new System.Drawing.Point(13, 80);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(86, 100);
             this.groupBox8.TabIndex = 106;
@@ -654,12 +692,12 @@ namespace MathDrillGame
             // 
             // listOfProblems
             // 
-            this.listOfProblems.Location = new System.Drawing.Point(539, 103);
+            this.listOfProblems.Location = new System.Drawing.Point(520, 103);
             this.listOfProblems.Multiline = true;
             this.listOfProblems.Name = "listOfProblems";
             this.listOfProblems.ReadOnly = true;
             this.listOfProblems.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.listOfProblems.Size = new System.Drawing.Size(152, 292);
+            this.listOfProblems.Size = new System.Drawing.Size(152, 168);
             this.listOfProblems.TabIndex = 106;
             this.listOfProblems.TabStop = false;
             // 
@@ -679,7 +717,7 @@ namespace MathDrillGame
             // buttonGenerate
             // 
             this.buttonGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonGenerate.Location = new System.Drawing.Point(389, 352);
+            this.buttonGenerate.Location = new System.Drawing.Point(528, 332);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(144, 43);
             this.buttonGenerate.TabIndex = 120;
@@ -1136,23 +1174,6 @@ namespace MathDrillGame
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click_1);
             // 
-            // chart3
-            // 
-            chartArea3.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart3.Legends.Add(legend3);
-            this.chart3.Location = new System.Drawing.Point(-1, 0);
-            this.chart3.Name = "chart3";
-            series3.ChartArea = "ChartArea1";
-            series3.Color = System.Drawing.Color.Red;
-            series3.Legend = "Legend1";
-            series3.Name = "Score";
-            this.chart3.Series.Add(series3);
-            this.chart3.Size = new System.Drawing.Size(692, 320);
-            this.chart3.TabIndex = 2;
-            this.chart3.Text = "chart3";
-            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1178,6 +1199,7 @@ namespace MathDrillGame
             this.groupBPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.groupCPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             this.reportsPage.ResumeLayout(false);
             this.reportsPage.PerformLayout();
             this.groupboxReportType.ResumeLayout(false);
@@ -1217,7 +1239,6 @@ namespace MathDrillGame
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.aboutPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1315,5 +1336,7 @@ namespace MathDrillGame
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

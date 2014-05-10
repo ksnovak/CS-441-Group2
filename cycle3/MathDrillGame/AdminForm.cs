@@ -136,6 +136,11 @@ namespace MathDrillGame
             load_AddDeleteUserPage();
             load_aboutPage();
 
+            /*
+             * Jorge & Aurelio- THe method. load_security will load the security level that a teacher had set in a previous session.
+             */
+            load_security();
+
         }
         //Aurelio Arango
         //4-8-14
@@ -231,6 +236,11 @@ namespace MathDrillGame
             else
             {
                 Program.teachers[Program.currentTeacherIndex].lastLogin = loginTime;
+
+                /*
+                 * Jorge and Jorge 4-29-2014. Making sure that the data changed for the teacher is saved correctly.
+                 */
+                Program.saveData();
                 goToLogin();
                 
             }
@@ -520,6 +530,13 @@ namespace MathDrillGame
                     quantity = Convert.ToInt32(inputQuantity.Text); //Turn the string input into ints
                     isAddition = radioAddition.Checked;             //Determine the type of problem
                     generateProblemSet(radio,min,max, quantity);
+
+                    //Jorge Torres - Pass the due date for the problem set to the teacher
+
+                    //Console.WriteLine("This is the due date: " + dateTimePicker1.Value.ToString("g"));
+
+                    //Program.teachers[Program.currentTeacherIndex].
+
                 }
             }//end else
         }//end function
@@ -527,7 +544,7 @@ namespace MathDrillGame
         //This method calls Program function that saves the data into xml
         private bool generateProblemSet(string group, int min, int max, int quantity)
         {
-            string lastAccessed = Program.MINDATE.ToString("g");
+            string dueDate = dateTimePicker1.Value.ToString("g");
             string oper = "";
 
             if (radioAddition.Checked)
@@ -547,7 +564,8 @@ namespace MathDrillGame
                 oper = "/";
             }
 
-            Program.saveProblemSet(new ProblemSet(1, oper, false, 0, quantity, "0", lastAccessed, group, min, max));
+            //Console.WriteLine(dueDate);
+            Program.saveProblemSet(new ProblemSet(1, oper, false, 0, quantity, "0", dueDate, group, min, max));
             return true;
         }
         /* GENERATEPROBLEMSET actually creates the set of problems in XML, and also displays in a textbox.
@@ -852,13 +870,38 @@ namespace MathDrillGame
             {
                 case "GroupPageA":
 
-                    return GroupA[groupRosterA.SelectedIndex];
+                    if ((groupRosterA.SelectedIndex) == -1)
+                    {
+                        Console.WriteLine("You must select a student to be able to remove.");
+                        return null;
+                    }
+                    else 
+                    { 
+                        return GroupA[groupRosterA.SelectedIndex];
+                    }
+                    
                 case "GroupPageB":
 
-                    return GroupB[groupRosterB.SelectedIndex];
+                    if ((groupRosterB.SelectedIndex) == -1)
+                    {
+                        Console.WriteLine("You must select a student to be able to remove.");
+                        return null;
+                    }
+                    else
+                    {
+                        return GroupB[groupRosterB.SelectedIndex];
+                    }
                 case "GroupPageC":
 
-                    return GroupC[groupRosterC.SelectedIndex];
+                    if ((groupRosterC.SelectedIndex) == -1)
+                    {
+                        Console.WriteLine("You must select a student to be able to remove.");
+                        return null;
+                    }
+                    else
+                    {
+                        return GroupC[groupRosterC.SelectedIndex];
+                    }
 
                 default: return null;
             }
@@ -1123,6 +1166,24 @@ namespace MathDrillGame
                 //Debug.WriteLine("False");
             }
         }
+
+        /*
+         * Jorge Torres & Aurelio Arango 4/29/2010 - loading the teacher data and check to see if the teacher has security settings enabled.
+         * This will reflect the change on the check box for it.
+         */
+        private void load_security()
+        {
+
+            if (Program.teachers[Program.currentTeacherIndex].setpass.Equals("y"))
+            {
+                passwordCheckBox.Checked = true;
+            }
+            else
+            {
+                passwordCheckBox.Checked = false;
+ 
+            }
+        } 
         //Aurelio Arango 4-6-14
         private void comboBoxSecurityPass_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1219,11 +1280,15 @@ namespace MathDrillGame
 
         }
 
+        private void genPage_Click(object sender, EventArgs e)
+        {
+
+        }
+
         
 
        
         
 //---------------------------------------------------------------------------------------
-
     } //end AdminForm class
 } //end namespace

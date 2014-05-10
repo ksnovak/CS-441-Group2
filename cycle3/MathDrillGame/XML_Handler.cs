@@ -241,11 +241,18 @@ namespace MathDrillGame
                 string pass = user.Element("pass").Value;
                 int userID = Convert.ToInt32(user.Element("UserID").Value);
 
+                /*
+                 * Jorge and Aurelio. Making sure that the security settings set by the teacer are being loaded appropirately.
+                 */
+
+                String setPass = user.Element("SetPass").Value;
+
                 List<Student> studentList = getStudentList(user);
                 Teacher tempTeacher = new Teacher(newName, userID, studentList, pass);
 
                 Program.teachers.Add(tempTeacher);
                 Program.teachers[index].lastLogin = Convert.ToDateTime(user.Element("LastLogin").Value);
+                Program.teachers[index].setpass = setPass;
                 index++;
             }
             //Debug code
@@ -311,11 +318,11 @@ namespace MathDrillGame
             XElement newProblemSet = new XElement("ProblemSet");
             XElement problemSetID = new XElement("ProblemSetID", Program.getNextProblemSetID());
             XElement problemSetSolved = new XElement("IsSetSolved", "0");
-            XElement lastAccessed = new XElement("LastAccessed", Program.MINDATE.ToString("g"));
+            XElement availableUntil = new XElement("AvailableUntil", set.dueDate);
 
             newProblemSet.Add(problemSetID);
             newProblemSet.Add(problemSetSolved);
-            newProblemSet.Add(lastAccessed);
+            newProblemSet.Add(availableUntil);
             
             for(int i=0; i<set.problems.Count; i++)
             {
@@ -347,14 +354,14 @@ namespace MathDrillGame
                 foreach (XElement set in problemSetsXML.Descendants("ProblemSet"))
             {
                 string problemsetId = set.Element("ProblemSetID").Value;
-                string lastAccess = set.Element("LastAccessed").Value;
+                string dueDate = set.Element("AvailableUntil").Value;
                 List<Problem> problems = load_Problem(set);
                 //List<Student> studentList = getStudentList(user);
                 //Teacher tempTeacher = new Teacher(newName, userID, studentList, pass);
                 
                 int psI = Convert.ToInt32(problemsetId);
                 //string problem_set_id, string operation, bool isSolved, int solvedQuant, int totalQuant, string score, string last attempt, string group, int min, int max
-                ProblemSet prob_set = new ProblemSet(psI, problems[0].operation, false, 0, problems.Count, "0", lastAccess, group, 0,0);
+                ProblemSet prob_set = new ProblemSet(psI, problems[0].operation, false, 0, problems.Count, "0", dueDate, group, 0, 0);
 
                 //Debug.WriteLine(" handler op1" + problems[index].operand1 + " handler op2" + problems[index].operand2);   
                  //Debug.Write("Problems Count: " + problems.Count);
@@ -400,7 +407,7 @@ namespace MathDrillGame
          * JORGE TORRES - Creating a new XML file that will save the number
          * of problems correct, the total number of problems for the student, 
          * and
-         * ---------------------------------------------------------------
+         * ---------------------------------------------------------------*/
 
         XmlDocument studentDocument;
 
@@ -413,7 +420,7 @@ namespace MathDrillGame
             {
                 studentDocument = new XmlDocument(); //object to write the student documents
 
-                XmlElement user_problem_sets = studentDocument.CreateElement("sudent_" + user_ID);//root
+                XmlElement user_problem_sets = studentDocument.CreateElement("" + user_ID);//root
 
                 studentDocument.AppendChild(user_problem_sets);
                 studentDocument.Save(@path);
@@ -425,11 +432,18 @@ namespace MathDrillGame
             XElement problemSetID = new XElement("ProblemSetID", Program.getNextProblemSetID());
             XElement problemSetSolved = new XElement("IsSetSolved", "0");
             XElement lastAccessed = new XElement("LastAccessed", Program.MINDATE.ToString("g"));
+            XElement incorrectProblems = new XElement("IncorrectProblems");
+            XElement lastProblemAttempted = new XElement("LastProblemAttempted");
 
             newProblemSet.Add(problemSetID);
             newProblemSet.Add(problemSetSolved);
             newProblemSet.Add(lastAccessed);
+            newProblemSet.Add(incorrectProblems);
+            newProblemSet.Add(lastProblemAttempted);
+
+            xml.Root.Add(newProblemSet);
+            xml.Save(@path);
          
-        }*/
+        }
     }
 }
