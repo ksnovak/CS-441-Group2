@@ -29,15 +29,15 @@ namespace MathDrillGame
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.dashboardPage = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
@@ -48,7 +48,6 @@ namespace MathDrillGame
             this.groupBPage = new System.Windows.Forms.TabPage();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupCPage = new System.Windows.Forms.TabPage();
-            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.reportsPage = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -64,8 +63,6 @@ namespace MathDrillGame
             this.textBoxReport = new System.Windows.Forms.TextBox();
             this.dataGridProblemSets = new System.Windows.Forms.DataGridView();
             this.genPage = new System.Windows.Forms.TabPage();
-            this.label6 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.Operation = new System.Windows.Forms.GroupBox();
             this.radioDivision = new System.Windows.Forms.RadioButton();
@@ -104,6 +101,9 @@ namespace MathDrillGame
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addStudentToClassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeStudentFromClassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.addStudentToClassToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeStudentFromClassToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addPage = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.delete_student_button = new System.Windows.Forms.Button();
@@ -128,6 +128,7 @@ namespace MathDrillGame
             this.aboutPage = new System.Windows.Forms.TabPage();
             this.aboutTextBox = new System.Windows.Forms.RichTextBox();
             this.buttonLogout = new System.Windows.Forms.Button();
+            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabControl1.SuspendLayout();
             this.dashboardPage.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -136,7 +137,6 @@ namespace MathDrillGame
             this.groupBPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.groupCPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             this.reportsPage.SuspendLayout();
             this.groupboxReportType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProblemSets)).BeginInit();
@@ -152,6 +152,7 @@ namespace MathDrillGame
             this.GroupPageB.SuspendLayout();
             this.GroupPageC.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.menuStrip2.SuspendLayout();
             this.addPage.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -161,6 +162,7 @@ namespace MathDrillGame
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.aboutPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -237,17 +239,17 @@ namespace MathDrillGame
             // 
             // chart1
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chart1.Legends.Add(legend4);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Name = "chart1";
-            series4.ChartArea = "ChartArea1";
-            series4.Color = System.Drawing.Color.Red;
-            series4.Legend = "Legend1";
-            series4.Name = "Score";
-            this.chart1.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.Color = System.Drawing.Color.Red;
+            series1.Legend = "Legend1";
+            series1.Name = "Score";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(692, 320);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -265,17 +267,17 @@ namespace MathDrillGame
             // 
             // chart2
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart2.Legends.Add(legend5);
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
             this.chart2.Location = new System.Drawing.Point(-1, 0);
             this.chart2.Name = "chart2";
-            series5.ChartArea = "ChartArea1";
-            series5.Color = System.Drawing.Color.Red;
-            series5.Legend = "Legend1";
-            series5.Name = "Score";
-            this.chart2.Series.Add(series5);
+            series2.ChartArea = "ChartArea1";
+            series2.Color = System.Drawing.Color.Red;
+            series2.Legend = "Legend1";
+            series2.Name = "Score";
+            this.chart2.Series.Add(series2);
             this.chart2.Size = new System.Drawing.Size(692, 320);
             this.chart2.TabIndex = 1;
             this.chart2.Text = "chart2";
@@ -289,23 +291,6 @@ namespace MathDrillGame
             this.groupCPage.TabIndex = 2;
             this.groupCPage.Text = "Group C";
             this.groupCPage.UseVisualStyleBackColor = true;
-            // 
-            // chart3
-            // 
-            chartArea6.Name = "ChartArea1";
-            this.chart3.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.chart3.Legends.Add(legend6);
-            this.chart3.Location = new System.Drawing.Point(-1, 0);
-            this.chart3.Name = "chart3";
-            series6.ChartArea = "ChartArea1";
-            series6.Color = System.Drawing.Color.Red;
-            series6.Legend = "Legend1";
-            series6.Name = "Score";
-            this.chart3.Series.Add(series6);
-            this.chart3.Size = new System.Drawing.Size(692, 320);
-            this.chart3.TabIndex = 2;
-            this.chart3.Text = "chart3";
             // 
             // reportsPage
             // 
@@ -465,8 +450,6 @@ namespace MathDrillGame
             // 
             // genPage
             // 
-            this.genPage.Controls.Add(this.label6);
-            this.genPage.Controls.Add(this.dateTimePicker1);
             this.genPage.Controls.Add(this.groupBox10);
             this.genPage.Controls.Add(this.groupBox8);
             this.genPage.Controls.Add(this.labelProbsGenned);
@@ -481,23 +464,6 @@ namespace MathDrillGame
             this.genPage.TabIndex = 1;
             this.genPage.Text = "Set Problems";
             this.genPage.UseVisualStyleBackColor = true;
-            this.genPage.Click += new System.EventHandler(this.genPage_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(255, 296);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 17);
-            this.label6.TabIndex = 124;
-            this.label6.Text = "Due Date:";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(256, 316);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 23);
-            this.dateTimePicker1.TabIndex = 123;
             // 
             // groupBox10
             // 
@@ -505,7 +471,7 @@ namespace MathDrillGame
             this.groupBox10.Controls.Add(this.groupBox9);
             this.groupBox10.Controls.Add(this.labelQuantity);
             this.groupBox10.Controls.Add(this.inputQuantity);
-            this.groupBox10.Location = new System.Drawing.Point(105, 80);
+            this.groupBox10.Location = new System.Drawing.Point(178, 95);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(351, 191);
             this.groupBox10.TabIndex = 122;
@@ -636,7 +602,7 @@ namespace MathDrillGame
             this.groupBox8.Controls.Add(this.radioC);
             this.groupBox8.Controls.Add(this.radioB);
             this.groupBox8.Controls.Add(this.radioA);
-            this.groupBox8.Location = new System.Drawing.Point(13, 80);
+            this.groupBox8.Location = new System.Drawing.Point(86, 95);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(86, 100);
             this.groupBox8.TabIndex = 106;
@@ -688,12 +654,12 @@ namespace MathDrillGame
             // 
             // listOfProblems
             // 
-            this.listOfProblems.Location = new System.Drawing.Point(520, 103);
+            this.listOfProblems.Location = new System.Drawing.Point(539, 103);
             this.listOfProblems.Multiline = true;
             this.listOfProblems.Name = "listOfProblems";
             this.listOfProblems.ReadOnly = true;
             this.listOfProblems.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.listOfProblems.Size = new System.Drawing.Size(152, 168);
+            this.listOfProblems.Size = new System.Drawing.Size(152, 292);
             this.listOfProblems.TabIndex = 106;
             this.listOfProblems.TabStop = false;
             // 
@@ -713,7 +679,7 @@ namespace MathDrillGame
             // buttonGenerate
             // 
             this.buttonGenerate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.buttonGenerate.Location = new System.Drawing.Point(528, 332);
+            this.buttonGenerate.Location = new System.Drawing.Point(389, 352);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(144, 43);
             this.buttonGenerate.TabIndex = 120;
@@ -737,6 +703,7 @@ namespace MathDrillGame
             this.manPage.Controls.Add(this.manageGroupTabControl);
             this.manPage.Controls.Add(this.manageStudentList);
             this.manPage.Controls.Add(this.menuStrip1);
+            this.manPage.Controls.Add(this.menuStrip2);
             this.manPage.Location = new System.Drawing.Point(4, 25);
             this.manPage.Name = "manPage";
             this.manPage.Padding = new System.Windows.Forms.Padding(3);
@@ -892,6 +859,29 @@ namespace MathDrillGame
             this.removeStudentFromClassToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
             this.removeStudentFromClassToolStripMenuItem.Text = "Remove Student From Class";
             // 
+            // menuStrip2
+            // 
+            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addStudentToClassToolStripMenuItem1,
+            this.removeStudentFromClassToolStripMenuItem1});
+            this.menuStrip2.Location = new System.Drawing.Point(3, 3);
+            this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.Size = new System.Drawing.Size(693, 24);
+            this.menuStrip2.TabIndex = 6;
+            this.menuStrip2.Text = "menuStrip2";
+            // 
+            // addStudentToClassToolStripMenuItem1
+            // 
+            this.addStudentToClassToolStripMenuItem1.Name = "addStudentToClassToolStripMenuItem1";
+            this.addStudentToClassToolStripMenuItem1.Size = new System.Drawing.Size(129, 20);
+            this.addStudentToClassToolStripMenuItem1.Text = "Add Student to Class";
+            // 
+            // removeStudentFromClassToolStripMenuItem1
+            // 
+            this.removeStudentFromClassToolStripMenuItem1.Name = "removeStudentFromClassToolStripMenuItem1";
+            this.removeStudentFromClassToolStripMenuItem1.Size = new System.Drawing.Size(165, 20);
+            this.removeStudentFromClassToolStripMenuItem1.Text = "Remove Student from Class";
+            // 
             // addPage
             // 
             this.addPage.Controls.Add(this.groupBox3);
@@ -960,7 +950,7 @@ namespace MathDrillGame
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(15, 26);
+            this.labelName.Location = new System.Drawing.Point(15, 46);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(187, 17);
             this.labelName.TabIndex = 7;
@@ -1001,7 +991,7 @@ namespace MathDrillGame
             // 
             // inputFullName
             // 
-            this.inputFullName.Location = new System.Drawing.Point(18, 64);
+            this.inputFullName.Location = new System.Drawing.Point(160, 46);
             this.inputFullName.Name = "inputFullName";
             this.inputFullName.Size = new System.Drawing.Size(100, 23);
             this.inputFullName.TabIndex = 5;
@@ -1146,6 +1136,23 @@ namespace MathDrillGame
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click_1);
             // 
+            // chart3
+            // 
+            chartArea3.Name = "ChartArea1";
+            this.chart3.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart3.Legends.Add(legend3);
+            this.chart3.Location = new System.Drawing.Point(-1, 0);
+            this.chart3.Name = "chart3";
+            series3.ChartArea = "ChartArea1";
+            series3.Color = System.Drawing.Color.Red;
+            series3.Legend = "Legend1";
+            series3.Name = "Score";
+            this.chart3.Series.Add(series3);
+            this.chart3.Size = new System.Drawing.Size(692, 320);
+            this.chart3.TabIndex = 2;
+            this.chart3.Text = "chart3";
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1171,7 +1178,6 @@ namespace MathDrillGame
             this.groupBPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.groupCPage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             this.reportsPage.ResumeLayout(false);
             this.reportsPage.PerformLayout();
             this.groupboxReportType.ResumeLayout(false);
@@ -1196,6 +1202,8 @@ namespace MathDrillGame
             this.GroupPageC.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.menuStrip2.ResumeLayout(false);
+            this.menuStrip2.PerformLayout();
             this.addPage.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -1209,6 +1217,7 @@ namespace MathDrillGame
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.aboutPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1247,6 +1256,9 @@ namespace MathDrillGame
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addStudentToClassToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeStudentFromClassToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem addStudentToClassToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem removeStudentFromClassToolStripMenuItem1;
         private System.Windows.Forms.TabPage securityPage;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.ListBox studentsSecurityListBox;
@@ -1303,7 +1315,5 @@ namespace MathDrillGame
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

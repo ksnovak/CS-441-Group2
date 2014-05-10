@@ -46,42 +46,32 @@ namespace MathDrillGame
          */
         static void Main()
         {
-            try 
+            bool result;
+            rng = new Random();
+            var mutex = new System.Threading.Mutex(true, "MathDrills", out result);
+            if (!result)
             {
-                bool result;
-                rng = new Random();
-                var mutex = new System.Threading.Mutex(true, "MathDrills", out result);
-                if (!result)
-                {
-                    MessageBox.Show("The game is already open in another window.");
-                    return;
+                MessageBox.Show("The game is already open in another window.");
+                return;
 
-                }
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+            }
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-                Directory.CreateDirectory(@"c:\users\public\MathDrills\ProblemSets"); //Make sure there is a directory into which to save the problems
-                Directory.CreateDirectory(@"c:\users\public\MathDrills\Records");
+            Directory.CreateDirectory(@"c:\users\public\MathDrills\ProblemSets"); //Make sure there is a directory into which to save the problems
             
-                initializeConfigFile();
-                //initializeUserList();
-                //Aurelio Arango
-                //3-31-14 
+            initializeConfigFile();
+            //initializeUserList();
+            //Aurelio Arango
+            //3-31-14 
 
-                xml = new XML_Handler();
-                xml.create_xml(xml.check_xml_exists(USERSFILE));
-                loadData();
-                Application.Run(new StartForm());
+            xml = new XML_Handler();
+            xml.create_xml(xml.check_xml_exists(USERSFILE));
+            loadData();
+            Application.Run(new StartForm());
 
-                //Application.Run(new LoginForm());
-                GC.KeepAlive(mutex);
- 
-            }
-            catch
-            {
-                var result = MessageBox.Show("The Program quit unexpectedly", "Error");
-            }
-           
+            //Application.Run(new LoginForm());
+            GC.KeepAlive(mutex);
         }
 
 
@@ -214,38 +204,5 @@ namespace MathDrillGame
            //Debug.Write("Program.Operand 2 " + problemsets[0].problems[0].operand2);
            return problemsets;
         }
-        //Jorge Torres & Aurelio Arango
-        
-        public static void loadDesiredStudent(int student_ID, int num_problems, string student_Name)
-        {
-            //create the XML if one does not exist
-            xml.create_Student_XML_File(student_ID, num_problems, student_Name);
-
-            //save the problem set to the XML
-
-            //load the data from the XML
-        }
-        public static void save_student_xml_problem(int userID, int problemSetId, int solved, DateTime lastAccessed, String incorrectProblems, int lastProblemAttempted)
-        {
-
-            xml.replaceXMLChild(userID, problemSetId, solved, lastAccessed, incorrectProblems, lastProblemAttempted);
-        }
-        public static void read_student_xml(int userID, int problem_id)
-        {
-            xml.read_Student_XML_File(userID,problem_id);
-        }
-        public static int student_xml_problem_is_solved(int userID, int problemId)
-        {
-           return xml.student_xml_problem_is_solved(userID, problemId);
-        }
-        public static string student_xml_incorrect_problems(int userID, int problemId)
-        {
-            return xml.student_xml_incorrect_problems(userID, problemId);
-        }
-        public static int student_xml_last_problem_attempted(int userID, int problemId)
-        {
-            return xml.student_xml_last_problem_attempted(userID, problemId);
-        }
-
     }
 }

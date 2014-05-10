@@ -34,9 +34,6 @@ namespace MathDrillGame
     {
         //int size =0;
         //XElement teachersListXML;
-
-        List<Student> valid_students;
-
         public LoginForm()
         {
             InitializeComponent();
@@ -135,7 +132,6 @@ namespace MathDrillGame
         private void buttonLogin_Click(object sender, EventArgs e)
         {
 
-            
             Program.currentStudentIndex = Convert.ToInt32(listOfUsers.SelectedIndex);
             Program.currentUserIndex = Program.currentStudentIndex;
             //User currentUser = Program.students[Program.currentUserIndex];
@@ -152,21 +148,10 @@ namespace MathDrillGame
                 //*********Rewrite************//studentListXML.Save(Program.USERSFILE);
                // buildUserForm(Program.users[Program.currentUserIndex]);
             //}
-
-
-            //Jorge and Aurelio
-            //4-25-14
-            if (Program.teachers[Program.currentTeacherIndex].setpass.Equals("n"))
-            {
-                buildStudentLoginForm(false);
-            }
-            else
-            {
-                buildStudentLoginForm(true);
-            }
+            buildStudentLoginForm();
 
         }
-        /*Aurelio Arango 3-25-14
+        //Aurelio Arango 3-25-14
         //This funtion creates a new Form in which the selected student needs to authenticate itself
         private void buildStudentLoginForm()
         {
@@ -188,49 +173,6 @@ namespace MathDrillGame
                 loginForm.Show(this);
                 this.Hide();
                 
-            }
-        }*/
-
-        /*4-25-14
-         * Jorge Torres and Aurelio Arango
-         *Loading appropriate form based on student password enabled or disabled
-         */
-        private void buildStudentLoginForm(Boolean passWordEnabled)
-        {
-
-            bool foundForm = false;
-            foreach (Form f in Application.OpenForms)
-            {
-                if (f.GetType() == typeof(StudentLoginForm) && passWordEnabled == true)
-                {
-                    f.Show();
-                    foundForm = true;
-                    this.Hide();
-                }
-                else if (f.GetType() == typeof(StudentForm) && passWordEnabled == false)
-                {
-                    f.Show();
-                    foundForm = true;
-                    this.Hide();
-                }
-            }
-
-            if (!foundForm)
-            {
-                if (passWordEnabled)
-                {
-                    StudentLoginForm loginForm = new StudentLoginForm();
-                    loginForm.Tag = this;
-                    loginForm.Show(this);
-                    this.Hide();
-                }
-                else
-                {
-                    StudentForm loginform = new StudentForm();
-                    loginform.Tag = this;
-                    loginform.Show(this);
-                    this.Hide();
-                }
             }
         }
 
@@ -306,7 +248,6 @@ namespace MathDrillGame
         //
         private void listOfTeachers_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             listOfUsers.Enabled = true;
             //Debug.WriteLine(listOfTeachers.SelectedIndex);
             //Debug.WriteLine(Program.teachers.ElementAt(listOfTeachers.SelectedIndex).fullName);
@@ -314,28 +255,10 @@ namespace MathDrillGame
             Program.currentTeacherIndex = Convert.ToInt32(listOfTeachers.SelectedIndex);//getting current user index
            // listOfUser.DataSource = Program.teachers.ElementAt(listOfTeachers.SelectedIndex).students;
 
-            /*
-           * Jorge Torres & Aurelio Arango - Solving a bug reported about being able to see invisible students in the student login.
-           * This will take the current list of the teacher selected and only load the students who are visible
-           */
-
-            valid_students = new List<Student>(); //creates the new empty list of valid students for display
-
-            //cycles through the selected teacher's list
-            foreach (Student load_student in Program.teachers[Program.currentTeacherIndex].students)
-            {
-                //loads on the stidents that are not invisible
-                if (load_student.invisible.Equals("n"))
-                {
-                    //add students to the list
-                    valid_students.Add(load_student);
-                }
-            }
-
             var source = new BindingSource();
-            source.DataSource = valid_students; //Program.teachers.ElementAt(listOfTeachers.SelectedIndex).students; -Jorge, depricated
-                //Program.students.Clear();
-            Program.students = valid_students; //Program.teachers.ElementAt(listOfTeachers.SelectedIndex).students; -Jorge, depricated
+            source.DataSource = Program.teachers.ElementAt(listOfTeachers.SelectedIndex).students;
+            //Program.students.Clear();
+            Program.students = Program.teachers.ElementAt(listOfTeachers.SelectedIndex).students;
             listOfUsers.DataSource = source;
             //listOfUsers.DataSource = Program.teachers.i;
             listOfUsers.DisplayMember = "fullName"; //What will be shown. Note, this is a function in the User class to show both the role and the name.

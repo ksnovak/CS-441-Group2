@@ -100,17 +100,5 @@ namespace MathDrillGame
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            bool admin = false;
-            start_form(admin);
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            bool admin = true;
-            start_form(admin);
-        }
-
     }
 }
