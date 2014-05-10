@@ -241,11 +241,18 @@ namespace MathDrillGame
                 string pass = user.Element("pass").Value;
                 int userID = Convert.ToInt32(user.Element("UserID").Value);
 
+                /*
+                 * Jorge and Aurelio. Making sure that the security settings set by the teacer are being loaded appropirately.
+                 */
+
+                String setPass = user.Element("SetPass").Value;
+
                 List<Student> studentList = getStudentList(user);
                 Teacher tempTeacher = new Teacher(newName, userID, studentList, pass);
 
                 Program.teachers.Add(tempTeacher);
                 Program.teachers[index].lastLogin = Convert.ToDateTime(user.Element("LastLogin").Value);
+                Program.teachers[index].setpass = setPass;
                 index++;
             }
             //Debug code
@@ -309,13 +316,14 @@ namespace MathDrillGame
 
             XDocument xml = XDocument.Load(@"c:\users\public\MathDrills\ProblemSets\setGroup" + set.group + ".xml");
             XElement newProblemSet = new XElement("ProblemSet");
-            XElement problemSetID = new XElement("ProblemSetID", Program.getNextProblemSetID());
+            //Read and update nextProblemSetID
+            XElement problemSetID = new XElement("ProblemSetID", Program.nextProblemSetID);
             XElement problemSetSolved = new XElement("IsSetSolved", "0");
-            XElement lastAccessed = new XElement("LastAccessed", Program.MINDATE.ToString("g"));
+            XElement availableUntil = new XElement("AvailableUntil", set.dueDate);
 
             newProblemSet.Add(problemSetID);
             newProblemSet.Add(problemSetSolved);
-            newProblemSet.Add(lastAccessed);
+            newProblemSet.Add(availableUntil);
             
             for(int i=0; i<set.problems.Count; i++)
             {
@@ -347,23 +355,26 @@ namespace MathDrillGame
                 foreach (XElement set in problemSetsXML.Descendants("ProblemSet"))
             {
                 string problemsetId = set.Element("ProblemSetID").Value;
-                string lastAccess = set.Element("LastAccessed").Value;
+                string dueDate = set.Element("AvailableUntil").Value;
                 List<Problem> problems = load_Problem(set);
                 //List<Student> studentList = getStudentList(user);
                 //Teacher tempTeacher = new Teacher(newName, userID, studentList, pass);
                 
                 int psI = Convert.ToInt32(problemsetId);
+                //Global Problem set ID
+                Program.nextProblemSetID=psI;
                 //string problem_set_id, string operation, bool isSolved, int solvedQuant, int totalQuant, string score, string last attempt, string group, int min, int max
-                ProblemSet prob_set = new ProblemSet(psI, problems[0].operation, false, 0, problems.Count, "0", lastAccess, group, 0,0);
+                ProblemSet prob_set = new ProblemSet(psI, problems[0].operation, false, 0, problems.Count, "0", dueDate, group, 0, 0);
 
                 //Debug.WriteLine(" handler op1" + problems[index].operand1 + " handler op2" + problems[index].operand2);   
-                 //Debug.Write("Problems Count: " + problems.Count);
+                Debug.Write("Problems Count: " + problems.Count);
                 //problemSets[index].problems = problems;
                  prob_set.problems = problems; 
                 problemSets.Add(prob_set);
                 
                 index++;
             }
+            //Program.nextProblemSetID++;
             return problemSets;
         }
         //Aurelio Arango and Stephanie Yao, 4-8-14
@@ -400,20 +411,20 @@ namespace MathDrillGame
          * JORGE TORRES - Creating a new XML file that will save the number
          * of problems correct, the total number of problems for the student, 
          * and
-         * ---------------------------------------------------------------
+         * ---------------------------------------------------------------*/
 
         XmlDocument studentDocument;
 
-        public void create_Student_XML_File(int user_ID)
+        public void create_Student_XML_File(int user_ID, int num_problems, string studentName)
         {
             //JT: refactoring 
-            String path = "c:\\users\\public\\MathDrills\\ProblemSets\\" + user_ID + ".xml";
+            String path = "c:\\users\\public\\MathDrills\\Records\\Student" + user_ID + ".xml";
 
             if (!File.Exists(@path))
             {
                 studentDocument = new XmlDocument(); //object to write the student documents
 
-                XmlElement user_problem_sets = studentDocument.CreateElement("sudent_" + user_ID);//root
+                XmlElement user_problem_sets = studentDocument.CreateElement("Student" + user_ID);//root
 
                 studentDocument.AppendChild(user_problem_sets);
                 studentDocument.Save(@path);
@@ -425,11 +436,213 @@ namespace MathDrillGame
             XElement problemSetID = new XElement("ProblemSetID", Program.getNextProblemSetID());
             XElement problemSetSolved = new XElement("IsSetSolved", "0");
             XElement lastAccessed = new XElement("LastAccessed", Program.MINDATE.ToString("g"));
+            XElement studentWithLastAccess = new XElement("StudentName", studentName);
+            XElement incorrectProblems = new XElement("IncorrectProblems","");
+            XElement totalProblems = new XElement("TotalProblems", num_problems);
+            XElement lastProblemAttempted = new XElement("LastProblemAttempted",-1);
 
             newProblemSet.Add(problemSetID);
             newProblemSet.Add(problemSetSolved);
             newProblemSet.Add(lastAccessed);
+            newProblemSet.Add(studentWithLastAccess);
+            newProblemSet.Add(incorrectProblems);
+            newProblemSet.Add(totalProblems);
+            newProblemSet.Add(lastProblemAttempted);
+
+            xml.Root.Add(newProblemSet);
+            xml.Save(@path);
          
-        }*/
+        }
+        
+        //Jorge Torres & Aurelio Arango
+        public void replaceXMLChild(int userID, int problemSetId, int solved, DateTime lastAccessed, String incorrectProblems, int lastProblemAttempted)
+        {
+
+            String path = "c:\\users\\public\\MathDrills\\Records\\Student" + userID + ".xml";
+            int problemSetId_xml;
+           // XmlDocument tempXML = new XmlDocument();
+            XElement replace_this = new XElement("ProblemSetID","");
+
+            if (File.Exists(@path))
+            {
+                Debug.WriteLine("XML_HANDLER---replaceXMLChild---FOUND");
+                //tempXML.Load(@path);
+                XElement student_problem_set_xml = XElement.Load(@path);
+
+                foreach (XElement set in student_problem_set_xml.Descendants("ProblemSet"))
+                {
+                    problemSetId_xml = Convert.ToInt32(set.Element("ProblemSetID").Value);
+                    if (problemSetId_xml == problemSetId)
+                    {
+                        set.Element("IsSetSolved").Value =  solved.ToString();
+                        set.Element("LastAccessed").Value = lastAccessed.ToString("g");
+                        set.Element("IncorrectProblems").Value = incorrectProblems;
+                        set.Element("LastProblemAttempted").Value = lastProblemAttempted.ToString();
+                        Debug.WriteLine("XML_HANDLER---replaceXMLChild---DONE");
+                    }
+                }
+                /*
+                XElement newProblemSet = new XElement("ProblemSet");
+               
+                XElement problemSetID = new XElement("ProblemSetID", problemSetId);
+                XElement problemSetSolved = new XElement("IsSetSolved", solved);
+                XElement lastA = new XElement("LastAccessed", lastAccessed.ToString("g"));
+                XElement incorrectP = new XElement("IncorrectProblems", incorrectProblems);
+                XElement lastProblemA = new XElement("LastProblemAttempted", lastProblemAttempted);
+
+               // root element
+                XmlNode root = tempXML.DocumentElement;
+
+
+                newProblemSet.Add(problemSetID);
+                newProblemSet.Add(problemSetSolved);
+                newProblemSet.Add(lastA);
+                newProblemSet.Add(incorrectP);
+                newProblemSet.Add(lastProblemA);
+
+                replace_this.ReplaceWith(newProblemSet);
+                Debug.WriteLine(newProblemSet);
+                Debug.WriteLine(replace_this);
+
+
+                XmlNode 
+                XmlNodeList listofchildren=root.ChildNodes;
+                listofchildren.Item(0).ReplaceChild(newProblemSet);*/
+
+                //tempXML.ReplaceChild(newProblemSet, replace_this);
+               // tempXML.Save(@path);
+                student_problem_set_xml.Save(@path);
+
+            }
+            else
+            {
+                Debug.WriteLine("XML_HANDLER---replaceXMLChild---NOT FOUND");
+           
+
+            }
+            
+            
+
+      
+
+            
+        }
+        //5-2-14 Jorge and Aurelio
+        // This method looks for a problemID in the xml for a given user.
+        public void read_Student_XML_File(int userID,int ProblemId)
+        {
+
+
+            String path = "c:\\users\\public\\MathDrills\\Records\\Student" + userID + ".xml";
+            //bool problemFound = false;
+            int problemSetId;
+            int solved;
+            string lastAccessed;
+            //Debug.WriteLine("XML_HANDLER--read_sudent_xml_file");
+            if (File.Exists(@path))
+            {
+                XElement student_problem_set_xml = XElement.Load(@path);
+
+                foreach (XElement set in student_problem_set_xml.Descendants("ProblemSet"))
+                {
+                    problemSetId = Convert.ToInt32( set.Element("ProblemSetID").Value);
+                    if (problemSetId == ProblemId)
+                    {
+                        solved = Convert.ToInt32(set.Element("IsSetSolved").Value);
+                        lastAccessed = set.Element("LastAccessed").Value;
+                        //Debug.WriteLine("Set id: " + problemSetId + " solved:" + solved + " Last Accessed:" + lastAccessed);
+                        //problemFound = true;
+                    }
+                    
+                }
+                
+
+
+            }else
+            {
+                //Debug.WriteLine("XML_HANDLER---NOT FOUND");
+
+            }
+
+            //----------------Return data to the user-----------------//
+            //return problemFound;
+
+        }
+        //this method looks for a problem set and returns -1 if not found, 0 if is not solved
+        //and returns 1 if found
+        public int student_xml_problem_is_solved(int userID, int ProblemId)
+        {
+
+
+            String path = "c:\\users\\public\\MathDrills\\Records\\Student" + userID + ".xml";
+            //bool problemFound = false;
+            int problemSetId;
+            int solved=-1;
+            //string lastAccessed;
+            //Debug.WriteLine("XML_HANDLER--read_sudent_xml_file");
+            if (File.Exists(@path))
+            {
+                XElement student_problem_set_xml = XElement.Load(@path);
+
+                foreach (XElement set in student_problem_set_xml.Descendants("ProblemSet"))
+                {
+                    problemSetId = Convert.ToInt32(set.Element("ProblemSetID").Value);
+                    if (problemSetId == ProblemId)
+                    {
+                        solved = Convert.ToInt32(set.Element("IsSetSolved").Value);
+
+                        Debug.WriteLine("the current value of solved inside the xml_handler" + solved);
+                        //lastAccessed = set.Element("LastAccessed").Value;
+                        //Debug.WriteLine("Set id: " + problemSetId + " solved:" + solved + " Last Accessed:" + lastAccessed);
+                        //problemFound = true;
+                    }
+
+                }
+            }
+
+            return solved;
+
+        }
+        public string student_xml_incorrect_problems(int userID,int ProblemId)
+        {
+            String path = "c:\\users\\public\\MathDrills\\Records\\Student" + userID + ".xml";
+            int problemSetId;
+            string problems_wrong="";
+            if (File.Exists(@path))
+            {
+                XElement student_problem_set_xml = XElement.Load(@path);
+
+                foreach (XElement set in student_problem_set_xml.Descendants("ProblemSet"))
+                {
+                    problemSetId = Convert.ToInt32(set.Element("ProblemSetID").Value);
+                    if (problemSetId == ProblemId)
+                    {
+                        problems_wrong = set.Element("IncorrectProblems").Value;
+                    }
+                }
+            }
+            return problems_wrong;
+        }
+        public int student_xml_last_problem_attempted(int userID, int ProblemId)
+        {
+            String path = "c:\\users\\public\\MathDrills\\Records\\Student" + userID + ".xml";
+            int problemSetId;
+            int last_problem_attempted = 0;
+            if (File.Exists(@path))
+            {
+                XElement student_problem_set_xml = XElement.Load(@path);
+
+                foreach (XElement set in student_problem_set_xml.Descendants("ProblemSet"))
+                {
+                    problemSetId = Convert.ToInt32(set.Element("ProblemSetID").Value);
+                    if (problemSetId == ProblemId)
+                    {
+                        last_problem_attempted = Convert.ToInt32( set.Element("LastProblemAttempted").Value);
+                    }
+                }
+            }
+            return last_problem_attempted;
+        }
     }
+
 }

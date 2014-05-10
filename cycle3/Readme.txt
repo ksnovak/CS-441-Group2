@@ -1,80 +1,95 @@
 MATH DRILL GAME
-Release 1.6.1
-March 4, 2014
+Release 2.2.x
+April 8, 2014
 
-Programmers: Kevin Novak and Uriah Mirandon
-Testers: Jorge Torres and Aurelio "Leo" Arango
-Analyst: Stephanie Yao 
+Programmers: Aurelio "Leo" Aurango, Stephanie Yao
+Testers: Kevin Novak
+Analyst: Jorge Torres 
 
-Compatability with Windows XP, 7, and 8
+Compatibility with Windows XP, 7, and 8
 All data stored in C:\Users\Public\MathDrills
 
------
-Starting the program
------
-Open the executable to start.
-It will generate some test users for you, including an administrator
-Select a user and click "Log in"
+Source Control: 
+Github, Sharepoint
+
+New Features Added:
+---------------------
+*Visuals have been added to the application, though some place holders and tentative.
+
+*Major XML Revisions in users.XML:
+	*Revised to support student groups, and inactive students (alias for "deleted")
+	*Addition of XMLHander.cs - this caused previous functionality to have to be broken, fixed, and re-written in the process.
+
+*Both Students and Teachers user accounts require a password to access.
+	*Students select a sequence of buttons as password entry.
+	*Teachers type passwords into an entry field akin to conventional passwords.
+	
+*Student Progress through Problem Sets is now visually represented with a map.
+	
+*Teacher User Interface:
+	*Added functionality for changing passwords, managing groups, assigning more arithmetic operation types.
+	*Problems Sets are now assigned to groups, changed from individual assignment.
+	*Functionality is now organized into tabs.
+
+Bug Fixes
+---------------------
+	*[In compliance with REQ5] Students have a password system
+		
+	*[In compliance with REQ6] Administrators may properly logged in.
+	*[In compliance with REQ6] Additional operations are supported, division and multiplication. 
+	*[In compliance with REQ6 Edge 1] Entering a non-integer when the program expects is a handled exception.
+	
+	*[In compliance with REQ7] Problems are properly generated on a per group basis properly.
+
+	*[In compliance with REQ20] Users.XML is properly read to populate the User log in screen. 
+	
+	*[In compliance with REQ22] Correct last log-in date and time is displayed as a welcome message for both teacher and student user accounts.
+	
+	*[In compliance with REQ26 Edge 1] Users properly show up in the users list on creation.
+	
+	*[In compliance with REQ27] The date and time are displayed properly.
+	
+	*[In compliance with REQ28] The Student Form now displays the correct name.
 
 
------
-Logging in as a teacher
------
-Logging into a Teacher account will open up a form for creating random problems for your students. 
-To exit the teacher screen at any time, click the "Log out" button.
-The Teacher screen also has buttons for viewing Reports and creating new users.
-
-To create a set of problems:
-1) Select a student
-2) Fill in the range for the problem sets, in the "Minimum number" and "Maximum number" fields.
-3) Select whether the sets will be addition or subtraction (each set will only have one operation, no mixing)
-4) Fill in how many problems will be in the set
-5) Click "Generate!"
-
-That will randomly generate a set of problems within that range for the selected student. You can see a printout of the problems created in the text box labeled "Problems generated:".
-You may repeat that process as many times as you would like, for as many students as you would like.
 
 
------
-Teacher's Reports form
------
-The teacher form has a Reports button, for seeing reports about your students. Click on the Reports button to open that window.
+MATH DRILL GAME
+Release 3.3.x
+May 6, 2014
 
-In the Reports screen, to see statistics about your students:
-1) Select a student
-2) Specify a timespan for reports (Default values are from the very beginning to the very end of 2014)
-3) If you want to see problems which have been assigned, but not yet attempted, click the checkbox.
-At this point, any sets matching those requirements will show up below, and general information about the student will be shown to the right.
+Programmers: Jorge Torres 
+Testers: Stephanie Yao
+Analyst:  Aurelio "Leo" Aurango,  Kevin Novak
 
-To see statistics about a specific problem set (or sets) assigned to that student:
-1) Follow the previous steps
-2) Select the desired problem set or sets (hold CTRL to select multiple)
-At this point, information should be added to the text box to the right.
+Compatibility with Windows XP, 7, and 8
+All data stored in C:\Users\Public\MathDrills
 
-To escape the reports form, click Exit.
+Source Control: 
+Github, Sharepoint
+
+New Features Added:
+---------------------
+* More Comprehensive visual have been updated. Application now has a theme, and title screen.
+	* Implementation of a map that fills up according to the users performance
+	* Parrot that displays a message when the user gets a right or wrong answer
+
+*Major XML Revisions in users.XML:
+	*XML now stores more information, and records the students progress
+	*XML is used to print out the student records
 
 
------
-Teacher's User Creation form
------
-The teacher form has an "Add new user" button, for adding new users to the system. Click that to open up the creation form.
-To cancel the user creation process at any time, click the "Cancel" button.
-
-Within the new user form, to add a new user:
-1) Type in a name
-2) If you want them to be teachers, check the "Is the user an administrator?" checkbox.
-3) Click save to save that user and return
-If the new user is a student, it will show up on that list in the Teacher screen.
-
------
-Student form
------
-Logging into a Student account will open up a form to perform math drills.
-To exit at any time, click the "Log out" button, and that will return you to the login screen.
-
-If the student has no problems assigned to them (that they have not yet completed), the screen will say so, and the only thing that will work on it will be the Log out button.
-If the student does have problems assigned to them, then a problem will appear on screen. To perform the math drills:
-1) Enter your answer in the input box
-2) Click the "Submit" button
-At this point, feedback will be shown below the problem section. If there are more problems available, the next one will be displayed and the student may continue the process.
-If there are no more problems, then the program will say so, and disable everything except for the Log out button.
+Bug Fixes
+---------------------
+	* Interface fixes
+		*students can now properly load to different classes and display
+		*added graphs to display the data of the students
+		*remvoed unecessary styles, tags, and elements
+	* Login fixes
+		*students can log with or without password
+		*students can load their problem sets
+	*XML fixes
+		*student reports can be written to xml
+	*General
+		*most unhandled exceptions are handled and are commented in the code
+	*

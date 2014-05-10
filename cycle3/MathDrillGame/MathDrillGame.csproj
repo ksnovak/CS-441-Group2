@@ -67,6 +67,11 @@
       <DependentUpon>AdminLoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PrintHandler.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="XML_Handler.cs" />
     <Compile Include="StudentLoginForm.cs">
       <SubType>Form</SubType>
@@ -113,14 +118,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,6 +143,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\straight_line2.png" />
+    <None Include="Resources\endX.png" />
+    <None Include="Resources\curve2.png" />
+    <None Include="Resources\mapTrack2.png" />
+    <None Include="Resources\mapTrack.png" />
+    <None Include="Resources\Blank_Treasure_Map.jpg" />
+    <None Include="Resources\Jaketreasure1.png" />
+    <None Include="Resources\Jaketreasure.png" />
+    <None Include="Resources\11.png" />
+    <None Include="Resources\12.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,8 +12,8 @@ namespace MathDrillGame
     class ProblemSet
     {
         public ProblemSet() { }
-        public ProblemSet(int problemSetID, string operation, bool isSolved, 
-            int solvedQuantity, int totalQuantity, string score, string lastAttempt,string group, int min, int max)
+        public ProblemSet(int problemSetID, string operation, bool isSolved,
+            int solvedQuantity, int totalQuantity, string score, string dueDate, string group, int min, int max)
         {
             this.problemSetID = problemSetID;
             this.operation = operation;
@@ -21,7 +21,7 @@ namespace MathDrillGame
             this.solvedQuantity = solvedQuantity;
             this.totalQuantity = totalQuantity;
             this.score = score;
-            this.lastAttempt = lastAttempt;
+            this.dueDate = dueDate;
             this.group = group;
             this.problems = new List<Problem>();
             
@@ -39,7 +39,7 @@ namespace MathDrillGame
         public int solvedQuantity { get; set; } //How many problems are set to isSolved
         public int totalQuantity { get; set; }  //How many problems are in a set
         public string score { get; set; }       // Solved / Total = Score
-        public string lastAttempt { get; set; } //The last time they attempted a problem set. String form of a DateTime object
+        public string dueDate { get; set; } //The last time they attempted a problem set. String form of a DateTime object
         public string group { get; set; }//this set pertains to a class, A, B, or C
         public List<Problem> problems { get; set; }
         
@@ -48,7 +48,7 @@ namespace MathDrillGame
          */
         public string printSummary()
         {
-            return (problemSetID + "\t" + operation + "\t" + totalQuantity + "\t" + solvedQuantity + "\t" + score + "\t" + lastAttempt +"\t"+group + "\r\n");
+            return (problemSetID + "\t" + operation + "\t" + totalQuantity + "\t" + solvedQuantity + "\t" + score + "\t" + dueDate + "\t" + group + "\r\n");
         }
         //Aurelio Arango
         //4-3-14

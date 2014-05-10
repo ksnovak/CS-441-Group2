@@ -127,3 +127,73 @@ C:\Users\Toresky\Desktop\cycle3\MathDrillGame\obj\Debug\MathDrillGame.Properties
 C:\Users\Toresky\Desktop\cycle3\MathDrillGame\obj\Debug\MathDrillGame.StartForm.resources
 C:\Users\Toresky\Desktop\cycle3\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
 C:\Users\Toresky\Desktop\cycle3\MathDrillGame\obj\Debug\MathDrillGame.csproj.GenerateResource.Cache
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\bin\Debug\MathDrillGame.exe.config
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.exe
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.pdb
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\bin\Debug\MathDrillGame.exe
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\bin\Debug\MathDrillGame.pdb
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.csprojResolveAssemblyReference.cache
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.AdminForm.resources
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.AdminLoginForm.resources
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.StudentLoginForm.resources
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.Properties.Resources.resources
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.StartForm.resources
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
+C:\Users\Public\Documents\cycle3 5-2-2014\cycle3\MathDrillGame\obj\Debug\MathDrillGame.csproj.GenerateResource.Cache
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\bin\Debug\MathDrillGame.exe.config
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.exe
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.pdb
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\bin\Debug\MathDrillGame.exe
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\bin\Debug\MathDrillGame.pdb
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.csprojResolveAssemblyReference.cache
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.AdminForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.AdminLoginForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.StudentLoginForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.Properties.Resources.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.StartForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3\MathDrillGame\obj\Debug\MathDrillGame.csproj.GenerateResource.Cache
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\bin\Debug\MathDrillGame.exe.config
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.exe
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.pdb
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\bin\Debug\MathDrillGame.exe
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\bin\Debug\MathDrillGame.pdb
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.csprojResolveAssemblyReference.cache
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.AdminForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.AdminLoginForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.StudentLoginForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.Properties.Resources.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.StartForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
+C:\Users\Aurelio\Documents\Visual Studio 2013\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.csproj.GenerateResource.Cache
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\bin\Debug\MathDrillGame.exe.config
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.exe
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.pdb
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\bin\Debug\MathDrillGame.exe
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\bin\Debug\MathDrillGame.pdb
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.csprojResolveAssemblyReference.cache
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.AdminForm.resources
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.AdminLoginForm.resources
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.StudentLoginForm.resources
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.Properties.Resources.resources
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.StartForm.resources
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
+C:\Users\Toresky\Desktop\cycle3_5-5-14\MathDrillGame\obj\Debug\MathDrillGame.csproj.GenerateResource.Cache
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\bin\Debug\MathDrillGame.exe.config
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.exe
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.pdb
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\bin\Debug\MathDrillGame.exe
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\bin\Debug\MathDrillGame.pdb
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.csprojResolveAssemblyReference.cache
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.AdminForm.resources
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.AdminLoginForm.resources
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.StudentLoginForm.resources
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.LoginForm.resources
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.Properties.Resources.resources
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.StartForm.resources
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.StudentForm.resources
+C:\Users\Toresky\Desktop\MathTreasures 5-6-13\MathDrillGame\obj\Debug\MathDrillGame.csproj.GenerateResource.Cache

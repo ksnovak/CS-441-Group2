@@ -77,6 +77,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.login_button);
             this.panel1.Controls.Add(this.label2);
@@ -135,6 +136,7 @@
             this.AcceptButton = this.login_button;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::MathDrillGame.Properties.Resources._11;
             this.ClientSize = new System.Drawing.Size(419, 361);
             this.Controls.Add(this.back_button);
             this.Controls.Add(this.panel1);
